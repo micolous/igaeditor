@@ -4,18 +4,44 @@
         <name>AdPackSupport</name>
     </assembly>
     <members>
+        <member name="T:au.id.micolous.apps.igaeditor.AdPackImportForm">
+            <summary>
+            This class implements a form allowing you to import ads from a file.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.#ctor(au.id.micolous.apps.igaeditor.AdPack,System.Collections.Generic.SortedList{System.Int32,System.Int32})">
+            <summary>
+            Creates a new AdParkImportForm
+            </summary>
+            <param name="ads">An AdPack instance to import</param>
+            <param name="ContentTypes">A list from MainForm containing a list of records and their ContentType.</param>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AdPackImportForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.AdPackImportForm.Success">
+            <summary>
+            This is set to true if the dialogue's operation was accepted.
+            </summary>
+        </member>
         <member name="T:au.id.micolous.apps.igaeditor.AdPackExportForm">
             <summary>
             This class defines an Export form for AdPacks.
             </summary>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.#ctor(System.Int32,System.Collections.Generic.SortedList{System.Int32,System.Int32})">
-            <summary>
-            Creates a new AdPackExportForm.
-            </summary>
-            <param name="AppID">The AppID to create the adpack for.</param>
-            <param name="ContentTypes">A list of contentIds and their matching
-            ContentTypes from MainForm.</param>
         </member>
         <member name="F:au.id.micolous.apps.igaeditor.AdPackExportForm.components">
             <summary>
@@ -33,6 +59,14 @@
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.#ctor(System.Int32,System.Collections.Generic.SortedList{System.Int32,System.Int32})">
+            <summary>
+            Creates a new AdPackExportForm.
+            </summary>
+            <param name="AppID">The AppID to create the adpack for.</param>
+            <param name="ContentTypes">A list of contentIds and their matching
+            ContentTypes from MainForm.</param>
         </member>
         <member name="T:au.id.micolous.apps.igaeditor.AdPack">
             <summary>
@@ -69,40 +103,6 @@
             This deserializes an adpack from a file.
             </summary>
             <param name="s">The stream to read from.</param>
-        </member>
-        <member name="T:au.id.micolous.apps.igaeditor.AdPackImportForm">
-            <summary>
-            This class implements a form allowing you to import ads from a file.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.#ctor(au.id.micolous.apps.igaeditor.AdPack,System.Collections.Generic.SortedList{System.Int32,System.Int32})">
-            <summary>
-            Creates a new AdParkImportForm
-            </summary>
-            <param name="ads">An AdPack instance to import</param>
-            <param name="ContentTypes">A list from MainForm containing a list of records and their ContentType.</param>
-        </member>
-        <member name="F:au.id.micolous.apps.igaeditor.AdPackImportForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="P:au.id.micolous.apps.igaeditor.AdPackImportForm.Success">
-            <summary>
-            This is set to true if the dialogue's operation was accepted.
-            </summary>
         </member>
         <member name="T:au.id.micolous.apps.igaeditor.AdPackEntry">
             <summary>

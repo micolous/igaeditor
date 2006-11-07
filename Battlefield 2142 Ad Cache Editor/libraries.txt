@@ -1,3 +1,8 @@
+The following libraries are licensed under the GNU General Public License, described in 'gpl.txt', like the main UI itself.
+
+ - Ad Pack Support
+ - IGACommon
+
 Notice: This program links to a modified version of SharpZipLib.  You can download the source code for it at http://micolous.id.au/projects/bf2142/, or email me at micolous -at- gmail -dot- com and I can email it to you.
 
 The standard SharpZipLib license applies:

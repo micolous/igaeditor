@@ -84,8 +84,8 @@ namespace au.id.micolous.apps.igaeditor
             this.importImageContext = new System.Windows.Forms.MenuItem();
             this.exportImageContext = new System.Windows.Forms.MenuItem();
             this.ImagePreviewGroup = new System.Windows.Forms.GroupBox();
-            this.PreviewBox = new System.Windows.Forms.PictureBox();
             this.PreviewCloseButton = new System.Windows.Forms.Button();
+            this.PreviewBox = new System.Windows.Forms.PictureBox();
             this.EditingGroup.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.WelcomeGroup.SuspendLayout();
@@ -280,7 +280,7 @@ namespace au.id.micolous.apps.igaeditor
             // 
             this.importAdpackFilebfadsToolStripMenuItem.Enabled = false;
             this.importAdpackFilebfadsToolStripMenuItem.Name = "importAdpackFilebfadsToolStripMenuItem";
-            this.importAdpackFilebfadsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.importAdpackFilebfadsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.importAdpackFilebfadsToolStripMenuItem.Text = "Import Adpack File";
             this.importAdpackFilebfadsToolStripMenuItem.ToolTipText = "Imports a group of ads from an adpack file.";
             this.importAdpackFilebfadsToolStripMenuItem.Click += new System.EventHandler(this.importAdpackFilebfadsToolStripMenuItem_Click);
@@ -289,7 +289,7 @@ namespace au.id.micolous.apps.igaeditor
             // 
             this.exportAdpackFilebfadsToolStripMenuItem.Enabled = false;
             this.exportAdpackFilebfadsToolStripMenuItem.Name = "exportAdpackFilebfadsToolStripMenuItem";
-            this.exportAdpackFilebfadsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.exportAdpackFilebfadsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.exportAdpackFilebfadsToolStripMenuItem.Text = "Export Adpack File";
             this.exportAdpackFilebfadsToolStripMenuItem.ToolTipText = "Exports advertisements from your ad cache to an adpack file.";
             this.exportAdpackFilebfadsToolStripMenuItem.Click += new System.EventHandler(this.exportAdpackFilebfadsToolStripMenuItem_Click);
@@ -297,13 +297,13 @@ namespace au.id.micolous.apps.igaeditor
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(201, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Enabled = false;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.ToolTipText = "Reload all data from the database, updating the export cache.";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshDatabaseMenuItem_Click);
@@ -312,7 +312,7 @@ namespace au.id.micolous.apps.igaeditor
             // 
             this.vacuumDatabaseToolStripMenuItem.Enabled = false;
             this.vacuumDatabaseToolStripMenuItem.Name = "vacuumDatabaseToolStripMenuItem";
-            this.vacuumDatabaseToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.vacuumDatabaseToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.vacuumDatabaseToolStripMenuItem.Text = "Vacuum/Shrink Database";
             this.vacuumDatabaseToolStripMenuItem.ToolTipText = "\"Vacuum\" the database so that it uses less room.";
             this.vacuumDatabaseToolStripMenuItem.Click += new System.EventHandler(this.vacuumDatabaseToolStripMenuItem_Click);
@@ -321,7 +321,7 @@ namespace au.id.micolous.apps.igaeditor
             // 
             this.closeDatabaseToolStripMenuItem.Enabled = false;
             this.closeDatabaseToolStripMenuItem.Name = "closeDatabaseToolStripMenuItem";
-            this.closeDatabaseToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.closeDatabaseToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.closeDatabaseToolStripMenuItem.Text = "Close Database";
             this.closeDatabaseToolStripMenuItem.ToolTipText = "Close the database so that you can open another.";
             this.closeDatabaseToolStripMenuItem.Click += new System.EventHandler(this.closeDatabaseToolStripMenuItem_Click);
@@ -329,12 +329,12 @@ namespace au.id.micolous.apps.igaeditor
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(201, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(190, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.ToolTipText = "Exits this program, closing the database.";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
@@ -356,25 +356,25 @@ namespace au.id.micolous.apps.igaeditor
             this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Enabled = false;
             this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Name = "wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem";
-            this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Size = new System.Drawing.Size(411, 22);
+            this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
             this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Text = "WARNING: This is for advanced users and developers only.";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(408, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(397, 6);
             // 
             // changeAppIDOfCacheToolStripMenuItem
             // 
             this.changeAppIDOfCacheToolStripMenuItem.Name = "changeAppIDOfCacheToolStripMenuItem";
-            this.changeAppIDOfCacheToolStripMenuItem.Size = new System.Drawing.Size(411, 22);
+            this.changeAppIDOfCacheToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
             this.changeAppIDOfCacheToolStripMenuItem.Text = "Change AppID of cache";
             this.changeAppIDOfCacheToolStripMenuItem.Click += new System.EventHandler(this.changeAppIDOfCacheToolStripMenuItem_Click);
             // 
             // executeSQLToolStripMenuItem
             // 
             this.executeSQLToolStripMenuItem.Name = "executeSQLToolStripMenuItem";
-            this.executeSQLToolStripMenuItem.Size = new System.Drawing.Size(411, 22);
+            this.executeSQLToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
             this.executeSQLToolStripMenuItem.Text = "Execute SQL";
             this.executeSQLToolStripMenuItem.Click += new System.EventHandler(this.executeSQLToolStripMenuItem_Click);
             // 
@@ -394,20 +394,20 @@ namespace au.id.micolous.apps.igaeditor
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(197, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(186, 6);
             // 
             // websiteToolStripMenuItem
             // 
             this.websiteToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.websiteToolStripMenuItem.Name = "websiteToolStripMenuItem";
-            this.websiteToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.websiteToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.websiteToolStripMenuItem.Text = "Official Website";
             this.websiteToolStripMenuItem.Click += new System.EventHandler(this.websiteToolStripMenuItem_Click);
             // 
@@ -415,19 +415,19 @@ namespace au.id.micolous.apps.igaeditor
             // 
             this.researchForumThreadToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.researchForumThreadToolStripMenuItem.Name = "researchForumThreadToolStripMenuItem";
-            this.researchForumThreadToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.researchForumThreadToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.researchForumThreadToolStripMenuItem.Text = "Research Forum Thread";
             this.researchForumThreadToolStripMenuItem.Click += new System.EventHandler(this.researchForumThreadToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(197, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(186, 6);
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
@@ -548,17 +548,6 @@ namespace au.id.micolous.apps.igaeditor
             this.ImagePreviewGroup.Text = "Image Preview (click image to close)";
             this.ImagePreviewGroup.Visible = false;
             // 
-            // PreviewBox
-            // 
-            this.PreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PreviewBox.Location = new System.Drawing.Point(3, 16);
-            this.PreviewBox.Name = "PreviewBox";
-            this.PreviewBox.Size = new System.Drawing.Size(649, 280);
-            this.PreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PreviewBox.TabIndex = 8;
-            this.PreviewBox.TabStop = false;
-            this.PreviewBox.Click += new System.EventHandler(this.PreviewBox_Click);
-            // 
             // PreviewCloseButton
             // 
             this.PreviewCloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -569,6 +558,17 @@ namespace au.id.micolous.apps.igaeditor
             this.PreviewCloseButton.Text = "&Close";
             this.PreviewCloseButton.UseVisualStyleBackColor = true;
             this.PreviewCloseButton.Click += new System.EventHandler(this.PreviewBox_Click);
+            // 
+            // PreviewBox
+            // 
+            this.PreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PreviewBox.Location = new System.Drawing.Point(3, 16);
+            this.PreviewBox.Name = "PreviewBox";
+            this.PreviewBox.Size = new System.Drawing.Size(649, 280);
+            this.PreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PreviewBox.TabIndex = 8;
+            this.PreviewBox.TabStop = false;
+            this.PreviewBox.Click += new System.EventHandler(this.PreviewBox_Click);
             // 
             // MainForm
             // 
@@ -581,9 +581,9 @@ namespace au.id.micolous.apps.igaeditor
             this.Controls.Add(this.WelcomeGroup);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.ShowIcon = false;
             this.Text = "IGA Ad Cache Editor by micolous";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);

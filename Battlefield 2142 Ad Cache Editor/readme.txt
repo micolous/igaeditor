@@ -6,7 +6,7 @@ Website: http://micolous.id.au/projects/bf2142/
 
 A big thanks to the folks at totalbf2142.com for their assistance with research and testing!
 
-This is an ALPHA version of the software.  It may contain bugs.  Please backup your icontent.cache file before using this software.  USE THIS SOFTWARE AT YOUR OWN RISK: THE AUTHOR GIVES NO WARRANTIES.
+This is an ALPHA version of the software.  It may contain bugs.  Please backup your icontent.cache file before using this software.  USE THIS SOFTWARE AT YOUR OWN RISK!
 
 This program may be a violation of the game's EULA.  Please consult the license agreement, and possibly a legal professional before using this software, if you are in doubt.
 
@@ -15,13 +15,34 @@ This program has been tested with the following games:
 - Battlefield 2142 (retail and demo)
 - Trackmania Nations
 
+License
+=======
+
 Notice: This program references and bundles a number of libraries, which are licensed differently from this software.  See libraries.txt for a reference of their licenses.
+
+The "Ad Pack Support" and "IGA Common" libraries are part of the main program, and are licensed under the GNU General Public License.  The "DDSReader" library is released under a BSD license.
+
+See 'gpl.txt' for a full copy of the GNU General Public License.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, write to the Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 What's new in 0.1.4:
 ====================
 
  - The application is now called "IGA Ad Cache Editor".
- - The application has had a license change, and is now licensed under the terms of the GNU General Public License 2.0 as published by the Free Software Foundation.  This applies to everything not covered explicitly by another license (ie: the main program code).
+ - The application has had a license change, and is now licensed under the terms of the GNU General Public License 2.0 as published by the Free Software Foundation.  This applies to everything not covered explicitly by another license (ie: the main program code, excluding 'DDSReader').
  - Some parts of the program have been seperated into "subproject libraries", so that you can pick and choose which components you wish to use.  This process is incomplete - a new database layer is coming!  This will eventually allow you to use another interface other than Windows Forms, meaning it'll work around Mono's incomplete SWF support.  Once the database layer is seperated, this opens up all sorts of development possibilities that use the file format.
  - A new "Debug" menu with debugging and testing functionality has been added.
  - A bug where a missing "appid" field would lock you out of the database has now been fixed.
