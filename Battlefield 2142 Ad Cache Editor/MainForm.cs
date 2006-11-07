@@ -708,7 +708,7 @@ namespace au.id.micolous.apps.igaeditor
 
         private void websiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("http://micolous.id.au/projects/bf2142/");
+            Process.Start("http://igaeditor.sourceforge.net/");
         }
 
         private void researchForumThreadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -722,7 +722,7 @@ namespace au.id.micolous.apps.igaeditor
             byte[] d;
             try
             {
-                d = wc.DownloadData("http://micolous.id.au/static/projects/bf2142/latest.txt");
+                d = wc.DownloadData("http://igaeditor.sourceforge.net/latest.txt");
             }
             catch (Exception ex)
             {
@@ -744,7 +744,7 @@ namespace au.id.micolous.apps.igaeditor
             {
                 if (MessageBox.Show(String.Format("You don't have the current version of the software.  The latest version is {0}, your version is {1}.\r\n\r\nWould you like to visit the website now to download the current version?", latestVersionS, Application.ProductVersion), "Ad Cache Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    Process.Start("http://micolous.id.au/projects/bf2142/");
+                    Process.Start("http://igaeditor.sourceforge.net/");
                 }
             }
         }
