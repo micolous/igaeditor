@@ -1,0 +1,221 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{07502CCD-DB5C-46C2-AE43-81EA19CADC12}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>au.id.micolous.apps.igaeditor</RootNamespace>
+    <AssemblyName>IGA Ad Cache Editor</AssemblyName>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetZone>LocalIntranet</TargetZone>
+    <GenerateManifests>false</GenerateManifests>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationVersion>0.1.4.%2a</ApplicationVersion>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>IGA Ad Cache Editor.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>IGA Ad Cache Editor.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.35.1, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBoxForm.Designer.cs">
+      <DependentUpon>AboutBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdEditorForm.Designer.cs">
+      <DependentUpon>AdEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OverrideAppidForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OverrideAppidForm.Designer.cs">
+      <DependentUpon>OverrideAppidForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutBoxForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdEditorForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AdEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OverrideAppidForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OverrideAppidForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlInjectorForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SqlInjectorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UnsupportedApplicationForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UnsupportedApplicationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <BaseApplicationManifest Include="Properties\app.manifest" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SqlInjectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SqlInjectorForm.Designer.cs">
+      <DependentUpon>SqlInjectorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnsupportedApplicationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UnsupportedApplicationForm.Designer.cs">
+      <DependentUpon>UnsupportedApplicationForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="readme.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libraries.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AdPackSupport\Ad Pack Support.csproj">
+      <Project>{DFB922B4-E1D3-4977-96E1-CB1CCB52AE2E}</Project>
+      <Name>Ad Pack Support</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DDSReader\DDSReader.csproj">
+      <Project>{E8E2E010-DA59-4A99-8331-B986B84C0FD2}</Project>
+      <Name>DDSReader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IGACommon\IGA Common.csproj">
+      <Project>{3777D98C-A94A-4DE2-BFA1-4D1332B97B74}</Project>
+      <Name>IGA Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="AdPackSupport">
+      <Visible>False</Visible>
+      <Group>Adpack Support</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Auto</PublishState>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DDSReader">
+      <Visible>False</Visible>
+      <Group>Image Preview Support</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Auto</PublishState>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="DevIL.NET">
+      <Visible>False</Visible>
+      <Group>Image Preview Support</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Auto</PublishState>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="ICSharpCode.SharpZipLib">
+      <Visible>False</Visible>
+      <Group>Adpack Support</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Auto</PublishState>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="IGA Ad Cache Editor.xml">
+      <Visible>False</Visible>
+      <Group>Development Documentation</Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Auto</PublishState>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IGACommon</name>
+    </assembly>
+    <members>
+        <member name="T:au.id.micolous.apps.igaeditor.Common">
+            <summary>
+            This class contains common static functions used throughout the program.
+            
+            All readonly data should have a getter-only accessor.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.Common.ads">
+            <summary>
+            A storage cache for the data contents of ads.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.Common.cids">
+            <summary>
+            A storage cache for the ContentID values.  Also used to retrieve ads.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.Common.sqlite">
+            <summary>
+            A pointer to the <typeparamref name="SQLiteConnection"/> to be used in the program.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.Common.doesAppStoreMinTimeAsSecond(System.Int32)">
+            <summary>
+            Calculates wether or not the minimum view time for an application is stored in seconds
+            or milliseconds.
+            </summary>
+            <returns>true if the application stores it's minimum view time in seconds.</returns>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.Common.ContentTypeToSize(System.Int32)">
+            <summary>
+            This converts a integer contentType into the image's size, stored as a Size.
+            </summary>
+            <param name="contentType">The integer containing the contentType to convert from.</param>
+            <returns>A Size containing the reported size of the image.</returns>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.Common.IsBIK(System.Byte[])">
+            <summary>
+            Determines wether the header of a file is BIK/BINK video.
+            </summary>
+            <param name="data">The data to examine.</param>
+            <returns>True if it is BI(N)K video.</returns>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.Common.GetImageData(System.Int32)">
+            <summary>
+            Get image data from the cache.
+            </summary>
+            <param name="contentId">The contentId to get the image data for.</param>
+            <returns>A byte array containing the raw image data.</returns>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.Common.ContentTypes">
+            <summary>
+            A list of valid contentTypes that are supported by the program.  They all
+            use the "image" (*1100) form, so you will need to minus 100 to get the
+            video form.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.Common.AppInfos">
+            <summary>
+            A list of <typeparamref name="AppInfo"/>, with a key of the appid.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.Common.AppShortNames">
+            <summary>
+            A list of appids, with a key sorted by the app's short name.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.Common.DateTimeFormat">
+            <summary>
+            The format of time to be used for a date + time combination, in short form.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.apps.igaeditor.AppInfo">
+            <summary>
+            This class defines a simple application name.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AppInfo.AppName">
+            <summary>
+            The application's full name.  eg: "Battlefield 2142".
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AppInfo.AppNameShort">
+            <summary>
+            The application's "short" name, used in metainfo.dat in adpack files.
+            This should be in all lower case, and unique.
+            eg: "bf2142".
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AppInfo.AppID">
+            <summary>
+            The appid for the program.  This is determined by the IGA library.
+            eg: 52  (for BF2142).
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AppInfo.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Creates a new AppInfo.
+            </summary>
+            <param name="AppName">The application's name.</param>
+            <param name="AppNameShort">The application's short name.  This should be in all lower case.</param>
+            <param name="AppID">The application's ID, as determined by the IGA library.</param>
+        </member>
+    </members>
+</doc>

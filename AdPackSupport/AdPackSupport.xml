@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdPackSupport</name>
+    </assembly>
+    <members>
+        <member name="T:au.id.micolous.apps.igaeditor.AdPackExportForm">
+            <summary>
+            This class defines an Export form for AdPacks.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.#ctor(System.Int32,System.Collections.Generic.SortedList{System.Int32,System.Int32})">
+            <summary>
+            Creates a new AdPackExportForm.
+            </summary>
+            <param name="AppID">The AppID to create the adpack for.</param>
+            <param name="ContentTypes">A list of contentIds and their matching
+            ContentTypes from MainForm.</param>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AdPackExportForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.apps.igaeditor.AdPack">
+            <summary>
+            This class defines a complete adpack object.  It can be serialised or
+            deserialised directly to the native format, and has handlers for easily
+            adding new objects to the package.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AdPack.Metadata">
+            <summary>
+            This defines the metadata of the package, stored in metainfo.dat.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AdPack.Files">
+            <summary>
+            This defines the files to be stored in the package, as well as
+            fileinfo.dat.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPack.#ctor(System.Int32)">
+            <summary>
+            Creates a new, empty adpack file.
+            <param name="AppID">The appid for the cache file to be minipulated.</param>
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPack.Serialize(System.IO.Stream)">
+            <summary>
+            Serialises the adpack to a file (ZIP).
+            </summary>
+            <param name="s">A stream pointing to the file to write to.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPack.Deserialize(System.IO.Stream)">
+            <summary>
+            This deserializes an adpack from a file.
+            </summary>
+            <param name="s">The stream to read from.</param>
+        </member>
+        <member name="T:au.id.micolous.apps.igaeditor.AdPackImportForm">
+            <summary>
+            This class implements a form allowing you to import ads from a file.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.#ctor(au.id.micolous.apps.igaeditor.AdPack,System.Collections.Generic.SortedList{System.Int32,System.Int32})">
+            <summary>
+            Creates a new AdParkImportForm
+            </summary>
+            <param name="ads">An AdPack instance to import</param>
+            <param name="ContentTypes">A list from MainForm containing a list of records and their ContentType.</param>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AdPackImportForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.AdPackImportForm.Success">
+            <summary>
+            This is set to true if the dialogue's operation was accepted.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.apps.igaeditor.AdPackEntry">
+            <summary>
+            AdPackEntry is a class that defines a single record to be loaded into,
+            or loaded from an adpack.  It isn't designed to hold records from
+            icontent.cache, as some of the data that is redundant isn't stored in
+            the file format.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackEntry.#ctor">
+            <summary>
+            Creates an empty AdPackEntry.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackEntry.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Creates an AdPackEntry with no data block.
+            </summary>
+            <param name="filename">The filename to use.</param>
+            <param name="description">The description of the file.  This is called
+            the "title" parameter in filelist.dat.</param>
+            <param name="contentType">A IGA-style contentType code.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackEntry.#ctor(System.String,System.String,System.Int32,System.Byte[])">
+            <summary>
+            Creates an AdPackEntry with a data block.
+            </summary>
+            <param name="filename">The filename to use.</param>
+            <param name="description">The description of the file.  This is called
+            the "title" parameter in filelist.dat.</param>
+            <param name="contentType">A IGA-style contentType code.</param>
+            <param name="ddsdata">The DDS image data (or BIK) to load into the file.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackEntry.SetDDSData(System.Byte[])">
+            <summary>
+            Sets the DDS data block to be 'data'.
+            </summary>
+            <param name="data">The new contents of the data block to be inserted.</param>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.AdPackEntry.DDSData">
+            <summary>
+            Returns a copy of the DDS or BIK data stored in the data block.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.AdPackEntry.FileName">
+            <summary>
+            The filename of the image to be used in the adpack file.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.AdPackEntry.Description">
+            <summary>
+            The description of the file, aka, the "title".
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.AdPackEntry.ContentType">
+            <summary>
+            An IGA-style contentType number for the record.
+            </summary>
+        </member>
+    </members>
+</doc>

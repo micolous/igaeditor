@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IGA Ad Cache Editor</name>
+    </assembly>
+    <members>
+        <member name="T:au.id.micolous.apps.igaeditor.SqlInjectorForm">
+            <summary>
+            This form provides a simple SQLite GUI.  It doesn't do a lot, nor does
+            it insulate a lot.
+            
+            It is provided to allow users to send custom SQL queries to SQLite
+            without the need for extra software installation.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.SqlInjectorForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.SqlInjectorForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.SqlInjectorForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.SqlInjectorForm.#ctor(System.Data.SQLite.SQLiteConnection)">
+            <summary>
+            Creates a new instance of the form.  You must pass a closed
+            SQLiteConnection to the constructor to use it.
+            </summary>
+            <param name="sqlite">The SQLiteConnection to use.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.Program.Main(System.String[])">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AdEditorForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdEditorForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdEditorForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdEditorForm.PopulateCreator">
+            <summary>
+            Sets the form in a mode for creating a new ad.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdEditorForm.FinishUpForSaving">
+            <summary>
+            Clean up everything back into variables so we can take
+            a nice big dump.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.UnsupportedApplicationForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.UnsupportedApplicationForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.UnsupportedApplicationForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.apps.igaeditor.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AboutBoxForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AboutBoxForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AboutBoxForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.MainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.MainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.MainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.apps.igaeditor.OverrideAppidForm">
+            <summary>
+            This form allows a user to override the appid set in an icontent.cache
+            file.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.OverrideAppidForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.OverrideAppidForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.OverrideAppidForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.OverrideAppidForm.Success">
+            <summary>
+            If this is true, then the user successfully completed the dialog.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.OverrideAppidForm.AppID">
+            <summary>
+            This is the new appid to set for the application.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.OverrideAppidForm.SaveToDatabase">
+            <summary>
+            If this is true, then the user desires for their icontent.cache file to
+            be updated to use this application ID.
+            </summary>
+        </member>
+    </members>
+</doc>

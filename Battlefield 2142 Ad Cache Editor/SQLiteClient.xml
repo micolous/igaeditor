@@ -1,0 +1,600 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SQLiteClient</name>
+    </assembly>
+    <members>
+        <member name="T:CallConvCdeclAttribute">
+            <summary>
+            Cdecl calling convetion for delegates - the signature of delegates 
+            marked with this attribute is changed to cdecl in callconvhack.js
+            </summary>
+        </member>
+        <member name="M:CallConvCdeclAttribute.#ctor">
+            <summary>
+            Placeholder
+            </summary>
+        </member>
+        <member name="T:SQLite.NET.SQLiteClient">
+            <summary>
+            A .NET wrapper around the SQLite library
+            </summary>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.#ctor(System.String)">
+            <summary>
+            Instanciates a new copy of a SQLiteClient object and attempts to
+            open the database with the supplied name.
+            </summary>
+            <remarks>
+            <p>The name of an SQLite database is the name of a file that
+            will contain the database. If the file does not exist,
+            SQLite attempts to create and initialize it. If the file
+            is read-only (due to permission bits or because it is located
+            on read-only media like a CD-ROM) then SQLite opens the
+            database for reading only.</p>
+            <p>The entire SQL database is stored
+            in a single file on the disk. But additional temporary files
+            may be created during the execution of an SQL command in order
+            to store the database rollback journal or temporary and
+            intermediate results of a query.</p>
+            </remarks>
+            <example>
+            <code>
+            db = new SQLite("testdb");
+            </code>
+            </example>
+            <param name="dbName">Name of the database to open</param>
+            <exception cref="T:SQLite.NET.SQLiteException">Thrown if an error occurs opening the database</exception>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.Finalize">
+            <summary>
+            Closes the the database if it is still open.
+            </summary>
+            <remarks>
+            This is done by calling the <see cref="M:SQLite.NET.SQLiteClient.Close">Close()</see> method,
+            so you don't have to call Close() if you don't absolutely
+            need to close the database.
+            </remarks>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetLibVersion">
+            <summary>
+            Returns the underlying library version
+            </summary>
+            <example>
+            <code>
+            string libVersion = SQLite.GetLibVersion();
+            </code>
+            </example>
+            <returns>String of the version number</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetLibEncoding">
+            <summary>
+            Returns the encoding of the underlying library
+            </summary>
+            <example>
+            <code>
+            string libVersion = SQLite.GetLibEncoding();
+            </code>
+            </example>
+            <returns>String of the encoding</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.Quote(System.String)">
+            <summary>
+            Escapes a string to allow it to be safely used in an SQL
+            query. It will double up single quotes, and return the supplied
+            string wrapped in single quotes. Eg the string "Steve's a guy"
+            will be returned as "'Steve''s a guy'". Binary characters are
+            not handled.
+            </summary>
+            <returns>Resulting string</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetMessageForError(SQLite.NET.SQLiteClient.ResultCode)">
+            <summary>
+            Returns an appropriate error message for the given error code
+            </summary>
+            <param name="errorCode">Result code from query</param>
+            <returns>Appropriate error message</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.Execute(System.String)">
+            <summary>
+            Executes the supplied query and returns an SQLiteResultSet object
+            </summary>
+            <remarks>
+            <p>
+            If the database is busy (ie with another process/thread using it) then
+            this method will call Thread.Sleep(), and then retry the query. Number of
+            retries and retry delay are configurable using the appropriate properties.</p>
+            <p>The result set object may be empty if there are no results, or if the
+            query does not return results (eg. UPDATE, INSERT, DELETE etc)</p>
+            </remarks>
+            <param name="query">The SQL query to execute</param>
+            <exception cref="T:SQLite.NET.SQLiteException">
+            Thrown if an error occurs or if the database is busy and the retries
+            are exhausted.
+            </exception>
+            <returns>SQLiteResultSet of results</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.LastInsertID">
+            <summary>
+            Returns the last insert id for this database
+            </summary>
+            <remarks>
+            <p>Every row of an SQLite table has a unique integer key. If the
+            table has a column labeled INTEGER PRIMARY KEY, then that column
+            serves as the key. If there is no INTEGER PRIMARY KEY column then
+            the key is a unique integer. The key for a row can be accessed in a
+            SELECT statement or used in a WHERE or ORDER BY clause using any of
+            the names "ROWID", "OID", or "_ROWID_".</p>
+            
+            <p>When you do an insert into a table that does not have an
+            INTEGER PRIMARY KEY column, or if the table does have an
+            INTEGER PRIMARY KEY but the value for that column is not specified
+            in the VALUES clause of the insert, then the key is automatically
+            generated. You can find the value of the key for the most recent
+            INSERT statement using the this method.</p>
+            </remarks>
+            <returns>Integer of the id</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.ChangedRows">
+            <summary>
+            Returns the number of rows changed since the database was last 
+            "quiescent".
+            </summary>
+            <remarks>
+            <p>The ChangedRows() method returns the number of rows that
+            have been inserted, deleted, or modified since the database was
+            last quiescent. A "quiescent" database is one in which there are
+            no outstanding calls to <see cref="M:SQLite.NET.SQLiteClient.Execute(System.String)">Execute</see>.
+            In common usage,
+            ChangedRows() returns the number of rows inserted, deleted, or
+            modified by the most recent <see cref="M:SQLite.NET.SQLiteClient.Execute(System.String)">Execute</see> call.
+            The number reported includes any
+            changes that were later undone by a ROLLBACK or ABORT. But rows that
+            are deleted because of a DROP TABLE are not counted.</p>
+            
+            <p>SQLite implements the command "DELETE FROM table" (without a WHERE
+            clause) by dropping the table then recreating it. This is much faster
+            than deleting the elements of the table individually. But it also means
+            that the value returned from ChangedRows() will be zero regardless
+            of the number of elements that were originally in the table. If an
+            accurate count of the number of elements deleted is necessary, use
+            "DELETE FROM table WHERE 1" instead.</p>
+            </remarks>
+            <returns>Integer of the number of changed rows</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.Interrupt">
+            <summary>
+            Interrupts the current database operation asap
+            </summary>
+            <remarks>
+            The Interrupt() method can be called from a different thread
+            or from a signal handler to cause the current database operation to
+            exit at its first opportunity. When this happens, the Execute()
+            method (or the equivalent) that started the database operation
+            will throw an <see cref="T:SQLite.NET.SQLiteException">SQLiteException</see>
+            with the <see cref="P:SQLite.NET.SQLiteException.ErrorCode">errorcode</see> set to INTERRUPT
+            </remarks>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.Close">
+            <summary>
+            Closes the database
+            </summary>
+            <remarks>
+            If a transaction is active when the database is closed, the
+            transaction is rolled back.
+            </remarks>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetAll(System.String)">
+            <summary>
+            Returns an ArrayList of the rows of the results of the
+            given query.
+            </summary>
+            <param name="query">The SQL to execute</param>
+            <returns>ArrayList of rows</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetAllHash(System.String)">
+            <summary>
+            Returns an ArrayList of the rows of the results of the
+            given query.
+            </summary>
+            <param name="query">The SQL to execute</param>
+            <returns>ArrayList of hashtables of row data</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetColumn(System.String,System.Int32)">
+            <summary>
+            Returns the specified column of a queries result set
+            </summary>
+            <remarks>
+            Use this method to get an ArrayList of a particular column of a
+            query. The column is a zero based index.
+            </remarks>
+            <param name="query">The query to execute</param>
+            <param name="column">The column to retrieve</param>
+            <returns>An ArrayList of the results</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetColumn(System.String)">
+            <summary>
+            Returns the first column of a queries result set
+            </summary>
+            <remarks>
+            Use this method to get an ArrayList of a the first column of a
+            query.
+            </remarks>
+            <param name="query">The query to execute</param>
+            <returns>An ArrayList of the results</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetRow(System.String,System.Int32)">
+            <summary>
+            Returns the specified row of a queries result set
+            </summary>
+            <remarks>
+            Use this method to get an ArrayList of a particular row of a
+            query. The row is a zero based index.
+            </remarks>
+            <param name="query">The query to execute</param>
+            <param name="row">The row to retrieve</param>
+            <returns>An ArrayList of the results</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetRow(System.String)">
+            <summary>
+            Returns the first row of a queries result set
+            </summary>
+            <remarks>
+            Use this method to get an ArrayList of a the first row of a
+            query.
+            </remarks>
+            <param name="query">The query to execute</param>
+            <returns>An ArrayList of the results</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetRowHash(System.String,System.Int32)">
+            <summary>
+            Returns a hashtable row of resultset with given row index
+            </summary>
+            <param name="query">The query to perform</param>
+            <param name="row">The row index to return</param>
+            <returns>Hashtable of row data</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetRowHash(System.String)">
+            <summary>
+            Returns a hashtable of first row of resultset
+            </summary>
+            <param name="query">The query to perform</param>
+            <returns>Hashtable of row data</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteClient.GetOne(System.String)">
+            <summary>
+            Returns the first column of the first row of a queries result set
+            </summary>
+            <remarks>
+            Useful for such queries as: SELECT COUNT(*) FROM myTable
+            </remarks>
+            <example>
+            <code>
+            db = new SQLite("testdb");
+            string strCount = db.GetOne("SELECT COUNT(*) FROM myTable");
+            int intCount = Int32.Parse(strCount);
+            </code>
+            </example>
+            <param name="query">The query to execute</param>
+            <returns>A string of the result</returns>
+        </member>
+        <member name="P:SQLite.NET.SQLiteClient.BusyRetries">
+            <summary>
+            Gets or sets the number of retries that occur if the
+            database is busy
+            </summary>
+            <remarks>
+            Defaults to 5 retries (not including the initial attempt).
+            </remarks>
+            <example>
+            <code>
+            db = new SQLite("testdb");
+            db.BusyRetries = 10;
+            </code>
+            </example>
+        </member>
+        <member name="P:SQLite.NET.SQLiteClient.BusyRetryDelay">
+            <summary>
+            Gets or sets the retry delay in milliseconds.
+            </summary>
+            <remarks>
+            Defaults to 10 milliseconds.
+            </remarks>
+            <example>
+            <code>
+            db = new SQLite("testdb");
+            db.BusyRetryDelay = 15;
+            </code>
+            </example>
+        </member>
+        <member name="T:SQLite.NET.SQLiteClient.ResultCode">
+            <summary>
+            Represents possible error codes that may be
+            given to the SQLiteException class as the
+            errorcode.
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.OK">
+            <summary>
+            Successful result
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.ERROR">
+            <summary>
+            SQL error or missing database
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.INTERNAL">
+            <summary>
+            An internal logic error in SQLite
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.PERM">
+            <summary>
+            Access permission denied
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.ABORT">
+            <summary>
+            Callback routine requested an abort
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.BUSY">
+            <summary>
+            The database file is locked
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.LOCKED">
+            <summary>
+            A table in the database is locked
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.NOMEM">
+            <summary>
+            A malloc() failed
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.READONLY">
+            <summary>
+            Attempt to write a readonly database
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.INTERRUPT">
+            <summary>
+            Operation terminated by sqlite_interrupt()
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.IOERR">
+            <summary>
+            Some kind of disk I/O error occurred
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.CORRUPT">
+            <summary>
+            The database disk image is malformed
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.NOTFOUND">
+            <summary>
+            (Internal Only) Table or record not found
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.FULL">
+            <summary>
+            Insertion failed because database is full
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.CANTOPEN">
+            <summary>
+            Unable to open the database file
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.PROTOCOL">
+            <summary>
+            Database lock protocol error
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.EMPTY">
+            <summary>
+            (Internal Only) Database table is empty
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.SCHEMA">
+            <summary>
+            The database schema changed
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.TOOBIG">
+            <summary>
+            Too much data for one row of a table
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.CONSTRAINT">
+            <summary>
+            Abort due to contraint violation
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.MISMATCH">
+            <summary>
+            Data type mismatch
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.MISUSE">
+            <summary>
+            Library used incorrectly
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.NOLFS">
+            <summary>
+            Uses OS features not supported on host
+            </summary>
+        </member>
+        <member name="F:SQLite.NET.SQLiteClient.ResultCode.AUTH">
+            <summary>
+            Authorization denied
+            </summary>
+        </member>
+        <member name="T:SQLite.NET.SQLiteResultSet">
+            <summary>
+            ResultSet class to complement the SQLiteClient class and represent a single
+            result set from a select query.
+            </summary>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.#ctor">
+            <summary>
+            Initialises a new instance of an SQLiteResultSet object
+            </summary>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.Seek(System.Int32)">
+            <summary>
+            Moves the internal row pointer to the given
+            index. Returns true/false as to whether it 
+            succeeded. (Fails if there aren't enough rows).
+            </summary>
+            <param name="index">Index to seek to (zero based)</param>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.Reset">
+            <summary>
+            Resets the internal row pointer to zero (start of result set).
+            </summary>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.GetRow">
+            <summary>
+            Returns the next row from the result set based on the
+            internal row pointer. 
+            </summary>
+            <returns>ArrayList of the next row data</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.GetRow(System.Int32)">
+            <summary>
+            Gets the row with the supplied index.
+            </summary>
+            <remarks>
+            The row index is zero based.
+            </remarks>
+            <param name="rowIndex">The row to retrieve</param>
+            <returns>An ArrayList of the fields</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.GetRowHash">
+            <summary>
+            Returns a Hashtable of the next row
+            </summary>
+            <remarks>
+            Similar to GetRow() but returns a Hashtable with the column
+            names as the key and column values as the value.
+            </remarks>
+            <returns>Hashtable of the row data</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.GetRowHash(System.Int32)">
+            <summary>
+            Returns a Hashtable of the given row index
+            </summary>
+            <remarks>
+            Similar to GetRow(idx) but returns a Hashtable with the column
+            names as the key and column values as the value.
+            </remarks>
+            <param name="rowIndex">Index of row to return</param>
+            <returns>Hashtable of the row data</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.GetColumn(System.Int32)">
+            <summary>
+            Returns an ArrayList of a column of data in the result set.
+            </summary>
+            <remarks>
+            The column index is zero based. A quicker way of getting a
+            single column of data is the <see cref="M:SQLite.NET.SQLiteClient.GetColumn(System.String,System.Int32)">
+            GetColumn</see> method. Returns an empty ArrayList if the column
+            index is not valid.
+            </remarks>
+            <param name="columnIndex">The column to retrieve</param>
+            <returns>An ArrayList of the column data</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.GetColumn(System.String)">
+            <summary>
+            Returns an ArrayList of a column of data in the result set
+            using the coumn name.
+            </summary>
+            <remarks>
+            Returns an empty ArrayList if the given column name is not defined.
+            </remarks>
+            <param name="columnName">The name of the column to retrieve</param>
+            <returns>An ArrayList of the column data</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.GetField(System.Int32,System.Int32)">
+            <summary>
+            Gets a particular field of a particular row from the result set.
+            </summary>
+            <remarks>
+            Both the row and column indexes are zero based.
+            </remarks>
+            <param name="rowIndex">The row index of the field</param>
+            <param name="columnIndex">The column index of the field</param>
+            <returns>A string of the field data</returns>
+        </member>
+        <member name="M:SQLite.NET.SQLiteResultSet.CallBack(System.IntPtr,System.Int32,System.SByte**,System.SByte**)">
+            <summary>
+            Callback which populates the result set from the queries results
+            </summary>
+            <param name="pArg">Not used</param>
+            <param name="argc">Number of columns in argv</param>
+            <param name="argv">The column data in this row</param>
+            <param name="columnNames">The column names</param>
+        </member>
+        <member name="P:SQLite.NET.SQLiteResultSet.Rows">
+            <summary>
+            Returns the row data as an ArrayList.
+            </summary>
+            <remarks>
+            Each entry in the ArrayList will itself be an ArrayList of
+            the fields.
+            </remarks>
+        </member>
+        <member name="P:SQLite.NET.SQLiteResultSet.ColumnNames">
+            <summary>
+            Returns an ArrayList of the column names associated with
+            this result set.
+            </summary>
+        </member>
+        <member name="P:SQLite.NET.SQLiteResultSet.IsMoreData">
+            <summary>
+            Use in conjunction with GetRow() or GetRowHash() to determine
+             if there is more data left to be retrieved.
+            </summary>
+            <remarks>
+            Eg.
+            <code>
+            while (results.IsMoreData()) {
+            	ArrayList row = results.GetRow();
+            	
+            	// Do something with the row data...
+            }
+            </code>
+            </remarks>
+        </member>
+        <member name="T:SQLite.NET.SQLiteException">
+            <summary>
+            Exception class to support SQLiteClient class
+            </summary>
+        </member>
+        <member name="M:SQLite.NET.SQLiteException.#ctor(System.String,SQLite.NET.SQLiteClient.ResultCode)">
+            <summary>
+            Instanciates a new copy of the SQLiteException class with the given
+            error message and errorcode
+            </summary>
+            <param name="message">The error message</param>
+            <param name="code">The errorcode (see <see cref="T:SQLite.NET.SQLiteClient.ResultCode">ResultCode</see>)</param>
+        </member>
+        <member name="M:SQLite.NET.SQLiteException.#ctor(System.String)">
+            <summary>
+            Instanciates a new copy of the SQLiteException class with the given
+            error message
+            </summary>
+            <param name="message">The error message</param>
+        </member>
+        <member name="P:SQLite.NET.SQLiteException.ErrorCode">
+            <summary>
+            Returns any error code associated with this exception
+            </summary>
+        </member>
+    </members>
+</doc>

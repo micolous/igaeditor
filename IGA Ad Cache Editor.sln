@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C# Express 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGA Ad Cache Editor", "Battlefield 2142 Ad Cache Editor\IGA Ad Cache Editor.csproj", "{07502CCD-DB5C-46C2-AE43-81EA19CADC12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDSReader", "DDSReader\DDSReader.csproj", "{E8E2E010-DA59-4A99-8331-B986B84C0FD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ad Pack Support", "AdPackSupport\Ad Pack Support.csproj", "{DFB922B4-E1D3-4977-96E1-CB1CCB52AE2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IGA Common", "IGACommon\IGA Common.csproj", "{3777D98C-A94A-4DE2-BFA1-4D1332B97B74}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07502CCD-DB5C-46C2-AE43-81EA19CADC12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07502CCD-DB5C-46C2-AE43-81EA19CADC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07502CCD-DB5C-46C2-AE43-81EA19CADC12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07502CCD-DB5C-46C2-AE43-81EA19CADC12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8E2E010-DA59-4A99-8331-B986B84C0FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8E2E010-DA59-4A99-8331-B986B84C0FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8E2E010-DA59-4A99-8331-B986B84C0FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8E2E010-DA59-4A99-8331-B986B84C0FD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB922B4-E1D3-4977-96E1-CB1CCB52AE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB922B4-E1D3-4977-96E1-CB1CCB52AE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB922B4-E1D3-4977-96E1-CB1CCB52AE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB922B4-E1D3-4977-96E1-CB1CCB52AE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3777D98C-A94A-4DE2-BFA1-4D1332B97B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3777D98C-A94A-4DE2-BFA1-4D1332B97B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3777D98C-A94A-4DE2-BFA1-4D1332B97B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3777D98C-A94A-4DE2-BFA1-4D1332B97B74}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
