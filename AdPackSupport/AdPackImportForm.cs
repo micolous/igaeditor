@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using au.id.micolous.libs.igacommon;
 
 namespace au.id.micolous.apps.igaeditor
 {
@@ -19,17 +20,22 @@ namespace au.id.micolous.apps.igaeditor
         /// This is set to true if the dialogue's operation was accepted.
         /// </summary>
         public bool Success { get { return success; } }
-        private SortedList<int, int> ContentTypes;
+        private SortedList<uint, ContentType> ContentTypes = new SortedList<uint,ContentType>();
+        private IGADatabaseConnector conn;
 
         /// <summary>
         /// Creates a new AdParkImportForm
         /// </summary>
+        /// <param name="conn">An IGADatabaseConnector object.</param>
         /// <param name="ads">An AdPack instance to import</param>
-        /// <param name="ContentTypes">A list from MainForm containing a list of records and their ContentType.</param>
-        public AdPackImportForm(AdPack ads, SortedList<int, int> ContentTypes)
+        public AdPackImportForm(IGADatabaseConnector conn, AdPack ads)
         {
             this.ads = ads;
-            this.ContentTypes = ContentTypes;
+            foreach (KeyValuePair<uint, ContentEntry> item in conn.GetAllEntries(false))
+            {
+                ContentTypes.Add(item.Key, item.Value.contentType);
+            }
+            this.conn = conn;
             InitializeComponent();
         }
 
@@ -50,9 +56,9 @@ namespace au.id.micolous.apps.igaeditor
                 ComboBox assign = new ComboBox();
                 assign.Items.Add("<New Record>");
                 assign.Items.Add("<Unassigned>");
-                foreach (KeyValuePair<int, int> cidctype in ContentTypes)
+                foreach (KeyValuePair<uint, ContentType> cidctype in ContentTypes)
                 {
-                    if (cidctype.Value == kvpape.Value.ContentType)
+                    if (cidctype.Value.Equals(kvpape.Value.ContentType))
                     {
                         assign.Items.Add(cidctype.Key.ToString());
                     }
@@ -83,12 +89,12 @@ namespace au.id.micolous.apps.igaeditor
                 AdPackEntry ad = ads.Files[((Label)EntryTable.GetControlFromPosition(0, x)).Text];
                 switch (scbo.SelectedIndex) {
                     case 0: // new entry
-                        AdPackCommon.NewAdEntry(ad);
+                        conn.NewEntry(ad);
                         break;
                     case 1: // ignore
                         break;
                     default: // ressign at
-                        AdPackCommon.ReplaceAdEntry(Int32.Parse(scbo.Text), ad);
+                        conn.ImportImage(UInt32.Parse(scbo.Text), ad);
                         break;
                 }
             }

@@ -5,25 +5,28 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.SQLite;
+//using System.Data.SQLite;
 using System.Collections;
 using System.IO;
 using System.Diagnostics;
 using System.Net;
 using au.id.micolous.libs.DDSReader;
-
+using au.id.micolous.libs.igacommon;
 
 namespace au.id.micolous.apps.igaeditor
 {
     partial class MainForm : Form
     {
-        private static SQLiteConnection sqlite;
+        //private static SQLiteConnection sqlite;
 
         private String[] args;
-        private static SortedList<int, int> contentTypes;
-        public static SortedList<int, int> ContentTypes { get { return contentTypes; } }
-        private static int appID;
-        public static int AppID { get { return appID; } }
+        private SortedDictionary<uint, ContentEntry> itemCache;
+        //private static SortedList<int, int> contentTypes;
+        //public static SortedList<int, int> ContentTypes { get { return contentTypes; } }
+        //private static int appID;
+        //public static int AppID { get { return appID; } }
+        
+        private IGADatabaseConnector _igaconnector;
 
         public MainForm(String[] args)
         {
@@ -51,71 +54,36 @@ namespace au.id.micolous.apps.igaeditor
                 else
                 {
                     // try opening file.
-                    try
-                    {
-                        sqlite = new SQLiteConnection("Data Source=\"" + OpenDatabaseDialogue.FileName + "\"");
-                        sqlite.Open();
-                        SQLiteCommand query = new SQLiteCommand("SELECT [appId] FROM [contentlist] LIMIT 1", sqlite);
-                        Object result = query.ExecuteScalar();
-                        sqlite.Close();
-                        if (result == null)
+                    try {
+                    	_igaconnector = new IGADatabaseConnector(OpenDatabaseDialogue.FileName);
+                        if (_igaconnector.AppID == 0)
                         {
-                            // offer to add one.
-                            if (MessageBox.Show("There was no appid found in the cache.  Most likely the 'contentlist' table is corrupt.\r\n\r\nYou must specify an appid to be able to open the file.  Would you like to specify one now?", "Ad Cache Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            // no appid
+                            OverrideAppidForm oaf = new OverrideAppidForm();
+                            oaf.ShowDialog();
+
+                            if (oaf.Success)
                             {
-                                // yes
-                                OverrideAppidForm oaf = new OverrideAppidForm();
-                                oaf.ShowDialog();
-
-                                if (oaf.Success)
+                                _igaconnector.AppID = oaf.AppID;
+                                if (oaf.SaveToDatabase)
                                 {
-                                    appID = oaf.AppID;
-                                    if (oaf.SaveToDatabase)
-                                    {
-                                        // try to write back
-                                        query = new SQLiteCommand(@"UPDATE [contentlist] SET [appid]=@appid", sqlite);
-                                        query.Parameters.Add(new SQLiteParameter("appid", appID));
-                                        sqlite.Open();
-                                        if (query.ExecuteNonQuery() == 0)
-                                        {
-                                            // no data in contentlist... add new.
-                                            sqlite.Close();
-                                            query = new SQLiteCommand(@"INSERT INTO [contentlist] ([appid]) VALUES (@appid)", sqlite);
-                                            query.Parameters.Add(new SQLiteParameter("appid", appID));
-                                            sqlite.Open();
-                                            query.ExecuteNonQuery();
-                                        }
-
-                                        sqlite.Close();
-                                    }
-
+                                    _igaconnector.ChangeAppID(oaf.AppID);
                                 }
-                                else
-                                {
-                                    throw new Exception("The operation to select an appid was cancelled.");
-                                }
-
                             }
                             else
                             {
-                                // no
-                                throw new Exception("No appid was found in the cache and you didn't want to specify one manually.");
+                                throw new Exception("The operation to select an appid was cancelled.");
                             }
                         }
-                        else
+
+                        if (!_igaconnector.AppSupported)
                         {
-                            appID = (int)(long)result;
+                            // unsupported appid
+                            UnsupportedApplicationForm uaf = new UnsupportedApplicationForm(_igaconnector.AppID);
+                            uaf.ShowDialog();
                         }
-                        
-                        if (!Common.AppInfos.ContainsKey(appID))
-                        {
-                            UnsupportedApplicationForm upf = new UnsupportedApplicationForm(appID);
-                            upf.ShowDialog();
-                        }
-                    }
-                    catch (/*SQLite*/Exception ex)
-                    {
-                        res = MessageBox.Show("There was a problem loading the cache file.  " + ex.Message + "\r\n\r\nWould you like to try again?", "Battlefield 2142 Ad Cache Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+                    } catch (DatabaseConnectionFailureException) {
+                        res = MessageBox.Show("There was a problem loading the cache file.\r\n\r\nWould you like to try again?", "Battlefield 2142 Ad Cache Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
                         if (res == DialogResult.No)
                         {
                             cont = false;
@@ -125,6 +93,7 @@ namespace au.id.micolous.apps.igaeditor
                             res = DialogResult.Cancel;
                         }
                     }
+
                 }
             } while (res == DialogResult.Cancel && cont);
 
@@ -136,23 +105,18 @@ namespace au.id.micolous.apps.igaeditor
                 exportAdpackFilebfadsToolStripMenuItem.Enabled = true;
                 closeDatabaseToolStripMenuItem.Enabled = true;
                 debugToolStripMenuItem.Enabled = true;
-                SetReadonlyRestrictions(appID);
+                SetReadonlyRestrictions(_igaconnector.AppSupported);
                 RefreshList();
             }
 
             return cont;
         }
 
-        private void SetReadonlyRestrictions(int AppID)
-        {
-            this.SetReadonlyRestrictions(Common.AppInfos.ContainsKey(appID));
-        }
-
         private void SetReadonlyRestrictions(bool ReadOnly)
         {
             if (ReadOnly)
             {
-                EditingGroup.Text = "Ad Cache Entries for " + Common.AppInfos[appID].AppName + ":";
+                EditingGroup.Text = "Ad Cache Entries for " + _igaconnector.appInfo.AppName + ":";
                 AddRecordButton.Enabled = true;
                 EditRecordButton.Enabled = true;
                 DeleteRecordButton.Enabled = true;
@@ -166,7 +130,7 @@ namespace au.id.micolous.apps.igaeditor
             }
             else
             {
-                EditingGroup.Text = "Ad Cache Entries for Unknown Application (#" + appID.ToString() + "):";
+                EditingGroup.Text = "Ad Cache Entries for Unknown Application (#" + _igaconnector.AppID.ToString() + "):";
                 // prevent write actions
                 AddRecordButton.Enabled = false;
                 EditRecordButton.Enabled = false;
@@ -179,7 +143,6 @@ namespace au.id.micolous.apps.igaeditor
                 exportAdpackFilebfadsToolStripMenuItem.Enabled = false;
                 vacuumDatabaseToolStripMenuItem.Enabled = false;
             }
-
         }
 
         private void BigOpenButton_Click(object sender, EventArgs e)
@@ -190,98 +153,58 @@ namespace au.id.micolous.apps.igaeditor
         private void RefreshList()
         {
             CacheEntryList.Items.Clear();
-            Common.ads = new List<byte[]>(100);
-            Common.cids = new List<int>(100);
-            contentTypes = new SortedList<int, int>(100);
-            SQLiteCommand cmd = sqlite.CreateCommand();
-            cmd.CommandText = @"SELECT * FROM [content] ORDER BY [contentId]";
-            sqlite.Open();
-            SQLiteDataReader reader =  cmd.ExecuteReader();
 
-            while (reader.Read())
+            // populate list
+            itemCache = _igaconnector.GetAllEntries(false);
+
+            foreach (KeyValuePair<uint, ContentEntry> item in itemCache)
             {
-                // read in rows
-                int contentId = reader.GetInt32(0);
-                Common.cids.Add(contentId);
-                DateTime activate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                activate = activate.AddSeconds(reader.GetInt32(2));
-                //activate = activate.ToLocalTime();
-                String activateS = activate.ToString(Common.DateTimeFormat);
-                String activeS = "No";
-                if (reader.GetInt32(1) >= 1)
-                {
-                    activeS = "Yes";
+                String ActiveS = "Yes";
+                if (!item.Value.Active) {
+                    ActiveS = "No";
                 }
-                String Expires = "Never";
-                if (reader.GetInt32(3) > 0)
+                String ActivateS = item.Value.Activate.ToString(Common.DateTimeFormat);
+                String ExpiryS = "Never";
+                if (item.Value.Expires)
                 {
-                    DateTime expires = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                    expires = expires.AddSeconds(reader.GetInt32(3));
-                    //-expires = expires.ToLocalTime();
-                    Expires = expires.ToString(Common.DateTimeFormat);
+                    ExpiryS = item.Value.Expiry.ToString(Common.DateTimeFormat);
                 }
-                int DayParts = reader.GetInt32(4);
-                String DayPartsS = "Never";
-                if (DayParts == 16777215)
+
+                String DayPartsS = "Always";
+                if (item.Value.DayParts == 0)
                 {
-                    // always
-                    DayPartsS = "Always";
+                    DayPartsS = "Never";
                 }
-                else if (DayParts > 0 && DayParts < 16777215)
+                else if (item.Value.DayParts < 16777215)
                 {
                     DayPartsS = "Sometimes";
                 }
-                else if (DayParts > 16777215)
+                else if (item.Value.DayParts > 16777215)
                 {
                     DayPartsS = "Invalid";
                 }
-                int ContentType = reader.GetInt32(5);
-                contentTypes[contentId] = ContentType;
-                Size s = Common.ContentTypeToSize(ContentType);
 
-                bool isVideo = false;
-                if (ContentType % 10000 == 1000)
-                {
-                    isVideo = true;
+                String ViewsS = item.Value.ViewCount.ToString();
+                if (item.Value.ViewLimit > 0) {
+                    ViewsS += " of " + item.Value.ViewLimit.ToString();
                 }
+                Size isize = item.Value.contentType.GetSize();
 
-                String dataType = "DDS Image";
-                if (isVideo)
+                String typeS = "Unknown";
+                switch (item.Value.contentType.GetItemType())
                 {
-                    dataType = "BIK Video";
+                    case ItemType.BinkVideo:
+                        typeS = "BINK Video";
+                        break;
+                    case ItemType.DDSImage:
+                        typeS = "DDS Image";
+                        break;
                 }
-                String dimensions = String.Format("{0}x{1}", s.Width, s.Height);
-                int ImageSizeBytes = reader.GetInt32(7);
-                int ViewCount = reader.GetInt32(8);
-                int ViewLimit = reader.GetInt32(9);
-                String ViewsString = ViewCount.ToString();
-                if (ViewLimit > 0)
-                {
-                    ViewsString = ViewsString + " of " + ViewLimit.ToString();
-                }
-
-                long fileLength;
-                try
-                {
-                    fileLength = reader.GetBytes(12, 0, null, 0, 0);
-                }
-                catch (Exception ex)
-                {
-                    // data blob is empty
-                    ex.ToString();
-                    fileLength = 0;
-                }
-                byte[] ddsimage = new byte[fileLength];
-                if (fileLength > 0)
-                {
-                    reader.GetBytes(12, 0, ddsimage, 0, ddsimage.Length);
-                }
-                Common.ads.Add(ddsimage);
-                string[] row = { contentId.ToString(), activeS, activateS, Expires.ToString(), DayPartsS, dimensions, dataType, ViewsString };
-                CacheEntryList.Items.Add(new ListViewItem(row));
+                String[] i = { item.Value.ContentID.ToString(), ActiveS, ActivateS, ExpiryS, DayPartsS, isize.Width + "x" + isize.Height, typeS, ViewsS };
+                CacheEntryList.Items.Add(new ListViewItem(i));
 
             }
-            sqlite.Close();
+
         }
 
         private void SaveAdImageButton_Click(object sender, EventArgs e)
@@ -294,14 +217,15 @@ namespace au.id.micolous.apps.igaeditor
             {
                 int contentId = Int32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
                 //MessageBox.Show("Selected item ID #" + contentId.ToString() + ".");
-                int adIndex = Common.cids.IndexOf(contentId);
-                if (Common.ads[adIndex].Length == 0)
+                byte[] idata = _igaconnector.ExportImage(UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text));
+
+                if (idata.Length == 0)
                 {
                     MessageBox.Show("Sorry, there is currently no image data stored for that ad.");
                     return;
                 }
 
-                if (Common.IsBIK(Common.ads[adIndex]))
+                if (Common.IsBIK(idata))
                 {
                     SaveDDSDialogue.FileName = contentId.ToString() + ".bik";
                     SaveDDSDialogue.DefaultExt = "bik";
@@ -320,7 +244,7 @@ namespace au.id.micolous.apps.igaeditor
                     try
                     {
                         FileStream fs = new FileStream(SaveDDSDialogue.FileName, FileMode.OpenOrCreate, FileAccess.Write);
-                        fs.Write(Common.ads[adIndex], 0, Common.ads[adIndex].Length);
+                        fs.Write(idata, 0, idata.Length);
                         fs.Flush();
                         fs.Close();
                         MessageBox.Show("File saved successfully.");
@@ -336,16 +260,15 @@ namespace au.id.micolous.apps.igaeditor
 
         private void ImportImageButton_Click(object sender, EventArgs e)
         {
+            
             if (CacheEntryList.SelectedItems.Count != 1)
             {
                 MessageBox.Show("Please select only one item first.");
             }
             else
             {
-                int contentId = Int32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
-
-                int adIndex = Common.cids.IndexOf(contentId);
-                byte[] ddsimage;
+                uint contentId = UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
+                byte[] ddsimage = _igaconnector.ExportImage(contentId);
                 DialogResult result = LoadDDSDialogue.ShowDialog();
                 if (result != DialogResult.Cancel)
                 {
@@ -353,7 +276,7 @@ namespace au.id.micolous.apps.igaeditor
                     try
                     {
                         FileStream fs = new FileStream(LoadDDSDialogue.FileName, FileMode.Open, FileAccess.Read);
-                        if (Common.ads[adIndex].Length > 0 && fs.Length != Common.ads[adIndex].Length && !LoadDDSDialogue.FileName.EndsWith("bik", StringComparison.InvariantCultureIgnoreCase))
+                        if (ddsimage.Length > 0 && fs.Length != ddsimage.Length && !LoadDDSDialogue.FileName.EndsWith("bik", StringComparison.InvariantCultureIgnoreCase))
                         {
                             if (MessageBox.Show("File size doesn't match old image!  Image sizes must be the same!\r\n\r\nNon-matching images sizes can result in data corruption, and the game crashing!  Ensure you are using a 24-bit (RGB) image, you have generated mipmaps, and are using DXT1 compression.\r\n\r\nDo you want to continue?", "Import Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
                             {
@@ -368,7 +291,6 @@ namespace au.id.micolous.apps.igaeditor
                         ddsimage = new byte[fs.Length];
                         fs.Read(ddsimage, 0, (int)fs.Length);
                         fs.Close();
-                        Common.ads[adIndex] = ddsimage;
                     }
                     catch (Exception ex)
                     {
@@ -378,18 +300,7 @@ namespace au.id.micolous.apps.igaeditor
 
                     try
                     {
-                        // now write back to db
-                        sqlite.Open();
-                        SQLiteCommand query = new SQLiteCommand(@"UPDATE [content] SET [data] = @data, [size] = @size WHERE [contentId] = @cid", sqlite);
-                        SQLiteParameter d = new SQLiteParameter("data", ddsimage);
-                        SQLiteParameter s = new SQLiteParameter("size", ddsimage.Length);
-                        SQLiteParameter c = new SQLiteParameter("cid", contentId);
-                        query.Parameters.Add(c);
-                        query.Parameters.Add(s);
-                        query.Parameters.Add(d);
-                        query.ExecuteNonQuery();
-                        sqlite.Close();
-
+                        _igaconnector.ImportImage(contentId, ddsimage);
                     }
                     catch (Exception ex)
                     {
@@ -415,11 +326,6 @@ namespace au.id.micolous.apps.igaeditor
 
         private void appExit()
         {
-            if (sqlite != null)
-            {
-                sqlite.Close();
-            }
-
             Application.Exit();
         }
 
@@ -434,56 +340,27 @@ namespace au.id.micolous.apps.igaeditor
 
         private void EditRecordButton_Click(object sender, EventArgs e)
         {
+            
             if (CacheEntryList.SelectedItems.Count != 1)
             {
                 MessageBox.Show("Please select only one item first.");
             }
             else
             {
-                int contentId = Int32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
-                sqlite.Open();
-                SQLiteCommand query = new SQLiteCommand(@"SELECT * FROM [content] WHERE [contentId] = @cid", sqlite);
-                SQLiteParameter c = new SQLiteParameter("cid", contentId);
-                query.Parameters.Add(c);
-                SQLiteDataReader reader = query.ExecuteReader();
-                reader.Read();
-                AdEditorForm aef = new AdEditorForm(reader);
+                uint contentId = UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
+                AdEditorForm aef = new AdEditorForm(_igaconnector, _igaconnector.GetEntry(contentId, false));
                 aef.ShowDialog();
-                sqlite.Close();
                 if (aef.Success)
                 {
-                    int ave = aef.VActive;
-                    int ate = aef.VActivate;
-                    int ex = aef.VExpire;
-                    int dp = aef.VDayParts;
-                    int ct = aef.VContentType;
-                    String des = aef.VDescriptor;
-                    int s = aef.VSize;
-                    int vc = aef.VViewCount;
-                    int vl = aef.VViewLimit;
-                    int da = aef.VDisplayAfter;
-                    String p = aef.VProps;
-                    sqlite.Open();
-                    query = new SQLiteCommand(@"UPDATE [content] SET [active]=@active, [activate]=@activate, [expire]=@expire, [dayparts]=@dayparts, [contentType]=@contentType, [descriptor]=@descriptor, [size]=@size, [viewcount]=@viewcount, [viewlimit]=@viewlimit, [displayafter]=@displayafter, [props]=@props WHERE [contentId]=@cid", sqlite);
-                    //query = new SQLiteCommand(@"UPDATE [content] SET [active]=@active, [activate]=@activate, [expire]=@expire, [props]=@props WHERE [contentId]=@cid", sqlite);
-                    query.Parameters.Add(c);
-                    query.Parameters.Add(new SQLiteParameter("active", ave));
-                    query.Parameters.Add(new SQLiteParameter("activate", ate));
-                    query.Parameters.Add(new SQLiteParameter("expire", ex));
-                    query.Parameters.Add(new SQLiteParameter("dayparts", dp));
-                    query.Parameters.Add(new SQLiteParameter("contentType", ct));
-                    query.Parameters.Add(new SQLiteParameter("descriptor", des));
-                    query.Parameters.Add(new SQLiteParameter("size", s));
-                    query.Parameters.Add(new SQLiteParameter("viewcount", vc));
-                    query.Parameters.Add(new SQLiteParameter("viewlimit", vl));
-                    query.Parameters.Add(new SQLiteParameter("displayafter", da));
-                    query.Parameters.Add(new SQLiteParameter("props", p));
-
-                    if (query.ExecuteNonQuery() != 1)
+                    try
+                    {
+                        _igaconnector.EditEntry(contentId, aef.Entry, false);
+                    }
+                    catch (DatabaseUpdateFailureException)
                     {
                         MessageBox.Show("There was an error updating the database!");
                     }
-                    sqlite.Close();
+
                     RefreshList();
                 }
             }
@@ -497,55 +374,16 @@ namespace au.id.micolous.apps.igaeditor
 
         private void AddRecordButton_Click(object sender, EventArgs e)
         {
-            AdEditorForm aef = new AdEditorForm();
+            
+            AdEditorForm aef = new AdEditorForm(_igaconnector);
             aef.ShowDialog();
 
             if (aef.Success)
             {
                 // success!
-                int ave = aef.VActive;
-                int ate = aef.VActivate;
-                int ex = aef.VExpire;
-                int dp = aef.VDayParts;
-                int ct = aef.VContentType;
-                String des = aef.VDescriptor;
-                int s = aef.VSize;
-                int vc = aef.VViewCount;
-                int vl = aef.VViewLimit;
-                int da = aef.VDisplayAfter;
-                String p = aef.VProps;
-                sqlite.Open();
-                SQLiteCommand query = new SQLiteCommand(@"INSERT INTO [content] ([active], [activate], [expire], [dayparts], [contentType], [descriptor], [size], [viewcount], [viewlimit], [displayafter], [props]) VALUES (@active, @activate, @expire, @dayparts, @contentType, @descriptor, @size, @viewcount, @viewlimit, @displayafter, @props); SELECT last_insert_rowid() AS contentId;", sqlite);
-                query.Parameters.Add(new SQLiteParameter("active", ave));
-                query.Parameters.Add(new SQLiteParameter("activate", ate));
-                query.Parameters.Add(new SQLiteParameter("expire", ex));
-                query.Parameters.Add(new SQLiteParameter("dayparts", dp));
-                query.Parameters.Add(new SQLiteParameter("contentType", ct));
-                query.Parameters.Add(new SQLiteParameter("descriptor", des));
-                query.Parameters.Add(new SQLiteParameter("size", s));
-                query.Parameters.Add(new SQLiteParameter("viewcount", vc));
-                query.Parameters.Add(new SQLiteParameter("viewlimit", vl));
-                query.Parameters.Add(new SQLiteParameter("displayafter", da));
-                query.Parameters.Add(new SQLiteParameter("props", p));
+                _igaconnector.NewEntry(aef.Entry);
 
-                // get the contentId back
-                Object cidR = query.ExecuteScalar();
-                int cid = (int)((long)cidR);
-                //MessageBox.Show("New CID was #" + cid.ToString() + ".");
-                // shove cid into props
-                p = "contentId=" + cid.ToString() + "&" + p;
-
-                // reset connection
-                sqlite.Close();
-                sqlite.Open();
-
-                query = new SQLiteCommand(@"UPDATE [content] SET [props]=@props WHERE [contentId]=@cid", sqlite);
-                query.Parameters.Add(new SQLiteParameter("props", p));
-                query.Parameters.Add(new SQLiteParameter("cid", cid));
-                query.ExecuteNonQuery();
-
-                sqlite.Close();
-                MessageBox.Show("Record added successfully.  You should now import a DDS image for the ad.\r\n\r\nThe new record's contentId is " + cid.ToString() + ".", "Ad Cache Editor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Record added successfully.  You should now import a DDS image for the ad.\r\n\r\nThe new record's contentId is " + aef.Entry.ContentID.ToString() + ".", "Ad Cache Editor", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 RefreshList();
             }
@@ -559,26 +397,22 @@ namespace au.id.micolous.apps.igaeditor
             }
             else
             {
-                int contentId = Int32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
+                uint contentId = UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
                 if (MessageBox.Show("Are you sure you want to delete this ad?", "Ad Cache Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
                 {
                     // no was pressed, dropout
                     return;
                 }
 
-                sqlite.Open();
-                SQLiteCommand query = new SQLiteCommand(@"DELETE FROM [content] WHERE [contentId]=@cid", sqlite);
-                query.Parameters.Add(new SQLiteParameter("cid", contentId));
-                if (query.ExecuteNonQuery() == 1)
+                try
                 {
-                    MessageBox.Show("Successfully deleted entry from database.");
+                    _igaconnector.DeleteEntry(contentId);
                 }
-                else
+                catch (Exception)
                 {
                     MessageBox.Show("There was a problem deleting the selected entry from the database.\r\n\r\nPerhaps another program using the database has already deleted it?");
                 }
-                
-                sqlite.Close();
+
                 RefreshList();
             }
         }
@@ -607,7 +441,7 @@ namespace au.id.micolous.apps.igaeditor
                 MessageBox.Show("There was a problem opening the adpack.  The error was: " + ex.Message);
                 return;
             }
-            AdPack ap = new AdPack(MainForm.AppID);
+            AdPack ap = new AdPack(_igaconnector.AppID);
             try
             {
                 ap.Deserialize(fs);
@@ -623,9 +457,9 @@ namespace au.id.micolous.apps.igaeditor
                 MessageBox.Show("Sorry, no importable ads were found.");
                 return;
             }
-
+            
             // jump to import wizard thingy
-            AdPackImportForm apif = new AdPackImportForm(ap, ContentTypes);
+            AdPackImportForm apif = new AdPackImportForm(_igaconnector, ap);
             apif.ShowDialog();
 
             if (apif.Success)
@@ -667,8 +501,8 @@ namespace au.id.micolous.apps.igaeditor
 
         private void exportAdpackFilebfadsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdPackExportForm apef = new AdPackExportForm(AppID, ContentTypes);
-            apef.ShowDialog();
+            /*AdPackExportForm apef = new AdPackExportForm(AppID, ContentTypes);
+            apef.ShowDialog();*/
         }
 
         private void closeDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -678,11 +512,7 @@ namespace au.id.micolous.apps.igaeditor
 
         private void CloseDatabase()
         {
-            sqlite.Close();
-            sqlite = null;
-            Common.ads = null;
-            Common.cids = null;
-            contentTypes = null;
+            _igaconnector = null;
             WelcomeGroup.Show();
             EditingGroup.Hide();
             refreshToolStripMenuItem.Enabled = false;
@@ -700,10 +530,7 @@ namespace au.id.micolous.apps.igaeditor
 
         private void VacuumDatabase()
         {
-            sqlite.Open();
-            SQLiteCommand query = new SQLiteCommand("VACUUM", sqlite);
-            query.ExecuteNonQuery();
-            sqlite.Close();
+            _igaconnector.VaccumDatabase();
         }
 
         private void websiteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -757,15 +584,16 @@ namespace au.id.micolous.apps.igaeditor
             }
             else
             {
-                int contentId = Int32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
+                uint contentId = UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
                 //MessageBox.Show("Selected item ID #" + contentId.ToString() + ".");
-                int adIndex = Common.cids.IndexOf(contentId);
-                if (Common.ads[adIndex].Length == 0)
+                //int adIndex = Common.cids.IndexOf(contentId);
+                byte[] idata = _igaconnector.ExportImage(contentId);
+                if (idata.Length == 0)
                 {
                     MessageBox.Show("There is no image in the data block, so there is nothing to see.");
                     return;
                 }
-                if (Common.IsBIK(Common.ads[adIndex]))
+                if (Common.IsBIK(idata))
                 {
                     MessageBox.Show("Sorry, cannot preview BI(N)K video ads.");
                     return;
@@ -773,8 +601,7 @@ namespace au.id.micolous.apps.igaeditor
 
                 try
                 {
-                    DDSReader.Ping();
-                    PreviewBox.Image = DDSReader.LoadImage(Common.ads[adIndex]);
+                    PreviewBox.Image = LoadImagePreview(idata);
                 }
                 catch (Exception ex)
                 {
@@ -788,6 +615,13 @@ namespace au.id.micolous.apps.igaeditor
 
 
             }
+        }
+
+        private Image LoadImagePreview(byte[] idata)
+        {
+            // .net is annoying so we have to seal the call to make it modular
+            DDSReader.Ping();
+            return DDSReader.LoadImage(idata);
         }
 
         private void CacheEntryList_MouseClick(object sender, MouseEventArgs e)
@@ -812,34 +646,20 @@ namespace au.id.micolous.apps.igaeditor
             if (oaf.Success)
             {
                 
-                appID = oaf.AppID;
+                _igaconnector.AppID = oaf.AppID;
                 if (oaf.SaveToDatabase)
                 {
-                    // try to write back
-                    SQLiteCommand query = new SQLiteCommand(@"UPDATE [contentlist] SET [appid]=@appid", sqlite);
-                    query.Parameters.Add(new SQLiteParameter("appid", appID));
-                    sqlite.Open();
-                    if (query.ExecuteNonQuery() == 0)
-                    {
-                        // no data in contentlist... add new.
-                        sqlite.Close();
-                        query = new SQLiteCommand(@"INSERT INTO [contentlist] ([appid]) VALUES (@appid)", sqlite);
-                        query.Parameters.Add(new SQLiteParameter("appid", appID));
-                        sqlite.Open();
-                        query.ExecuteNonQuery();
-                    }
-
-                    sqlite.Close();
+                    _igaconnector.ChangeAppID(oaf.AppID);
                 }
-                SetReadonlyRestrictions(appID);
-                RefreshList();
+                SetReadonlyRestrictions(_igaconnector.AppSupported);
+                //RefreshList();
                 MessageBox.Show("The operation was completed.");
             }
         }
 
         private void executeSQLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SqlInjectorForm sif = new SqlInjectorForm(sqlite);
+            SqlInjectorForm sif = new SqlInjectorForm(_igaconnector.GetConnection());
             sif.ShowDialog();
             RefreshList();
         }

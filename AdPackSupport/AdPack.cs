@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using ICSharpCode.SharpZipLib.Zip;
+using au.id.micolous.libs.igacommon;
 
 namespace au.id.micolous.apps.igaeditor
 {
@@ -199,7 +200,7 @@ namespace au.id.micolous.apps.igaeditor
                     }
 
                     // handle the entry
-                    Files[entryitems["filename"]] = new AdPackEntry(entryitems["filename"], entryitems["title"], Int32.Parse(entryitems["contentType"]));
+                    Files[entryitems["filename"]] = new AdPackEntry(entryitems["filename"], entryitems["title"], new ContentType(UInt32.Parse(entryitems["contentType"])));
                 }
             }
         }

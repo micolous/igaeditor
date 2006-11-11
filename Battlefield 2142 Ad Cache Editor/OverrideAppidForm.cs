@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using au.id.micolous.libs.igacommon;
 
 namespace au.id.micolous.apps.igaeditor
 {

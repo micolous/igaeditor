@@ -7,7 +7,7 @@
     <ProjectGuid>{3777D98C-A94A-4DE2-BFA1-4D1332B97B74}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>au.id.micolous.apps.igaeditor</RootNamespace>
+    <RootNamespace>au.id.micolous.libs.igacommon</RootNamespace>
     <AssemblyName>IGACommon</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,11 +34,21 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.35.1, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdPackEntry.cs" />
     <Compile Include="AppInfo.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="ContentEntry.cs" />
+    <Compile Include="ContentType.cs" />
+    <Compile Include="DatabaseUpdateFailureException.cs" />
+    <Compile Include="ItemType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IGADatabaseConnector.cs" />
+    <Compile Include="DatabaseConnectionFailureException.cs" />
+    <Compile Include="UnsupportedImageSizeException.cs" />
+    <Compile Include="UnsupportedImageTypeException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="gpl.txt">
@@ -46,11 +56,4 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

@@ -9,12 +9,12 @@
             This class implements a form allowing you to import ads from a file.
             </summary>
         </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.#ctor(au.id.micolous.apps.igaeditor.AdPack,System.Collections.Generic.SortedList{System.Int32,System.Int32})">
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.#ctor(au.id.micolous.libs.igacommon.IGADatabaseConnector,au.id.micolous.apps.igaeditor.AdPack)">
             <summary>
             Creates a new AdParkImportForm
             </summary>
+            <param name="conn">An IGADatabaseConnector object.</param>
             <param name="ads">An AdPack instance to import</param>
-            <param name="ContentTypes">A list from MainForm containing a list of records and their ContentType.</param>
         </member>
         <member name="F:au.id.micolous.apps.igaeditor.AdPackImportForm.components">
             <summary>
@@ -60,13 +60,11 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.#ctor(System.Int32,System.Collections.Generic.SortedList{System.Int32,System.Int32})">
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.#ctor(au.id.micolous.libs.igacommon.IGADatabaseConnector)">
             <summary>
             Creates a new AdPackExportForm.
             </summary>
-            <param name="AppID">The AppID to create the adpack for.</param>
-            <param name="ContentTypes">A list of contentIds and their matching
-            ContentTypes from MainForm.</param>
+            <param name="conn">The connection to get images from.</param>
         </member>
         <member name="T:au.id.micolous.apps.igaeditor.AdPack">
             <summary>
@@ -103,64 +101,6 @@
             This deserializes an adpack from a file.
             </summary>
             <param name="s">The stream to read from.</param>
-        </member>
-        <member name="T:au.id.micolous.apps.igaeditor.AdPackEntry">
-            <summary>
-            AdPackEntry is a class that defines a single record to be loaded into,
-            or loaded from an adpack.  It isn't designed to hold records from
-            icontent.cache, as some of the data that is redundant isn't stored in
-            the file format.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackEntry.#ctor">
-            <summary>
-            Creates an empty AdPackEntry.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackEntry.#ctor(System.String,System.String,System.Int32)">
-            <summary>
-            Creates an AdPackEntry with no data block.
-            </summary>
-            <param name="filename">The filename to use.</param>
-            <param name="description">The description of the file.  This is called
-            the "title" parameter in filelist.dat.</param>
-            <param name="contentType">A IGA-style contentType code.</param>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackEntry.#ctor(System.String,System.String,System.Int32,System.Byte[])">
-            <summary>
-            Creates an AdPackEntry with a data block.
-            </summary>
-            <param name="filename">The filename to use.</param>
-            <param name="description">The description of the file.  This is called
-            the "title" parameter in filelist.dat.</param>
-            <param name="contentType">A IGA-style contentType code.</param>
-            <param name="ddsdata">The DDS image data (or BIK) to load into the file.</param>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackEntry.SetDDSData(System.Byte[])">
-            <summary>
-            Sets the DDS data block to be 'data'.
-            </summary>
-            <param name="data">The new contents of the data block to be inserted.</param>
-        </member>
-        <member name="P:au.id.micolous.apps.igaeditor.AdPackEntry.DDSData">
-            <summary>
-            Returns a copy of the DDS or BIK data stored in the data block.
-            </summary>
-        </member>
-        <member name="P:au.id.micolous.apps.igaeditor.AdPackEntry.FileName">
-            <summary>
-            The filename of the image to be used in the adpack file.
-            </summary>
-        </member>
-        <member name="P:au.id.micolous.apps.igaeditor.AdPackEntry.Description">
-            <summary>
-            The description of the file, aka, the "title".
-            </summary>
-        </member>
-        <member name="P:au.id.micolous.apps.igaeditor.AdPackEntry.ContentType">
-            <summary>
-            An IGA-style contentType number for the record.
-            </summary>
         </member>
     </members>
 </doc>

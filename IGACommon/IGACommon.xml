@@ -4,108 +4,472 @@
         <name>IGACommon</name>
     </assembly>
     <members>
-        <member name="T:au.id.micolous.apps.igaeditor.Common">
+        <member name="T:au.id.micolous.libs.igacommon.Common">
             <summary>
             This class contains common static functions used throughout the program.
             
             All readonly data should have a getter-only accessor.
             </summary>
         </member>
-        <member name="F:au.id.micolous.apps.igaeditor.Common.ads">
-            <summary>
-            A storage cache for the data contents of ads.
-            </summary>
-        </member>
-        <member name="F:au.id.micolous.apps.igaeditor.Common.cids">
-            <summary>
-            A storage cache for the ContentID values.  Also used to retrieve ads.
-            </summary>
-        </member>
-        <member name="F:au.id.micolous.apps.igaeditor.Common.sqlite">
+        <member name="M:au.id.micolous.libs.igacommon.Common.#cctor">
             <summary>
             A pointer to the <typeparamref name="SQLiteConnection"/> to be used in the program.
             </summary>
         </member>
-        <member name="M:au.id.micolous.apps.igaeditor.Common.doesAppStoreMinTimeAsSecond(System.Int32)">
-            <summary>
-            Calculates wether or not the minimum view time for an application is stored in seconds
-            or milliseconds.
-            </summary>
-            <returns>true if the application stores it's minimum view time in seconds.</returns>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.Common.ContentTypeToSize(System.Int32)">
+        <member name="M:au.id.micolous.libs.igacommon.Common.ContentTypeToSize(System.UInt32)">
             <summary>
             This converts a integer contentType into the image's size, stored as a Size.
             </summary>
             <param name="contentType">The integer containing the contentType to convert from.</param>
             <returns>A Size containing the reported size of the image.</returns>
         </member>
-        <member name="M:au.id.micolous.apps.igaeditor.Common.IsBIK(System.Byte[])">
+        <member name="M:au.id.micolous.libs.igacommon.Common.IsBIK(System.Byte[])">
             <summary>
             Determines wether the header of a file is BIK/BINK video.
             </summary>
             <param name="data">The data to examine.</param>
             <returns>True if it is BI(N)K video.</returns>
         </member>
-        <member name="M:au.id.micolous.apps.igaeditor.Common.GetImageData(System.Int32)">
-            <summary>
-            Get image data from the cache.
-            </summary>
-            <param name="contentId">The contentId to get the image data for.</param>
-            <returns>A byte array containing the raw image data.</returns>
-        </member>
-        <member name="P:au.id.micolous.apps.igaeditor.Common.ContentTypes">
+        <member name="P:au.id.micolous.libs.igacommon.Common.ContentTypes">
             <summary>
             A list of valid contentTypes that are supported by the program.  They all
             use the "image" (*1100) form, so you will need to minus 100 to get the
             video form.
             </summary>
         </member>
-        <member name="P:au.id.micolous.apps.igaeditor.Common.AppInfos">
+        <member name="P:au.id.micolous.libs.igacommon.Common.AppInfos">
             <summary>
             A list of <typeparamref name="AppInfo"/>, with a key of the appid.
             </summary>
         </member>
-        <member name="P:au.id.micolous.apps.igaeditor.Common.AppShortNames">
+        <member name="P:au.id.micolous.libs.igacommon.Common.AppShortNames">
             <summary>
             A list of appids, with a key sorted by the app's short name.
             </summary>
         </member>
-        <member name="P:au.id.micolous.apps.igaeditor.Common.DateTimeFormat">
+        <member name="P:au.id.micolous.libs.igacommon.Common.DateTimeFormat">
             <summary>
             The format of time to be used for a date + time combination, in short form.
             </summary>
         </member>
-        <member name="T:au.id.micolous.apps.igaeditor.AppInfo">
+        <member name="T:au.id.micolous.libs.igacommon.IGADatabaseConnector">
+            <summary>
+            Description of IGADatabaseConnector.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.#ctor(System.String)">
+            <summary>
+            Creates a new connection to the icontent.cache file.
+            </summary>
+            <param name="filename">The file to connect to.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.ChangeAppID(System.Int32)">
+            <summary>
+            This method changes the AppID of the active cache file.
+            </summary>
+            <param name="AppID">The new AppID of the program.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.GetAllEntries(System.Boolean)">
+            <summary>
+            Dumps all entries from the database into an array.
+            </summary>
+            <param name="IncludeImageData">Set this to true if you want to export
+            image/video data with it.  Setting this to true will increase
+            the amount of memory needed to dump.</param>
+            <returns>A SortedDictionary copy of the database.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.VaccumDatabase">
+            <summary>
+            Executes a "VACCUM" query on the database.  This frees unused
+            space that the database has allocated.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.GetConnection">
+            <summary>
+            Creates a copy of the internal SQLite connection object.
+            
+            This is only intended for use in debugging, NOT everyday operations.
+            </summary>
+            <returns>A copy of the SQLiteConnection that this instance of the class is
+            presently using.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.ImportImage(System.UInt32,System.Byte[])">
+            <summary>
+            Imports a single image into the database.
+            </summary>
+            <param name="contentId">The position to place the image.</param>
+            <param name="ddsimage">The image data.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.ExportImage(System.UInt32)">
+            <summary>
+            Exports a single image from the database.
+            </summary>
+            <param name="contentId">The contentId to export.</param>
+            <returns>A byte[] containing the raw image or video data.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.NewEntry(au.id.micolous.libs.igacommon.AdPackEntry)">
+            <summary>
+            Imports a new entry into the database from an adpack.
+            </summary>
+            <param name="ad">The AdPackEntry to import.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.NewEntry(au.id.micolous.libs.igacommon.ContentEntry)">
+            <summary>
+            Creates a new entry in the cache file.
+            </summary>
+            <param name="entry">The entry to create.</param>
+            <returns>The new entry's contentId.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.ImportImage(System.UInt32,au.id.micolous.libs.igacommon.AdPackEntry)">
+            <summary>
+            Overload that allows you to import an AdPackEntry over an existing item,
+            instead of reading raw image data.
+            </summary>
+            <param name="contentId">The contentId to overwrite.</param>
+            <param name="ad">The AdPackEntry with the data to insert.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.EditEntry(System.UInt32,au.id.micolous.libs.igacommon.ContentEntry,System.Boolean)">
+            <summary>
+            Updates the entry an the specified contentId.
+            </summary>
+            <param name="contentID">The contentId to update.</param>
+            <param name="entry">The new content of the row.</param>
+            <param name="UpdateData">Should the image/video data column be updated?</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.GetEntry(System.UInt32,System.Boolean)">
+            <summary>
+            Fetches the entry at the contentId specified, and returns a ContentEntry
+            that is the row.
+            </summary>
+            <param name="contentId">The contentId to fetch.</param>
+            <param name="IncludeImageData">Should image data be included?</param>
+            <returns>A ContentEntry that is the row.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.GetEntryFromReader(System.Data.SQLite.SQLiteDataReader,System.Boolean)">
+            <summary>
+            Internal function to read a row from a SQLiteDataReader to convert
+            it to a ContentEntry.
+            </summary>
+            <param name="reader">The SQLiteDataReader to get the information from.</param>
+            <param name="IncludeImageData">Should image data be included?</param>
+            <returns>A ContentEntry describing the row returned.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.DeleteEntry(System.UInt32)">
+            <summary>
+            Deletes a record from the database.
+            </summary>
+            <param name="contentId">The record's contentId to delete.</param>
+        </member>
+        <member name="P:au.id.micolous.libs.igacommon.IGADatabaseConnector.appInfo">
+            <summary>
+            The AppInfo for the current connection.  If AppSupported is false,
+            then this will be incorrect.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.libs.igacommon.IGADatabaseConnector.MinTimeStoredInSeconds">
+            <summary>
+            Returns true if the "MinTime" property is stored in seconds, rather
+            than milliseconds.  Some old versions of the IGA library do this.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.libs.igacommon.IGADatabaseConnector.AppSupported">
+            <summary>
+            This is set to true if the application is properly supported by the connector.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.libs.igacommon.IGADatabaseConnector.AppID">
+            <summary>
+            The application ID of the program, or '0' if there is none.
+            
+            If there is none, you will need to call ChangeAppID() before playing
+            around with the database.
+            
+            If you set this value, then it will NOT be committed to the database.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.igacommon.UnsupportedImageSizeException">
+            <summary>
+            Thrown when a contentType has an unsupported image size inputted.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.igacommon.AdPackEntry">
+            <summary>
+            AdPackEntry is a class that defines a single record to be loaded into,
+            or loaded from an adpack.  It isn't designed to hold records from
+            icontent.cache, as some of the data that is redundant isn't stored in
+            the file format.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPackEntry.#ctor">
+            <summary>
+            Creates an empty AdPackEntry.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPackEntry.#ctor(System.String,System.String,au.id.micolous.libs.igacommon.ContentType)">
+            <summary>
+            Creates an AdPackEntry with no data block.
+            </summary>
+            <param name="filename">The filename to use.</param>
+            <param name="description">The description of the file.  This is called
+            the "title" parameter in filelist.dat.</param>
+            <param name="contentType">A IGA-style contentType code.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPackEntry.#ctor(System.String,System.String,au.id.micolous.libs.igacommon.ContentType,System.Byte[])">
+            <summary>
+            Creates an AdPackEntry with a data block.
+            </summary>
+            <param name="filename">The filename to use.</param>
+            <param name="description">The description of the file.  This is called
+            the "title" parameter in filelist.dat.</param>
+            <param name="contentType">A contentType.</param>
+            <param name="ddsdata">The DDS image data (or BIK) to load into the file.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPackEntry.SetDDSData(System.Byte[])">
+            <summary>
+            Sets the DDS data block to be 'data'.
+            </summary>
+            <param name="data">The new contents of the data block to be inserted.</param>
+        </member>
+        <member name="P:au.id.micolous.libs.igacommon.AdPackEntry.DDSData">
+            <summary>
+            Returns a copy of the DDS or BIK data stored in the data block.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.libs.igacommon.AdPackEntry.FileName">
+            <summary>
+            The filename of the image to be used in the adpack file.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.libs.igacommon.AdPackEntry.Description">
+            <summary>
+            The description of the file, aka, the "title".
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.libs.igacommon.AdPackEntry.ContentType">
+            <summary>
+            An contentType for the record.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.igacommon.ItemType">
+            <summary>
+            This enum defines the different types of ads that are supported.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ItemType.BinkVideo">
+            <summary>
+            A Bink video file. (BIK)
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ItemType.DDSImage">
+            <summary>
+            A DDS image file.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.igacommon.DatabaseConnectionFailureException">
+            <summary>
+            Description of DatabaseConnectionFailureException.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.igacommon.DatabaseUpdateFailureException">
+            <summary>
+            Thrown when there was a problem trying to update the database.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.igacommon.ContentEntry">
+            <summary>
+            This is a single row of "content".
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.ContentID">
+            <summary>
+            The ad's contentId.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.Active">
+            <summary>
+            Wether or not the ad is presently active.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.Activate">
+            <summary>
+            When the ad becomes active.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.Expires">
+            <summary>
+            Wether or not the ad expires.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.Expiry">
+            <summary>
+            When the ad expires.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.DayParts">
+            <summary>
+            The times of the day and week that the ad is shown.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.contentType">
+            <summary>
+            The contentType of the ad.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.Descriptor">
+            <summary>
+            The "cellDescriptor" of the ad (unknown).
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.Size">
+            <summary>
+            The size of the file in the data block.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.ViewCount">
+            <summary>
+            The number of times that the ad has been viewed.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.ViewLimit">
+            <summary>
+            The number of times that the ad may be viewed before it expires.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.DisplayAfter">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.Properties">
+            <summary>
+            Some other properties are attached here.  And others are redundantly stored here.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.Data">
+            <summary>
+            The image or video file that is the ad.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentEntry.#ctor">
+            <summary>
+            Creates a new ContentEntry, with default values.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentEntry.Sync">
+            <summary>
+            This function syncs the main attributes of the class to the Properties list.
+            
+            You should call this after you've finished modifying attributes.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentEntry.GetPropsAsString">
+            <summary>
+            Get all the properties as a string for entering into the database.
+            </summary>
+            <returns>A string containing all the properties.</returns>
+        </member>
+        <member name="T:au.id.micolous.libs.igacommon.AppInfo">
             <summary>
             This class defines a simple application name.
             </summary>
         </member>
-        <member name="F:au.id.micolous.apps.igaeditor.AppInfo.AppName">
+        <member name="F:au.id.micolous.libs.igacommon.AppInfo.AppName">
             <summary>
             The application's full name.  eg: "Battlefield 2142".
             </summary>
         </member>
-        <member name="F:au.id.micolous.apps.igaeditor.AppInfo.AppNameShort">
+        <member name="F:au.id.micolous.libs.igacommon.AppInfo.AppNameShort">
             <summary>
             The application's "short" name, used in metainfo.dat in adpack files.
             This should be in all lower case, and unique.
             eg: "bf2142".
             </summary>
         </member>
-        <member name="F:au.id.micolous.apps.igaeditor.AppInfo.AppID">
+        <member name="F:au.id.micolous.libs.igacommon.AppInfo.AppID">
             <summary>
             The appid for the program.  This is determined by the IGA library.
             eg: 52  (for BF2142).
             </summary>
         </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AppInfo.#ctor(System.String,System.String,System.Int32)">
+        <member name="M:au.id.micolous.libs.igacommon.AppInfo.#ctor(System.String,System.String,System.Int32)">
             <summary>
             Creates a new AppInfo.
             </summary>
             <param name="AppName">The application's name.</param>
             <param name="AppNameShort">The application's short name.  This should be in all lower case.</param>
             <param name="AppID">The application's ID, as determined by the IGA library.</param>
+        </member>
+        <member name="T:au.id.micolous.libs.igacommon.ContentType">
+            <summary>
+            Represents a contentType value.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.#ctor">
+            <summary>
+            No-args constructor that defines a DDS image, 128x256.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.#ctor(System.UInt32)">
+            <summary>
+            Create a new contentType, based on it's integral representation.
+            </summary>
+            <param name="ContentType">The contentType of the image.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.#ctor(System.Drawing.Size,au.id.micolous.libs.igacommon.ItemType)">
+            <summary>
+            Create a new ContentType, based on size parameters.
+            </summary>
+            <param name="dimensions">The dimensions of the image.</param>
+            <param name="type">The type of image/video.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.GetSize">
+            <summary>
+            Get the size of the image.
+            </summary>
+            <returns>A Size, describing the size of the image.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.GetItemType">
+            <summary>
+            Gets the type of data that this contentType describes.
+            </summary>
+            <returns>An ItemType showing what type of data is stored.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.SetItemType(au.id.micolous.libs.igacommon.ItemType)">
+            <summary>
+            Changes the item type set.
+            </summary>
+            <param name="type">The item's new type.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.Equals(System.Object)">
+            <summary>
+            Compares an object to the current ContentType instance.
+            </summary>
+            <param name="obj">The object to compare.</param>
+            <returns>true if they are equal.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.Equals(au.id.micolous.libs.igacommon.ContentType)">
+            <summary>
+            Compares another ContentType instance to this one.
+            </summary>
+            <param name="obj">The ContentType to compare.</param>
+            <returns>true if they are equal.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.GetHashCode">
+            <summary>
+            todo: Document.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.ContentType.ToString">
+            <summary>
+            Gives the textual representation of the contentType, as a number.
+            </summary>
+            <returns>A string containing the contentType number.</returns>
+        </member>
+        <member name="P:au.id.micolous.libs.igacommon.ContentType.contentType">
+            <summary>
+            The numeric representation of the contentType stored.
+            </summary>
         </member>
     </members>
 </doc>

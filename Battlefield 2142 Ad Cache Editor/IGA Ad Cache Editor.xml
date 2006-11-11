@@ -77,11 +77,6 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdEditorForm.PopulateCreator">
-            <summary>
-            Sets the form in a mode for creating a new ad.
-            </summary>
-        </member>
         <member name="M:au.id.micolous.apps.igaeditor.AdEditorForm.FinishUpForSaving">
             <summary>
             Clean up everything back into variables so we can take

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace au.id.micolous.apps.igaeditor
+namespace au.id.micolous.libs.igacommon
 {
     /// <summary>
     /// AdPackEntry is a class that defines a single record to be loaded into,
@@ -27,11 +27,11 @@ namespace au.id.micolous.apps.igaeditor
         /// The description of the file, aka, the "title".
         /// </summary>
         public String Description { get { return _description; } set { _description = value; } }
-        private int _contentType;
+        private ContentType _contentType;
         /// <summary>
-        /// An IGA-style contentType number for the record.
+        /// An contentType for the record.
         /// </summary>
-        public int ContentType { get { return _contentType; } }
+        public ContentType ContentType { get { return _contentType; } }
 
         /// <summary>
         /// Creates an empty AdPackEntry.
@@ -48,7 +48,7 @@ namespace au.id.micolous.apps.igaeditor
         /// <param name="description">The description of the file.  This is called
         /// the "title" parameter in filelist.dat.</param>
         /// <param name="contentType">A IGA-style contentType code.</param>
-        public AdPackEntry(String filename, String description, int contentType)
+        public AdPackEntry(String filename, String description, ContentType contentType)
             :
             this(filename, description, contentType, null)
         {
@@ -60,9 +60,9 @@ namespace au.id.micolous.apps.igaeditor
         /// <param name="filename">The filename to use.</param>
         /// <param name="description">The description of the file.  This is called
         /// the "title" parameter in filelist.dat.</param>
-        /// <param name="contentType">A IGA-style contentType code.</param>
+        /// <param name="contentType">A contentType.</param>
         /// <param name="ddsdata">The DDS image data (or BIK) to load into the file.</param>
-        public AdPackEntry(String filename, String description, int contentType, byte[] ddsdata)
+        public AdPackEntry(String filename, String description, ContentType contentType, byte[] ddsdata)
         {
             this._contentType = contentType;
             this._ddsdata = ddsdata;

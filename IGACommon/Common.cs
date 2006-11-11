@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data.SQLite;
 using System.Globalization;
 
-namespace au.id.micolous.apps.igaeditor
+namespace au.id.micolous.libs.igacommon
 {
     /// <summary>
     /// This class contains common static functions used throughout the program.
@@ -20,7 +20,7 @@ namespace au.id.micolous.apps.igaeditor
         private static String dateTimeFormat = DateTimeFormatInfo.CurrentInfo.ShortDatePattern + " " + DateTimeFormatInfo.CurrentInfo.LongTimePattern;
         private static int[] contentTypes =
             { 2021100, 2041100, 2081100, 2101100, 3021100, 3041100, 4111100 };
-
+        /*
         /// <summary>
         /// A storage cache for the data contents of ads.
         /// </summary>
@@ -29,6 +29,7 @@ namespace au.id.micolous.apps.igaeditor
         /// A storage cache for the ContentID values.  Also used to retrieve ads.
         /// </summary>
         public static List<int> cids;
+        */
 
         /// <summary>
         /// A list of valid contentTypes that are supported by the program.  They all
@@ -55,7 +56,7 @@ namespace au.id.micolous.apps.igaeditor
         /// <summary>
         /// A pointer to the <typeparamref name="SQLiteConnection"/> to be used in the program.
         /// </summary>
-        public static SQLiteConnection sqlite;
+        //public static SQLiteConnection sqlite;
 
 
         static Common()
@@ -77,30 +78,11 @@ namespace au.id.micolous.apps.igaeditor
         }
 
         /// <summary>
-        /// Calculates wether or not the minimum view time for an application is stored in seconds
-        /// or milliseconds.
-        /// </summary>
-        /// <returns>true if the application stores it's minimum view time in seconds.</returns>
-        public static bool doesAppStoreMinTimeAsSecond(int AppID)
-        {
-            // TODO: confirm when appid first started using milliseconds in newer apps
-            // at the moment set to trackmania nations (27).
-            if (AppID <= 27)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
         /// This converts a integer contentType into the image's size, stored as a Size.
         /// </summary>
         /// <param name="contentType">The integer containing the contentType to convert from.</param>
         /// <returns>A Size containing the reported size of the image.</returns>
-        public static Size ContentTypeToSize(int contentType)
+        public static Size ContentTypeToSize(uint contentType)
         {
             int ImageSizeX = 0, ImageSizeY = 0;
             switch (contentType / 10000)
@@ -133,6 +115,8 @@ namespace au.id.micolous.apps.igaeditor
                     ImageSizeX = 512;
                     ImageSizeY = 64;
                     break;
+                default:
+                    throw new UnsupportedImageSizeException();
             }
 
             return new Size(ImageSizeX, ImageSizeY);
@@ -154,7 +138,7 @@ namespace au.id.micolous.apps.igaeditor
                 return false;
             }
         }
-
+        /*
         /// <summary>
         /// Get image data from the cache.
         /// </summary>
@@ -164,7 +148,7 @@ namespace au.id.micolous.apps.igaeditor
         {
             int adIndex = cids.IndexOf(contentId);
             return ads[adIndex];
-        }
+        }*/
 
     }
 }

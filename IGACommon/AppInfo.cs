@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace au.id.micolous.apps.igaeditor
+namespace au.id.micolous.libs.igacommon
 {
     /// <summary>
     /// This class defines a simple application name.

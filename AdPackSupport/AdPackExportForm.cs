@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-
+using au.id.micolous.libs.igacommon;
 
 namespace au.id.micolous.apps.igaeditor
 {
@@ -15,31 +15,37 @@ namespace au.id.micolous.apps.igaeditor
     /// </summary>
     public partial class AdPackExportForm : Form
     {
-        private SortedList<int, AdPackEntry> ads = new SortedList<int, AdPackEntry>(100);
-        private List<int> adcontentids = new List<int>(100);
+        private SortedList<uint, AdPackEntry> ads = new SortedList<uint, AdPackEntry>(100);
+        private List<uint> adcontentids = new List<uint>(100);
         private int AppID;
-        private SortedList<int, int> ContentTypes;
+        private SortedList<uint, ContentType> ContentTypes = new SortedList<uint,ContentType>();
+        private IGADatabaseConnector conn;
 
         /// <summary>
         /// Creates a new AdPackExportForm.
         /// </summary>
-        /// <param name="AppID">The AppID to create the adpack for.</param>
-        /// <param name="ContentTypes">A list of contentIds and their matching
-        /// ContentTypes from MainForm.</param>
-        public AdPackExportForm(int AppID, SortedList<int, int> ContentTypes)
+        /// <param name="conn">The connection to get images from.</param>
+        public AdPackExportForm(IGADatabaseConnector conn)
         {
-            this.AppID = AppID;
-            this.ContentTypes = ContentTypes;
+            this.AppID = conn.AppID;
+
+            foreach (KeyValuePair<uint, ContentEntry> item in conn.GetAllEntries(false))
+            {
+                ContentTypes.Add(item.Key, item.Value.contentType);
+            }
+
+            //this.ContentTypes = null;
+            this.conn = conn;
             InitializeComponent();
         }
 
         private void AdPackExportForm_Load(object sender, EventArgs e)
         {
-            foreach (KeyValuePair<int, int> kvpctype in ContentTypes)
+            foreach (KeyValuePair<uint, ContentType> kvpctype in ContentTypes)
             {
                 adcontentids.Add(kvpctype.Key);
                 String extension = ".dds";
-                if (kvpctype.Value % 10000 == 1000)
+                if (kvpctype.Value.GetItemType() == ItemType.BinkVideo)
                 {
                     extension = ".bik";
                 }
@@ -51,7 +57,7 @@ namespace au.id.micolous.apps.igaeditor
         private void RedrawControls()
         {
             SelectedAdsCheckListBox.Items.Clear();
-            foreach (KeyValuePair<int, AdPackEntry> ad in ads) {
+            foreach (KeyValuePair<uint, AdPackEntry> ad in ads) {
                 SelectedAdsCheckListBox.Items.Add(ad.Key.ToString());
             }
         }
@@ -135,25 +141,25 @@ namespace au.id.micolous.apps.igaeditor
 
                 // there are items
                 AdPack adpack = new AdPack(AppID);
-                for (int x = 0; x < SelectedAdsCheckListBox.CheckedItems.Count; x++)
+                for (uint x = 0; x < SelectedAdsCheckListBox.CheckedItems.Count; x++)
                 {
                     // iterate through selected items...
-                    int index = SelectedAdsCheckListBox.Items.IndexOf(SelectedAdsCheckListBox.CheckedItems[x]);
+                    uint index = (uint)SelectedAdsCheckListBox.Items.IndexOf(SelectedAdsCheckListBox.CheckedItems[(int)x]);
                     
                     // grab data of image
-                    byte[] ImageData = Common.GetImageData(adcontentids[index]);
+                    byte[] ImageData = (conn.ExportImage(adcontentids[(int)index]));
                     if (ImageData.Length > 0)
                     {
 
                         // insert into system
-                        AdPackEntry ape = ads[adcontentids[index]];
+                        AdPackEntry ape = ads[adcontentids[(int)index]];
                         ape.SetDDSData(ImageData);
 
                         adpack.Files.Add(ape.FileName, ape);
                     }
                     else
                     {
-                        MessageBox.Show("Image #" + adcontentids[index].ToString() + " (" + ads[index].FileName + ") cannot be exported as it has no data.");
+                        MessageBox.Show("Image #" + adcontentids[(int)index].ToString() + " (" + ads[index].FileName + ") cannot be exported as it has no data.");
                     }
                 }
                 adpack.Metadata["author"] = AuthorTextBox.Text.Trim();

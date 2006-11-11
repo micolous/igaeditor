@@ -4,23 +4,5 @@
         <name>DDSReader</name>
     </assembly>
     <members>
-        <member name="T:au.id.micolous.libs.DDSReader.DDSReader">
-            <summary>
-            This is the main class of the library.  All static methods are contained within.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.libs.DDSReader.DDSReader.LoadImage(System.Byte[])">
-            <summary>
-            Loads an image file with DevIL.NET, and returns a Bitmap object of the image.
-            </summary>
-            <param name="data">The image data.</param>
-            <returns>The Bitmap representation of the image.</returns>
-        </member>
-        <member name="M:au.id.micolous.libs.DDSReader.DDSReader.Ping">
-            <summary>
-            "Pings" the library.
-            </summary>
-            <returns>Always returns true.</returns>
-        </member>
     </members>
 </doc>

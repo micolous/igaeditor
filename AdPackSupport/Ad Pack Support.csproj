@@ -36,14 +36,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.35.1, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdPack.cs" />
-    <Compile Include="AdPackCommon.cs" />
-    <Compile Include="AdPackEntry.cs" />
     <Compile Include="AdPackExportForm.cs">
       <SubType>Form</SubType>
     </Compile>

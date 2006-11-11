@@ -519,9 +519,9 @@ namespace au.id.micolous.apps.igaeditor
             // 
             // previewImageContext
             // 
-            this.previewImageContext.Enabled = false;
             this.previewImageContext.Index = 3;
             this.previewImageContext.Text = "Preview Image";
+            this.previewImageContext.Click += new System.EventHandler(this.PreviewImageButton_Click);
             // 
             // importImageContext
             // 
