@@ -117,6 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MessageTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="MessageTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MessageTextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="MessageTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="MessageTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>530, 294</value>
+  </data>
+  <data name="MessageTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="MessageTextBox.Text" xml:space="preserve">
     <value>This cache file was created for an unsupported application.  You SHOULD NOT try to change any data in this file.  Only use the "Export" function for now, otherwise you will risk damaging the database.
 
@@ -128,25 +149,23 @@ If you are definitely running the latest version, then please email micolous -at
 I got an unknown AppID error.  Cache editor = $VER$; AppID = $AppID$.
 === STOP COPYING HERE ===
 
-And include a short message explaining the following:
+And include a short message, in English, explaining the following:
 
  - The name of the game who's ad cache you're trying to edit.
- - The version of the game.
+ - The version of the game, including what localisation your version of the game uses (eg: language and country).
  - The location of the file on your hard disk, by default (eg: C:\Program Files\SomeGame\icontent.cache)
 
 micolous may request that you email a copy of your icontent.cache file to him.  You should prepare for this by doing the following:
 
  1: Create a copy of your icontent.cache file somewhere else.
- 2: Install SQLiteSpy from http://www.zeitungsjunge.de/delphi/sqlitespy/index.htm
- 3: Open the copy of the icontent.cache file with SQLiteSpy.  You may need to select the "All Files" filter option in the open dialogue.
- 4: From the "Execute" menu, select "Vacuum Database".
- 5: Close SQLiteSpy.
- 6: Compress the file into a normal ZIP archive, using maximum compression settings.  DO NOT USE RAR OR ANY OTHER FORMAT, OR I WILL NOT BE ABLE TO OPEN IT.
+ 2: Re-open the copy of the cache file with this program.
+ 3: From the Application menu, select Vaccum/Shrink Database.
+ 4: Compress the file into a normal ZIP archive, using maximum compression settings.  Please DO NOT use RAR or any other format, or I will be unable to open the file.
 
-If you are requested for a copy of your cache file, you should send the ZIP archive created.  Please do not send this archive unless it is requested.  
+If you are requested for a copy of your cache file, you should send the ZIP archive created.  Please do not send this archive unless it is requested, and please make sure that it is compressed.
 
 The cache file does not contain any personally identifiable information, other than:
- - Your age.
+ - Your (approximate) age.
  - Your gender.
  - Your country.
  - All ad images currently in use in the game.
@@ -158,5 +177,35 @@ You should copy and paste all of this text to a text file, as a backup of this m
 
 Thankyou in advance for helping to make this program better.
 --micolous</value>
+  </data>
+  <data name="&gt;&gt;MessageTextBox.Name" xml:space="preserve">
+    <value>MessageTextBox</value>
+  </data>
+  <data name="&gt;&gt;MessageTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MessageTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MessageTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>530, 294</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Warning!</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>UnsupportedApplicationForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

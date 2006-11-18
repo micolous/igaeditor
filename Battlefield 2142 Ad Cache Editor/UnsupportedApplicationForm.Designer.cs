@@ -34,28 +34,20 @@ namespace au.id.micolous.apps.igaeditor
             // 
             // MessageTextBox
             // 
-            this.MessageTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MessageTextBox.Location = new System.Drawing.Point(0, 0);
-            this.MessageTextBox.Multiline = true;
+            resources.ApplyResources(this.MessageTextBox, "MessageTextBox");
             this.MessageTextBox.Name = "MessageTextBox";
             this.MessageTextBox.ReadOnly = true;
-            this.MessageTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.MessageTextBox.Size = new System.Drawing.Size(530, 294);
-            this.MessageTextBox.TabIndex = 0;
-            this.MessageTextBox.Text = resources.GetString("MessageTextBox.Text");
             // 
             // UnsupportedApplicationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 294);
             this.Controls.Add(this.MessageTextBox);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UnsupportedApplicationForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Warning!";
             this.Load += new System.EventHandler(this.UnsupportedApplicationForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

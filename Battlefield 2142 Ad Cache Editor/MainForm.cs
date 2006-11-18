@@ -141,7 +141,7 @@ namespace au.id.micolous.apps.igaeditor
                 ImportImageButton.Enabled = false;
                 importAdpackFilebfadsToolStripMenuItem.Enabled = false;
                 exportAdpackFilebfadsToolStripMenuItem.Enabled = false;
-                vacuumDatabaseToolStripMenuItem.Enabled = false;
+                vacuumDatabaseToolStripMenuItem.Enabled = true; //false;
             }
         }
 
@@ -276,6 +276,9 @@ namespace au.id.micolous.apps.igaeditor
                     try
                     {
                         FileStream fs = new FileStream(LoadDDSDialogue.FileName, FileMode.Open, FileAccess.Read);
+                        if (ddsimage == null) {
+                            ddsimage = new byte[0];
+                        }
                         if (ddsimage.Length > 0 && fs.Length != ddsimage.Length && !LoadDDSDialogue.FileName.EndsWith("bik", StringComparison.InvariantCultureIgnoreCase))
                         {
                             if (MessageBox.Show("File size doesn't match old image!  Image sizes must be the same!\r\n\r\nNon-matching images sizes can result in data corruption, and the game crashing!  Ensure you are using a 24-bit (RGB) image, you have generated mipmaps, and are using DXT1 compression.\r\n\r\nDo you want to continue?", "Import Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
@@ -381,9 +384,9 @@ namespace au.id.micolous.apps.igaeditor
             if (aef.Success)
             {
                 // success!
-                _igaconnector.NewEntry(aef.Entry);
+                uint newcid = _igaconnector.NewEntry(aef.Entry);
 
-                MessageBox.Show("Record added successfully.  You should now import a DDS image for the ad.\r\n\r\nThe new record's contentId is " + aef.Entry.ContentID.ToString() + ".", "Ad Cache Editor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Record added successfully.  You should now import a DDS image for the ad.\r\n\r\nThe new record's contentId is " + newcid.ToString() + ".", "Ad Cache Editor", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 RefreshList();
             }

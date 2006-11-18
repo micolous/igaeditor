@@ -105,7 +105,7 @@
             Exports a single image from the database.
             </summary>
             <param name="contentId">The contentId to export.</param>
-            <returns>A byte[] containing the raw image or video data.</returns>
+            <returns>A byte[] containing the raw image or video data, or null if there was an error or there is no data.</returns>
         </member>
         <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.NewEntry(au.id.micolous.libs.igacommon.AdPackEntry)">
             <summary>

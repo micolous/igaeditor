@@ -95,8 +95,7 @@ namespace au.id.micolous.apps.igaeditor
             // 
             // OpenDatabaseDialogue
             // 
-            this.OpenDatabaseDialogue.Filter = "IContent.cache|icontent.cache|Cache files|*.cache|All files|*.*";
-            this.OpenDatabaseDialogue.Title = "Please locate your icontent.cache file, in your My Documents folder.";
+            resources.ApplyResources(this.OpenDatabaseDialogue, "OpenDatabaseDialogue");
             // 
             // EditingGroup
             // 
@@ -107,91 +106,60 @@ namespace au.id.micolous.apps.igaeditor
             this.EditingGroup.Controls.Add(this.ImportImageButton);
             this.EditingGroup.Controls.Add(this.SaveAdImageButton);
             this.EditingGroup.Controls.Add(this.CacheEntryList);
-            this.EditingGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EditingGroup.Location = new System.Drawing.Point(0, 24);
+            resources.ApplyResources(this.EditingGroup, "EditingGroup");
             this.EditingGroup.Name = "EditingGroup";
-            this.EditingGroup.Size = new System.Drawing.Size(655, 299);
-            this.EditingGroup.TabIndex = 0;
             this.EditingGroup.TabStop = false;
-            this.EditingGroup.Text = "Ad Cache Entries";
-            this.EditingGroup.Visible = false;
             // 
             // PreviewImageButton
             // 
-            this.PreviewImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PreviewImageButton.Location = new System.Drawing.Point(368, 274);
+            resources.ApplyResources(this.PreviewImageButton, "PreviewImageButton");
             this.PreviewImageButton.Name = "PreviewImageButton";
-            this.PreviewImageButton.Size = new System.Drawing.Size(75, 20);
-            this.PreviewImageButton.TabIndex = 6;
-            this.PreviewImageButton.Text = "Preview Image";
             this.PreviewImageButton.UseVisualStyleBackColor = true;
             this.PreviewImageButton.Click += new System.EventHandler(this.PreviewImageButton_Click);
             // 
             // AddRecordButton
             // 
-            this.AddRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.AddRecordButton.Location = new System.Drawing.Point(7, 274);
+            resources.ApplyResources(this.AddRecordButton, "AddRecordButton");
             this.AddRecordButton.Name = "AddRecordButton";
-            this.AddRecordButton.Size = new System.Drawing.Size(89, 20);
-            this.AddRecordButton.TabIndex = 5;
-            this.AddRecordButton.Text = "Add Record";
-            this.HintToolTip.SetToolTip(this.AddRecordButton, "Creates a new advertisement.");
+            this.HintToolTip.SetToolTip(this.AddRecordButton, resources.GetString("AddRecordButton.ToolTip"));
             this.AddRecordButton.UseVisualStyleBackColor = true;
             this.AddRecordButton.Click += new System.EventHandler(this.AddRecordButton_Click);
             // 
             // DeleteRecordButton
             // 
-            this.DeleteRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.DeleteRecordButton.Location = new System.Drawing.Point(103, 274);
+            resources.ApplyResources(this.DeleteRecordButton, "DeleteRecordButton");
             this.DeleteRecordButton.Name = "DeleteRecordButton";
-            this.DeleteRecordButton.Size = new System.Drawing.Size(89, 20);
-            this.DeleteRecordButton.TabIndex = 4;
-            this.DeleteRecordButton.Text = "Delete Record";
-            this.HintToolTip.SetToolTip(this.DeleteRecordButton, "Deletes an advertisment.");
+            this.HintToolTip.SetToolTip(this.DeleteRecordButton, resources.GetString("DeleteRecordButton.ToolTip"));
             this.DeleteRecordButton.UseVisualStyleBackColor = true;
             this.DeleteRecordButton.Click += new System.EventHandler(this.DeleteRecordButton_Click);
             // 
             // EditRecordButton
             // 
-            this.EditRecordButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.EditRecordButton.Location = new System.Drawing.Point(199, 274);
+            resources.ApplyResources(this.EditRecordButton, "EditRecordButton");
             this.EditRecordButton.Name = "EditRecordButton";
-            this.EditRecordButton.Size = new System.Drawing.Size(89, 20);
-            this.EditRecordButton.TabIndex = 3;
-            this.EditRecordButton.Text = "Edit Record";
-            this.HintToolTip.SetToolTip(this.EditRecordButton, "Edits an existing advertisement.");
+            this.HintToolTip.SetToolTip(this.EditRecordButton, resources.GetString("EditRecordButton.ToolTip"));
             this.EditRecordButton.UseVisualStyleBackColor = true;
             this.EditRecordButton.Click += new System.EventHandler(this.EditRecordButton_Click);
             // 
             // ImportImageButton
             // 
-            this.ImportImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ImportImageButton.Location = new System.Drawing.Point(448, 274);
+            resources.ApplyResources(this.ImportImageButton, "ImportImageButton");
             this.ImportImageButton.Name = "ImportImageButton";
-            this.ImportImageButton.Size = new System.Drawing.Size(94, 20);
-            this.ImportImageButton.TabIndex = 2;
-            this.ImportImageButton.Text = "Import Image";
-            this.HintToolTip.SetToolTip(this.ImportImageButton, "Imports an image or video into the record.");
+            this.HintToolTip.SetToolTip(this.ImportImageButton, resources.GetString("ImportImageButton.ToolTip"));
             this.ImportImageButton.UseVisualStyleBackColor = true;
             this.ImportImageButton.Click += new System.EventHandler(this.ImportImageButton_Click);
             // 
             // SaveAdImageButton
             // 
-            this.SaveAdImageButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveAdImageButton.Location = new System.Drawing.Point(552, 274);
+            resources.ApplyResources(this.SaveAdImageButton, "SaveAdImageButton");
             this.SaveAdImageButton.Name = "SaveAdImageButton";
-            this.SaveAdImageButton.Size = new System.Drawing.Size(96, 20);
-            this.SaveAdImageButton.TabIndex = 1;
-            this.SaveAdImageButton.Text = "Export Image";
-            this.HintToolTip.SetToolTip(this.SaveAdImageButton, "Exports an image or video from a record.");
+            this.HintToolTip.SetToolTip(this.SaveAdImageButton, resources.GetString("SaveAdImageButton.ToolTip"));
             this.SaveAdImageButton.UseVisualStyleBackColor = true;
             this.SaveAdImageButton.Click += new System.EventHandler(this.SaveAdImageButton_Click);
             // 
             // CacheEntryList
             // 
-            this.CacheEntryList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.CacheEntryList, "CacheEntryList");
             this.CacheEntryList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.contentId,
             this.active,
@@ -202,11 +170,8 @@ namespace au.id.micolous.apps.igaeditor
             this.isVideo,
             this.viewCount});
             this.CacheEntryList.HideSelection = false;
-            this.CacheEntryList.Location = new System.Drawing.Point(7, 14);
             this.CacheEntryList.MultiSelect = false;
             this.CacheEntryList.Name = "CacheEntryList";
-            this.CacheEntryList.Size = new System.Drawing.Size(646, 258);
-            this.CacheEntryList.TabIndex = 0;
             this.CacheEntryList.UseCompatibleStateImageBehavior = false;
             this.CacheEntryList.View = System.Windows.Forms.View.Details;
             this.CacheEntryList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CacheEntryList_MouseClick);
@@ -214,40 +179,35 @@ namespace au.id.micolous.apps.igaeditor
             // 
             // contentId
             // 
-            this.contentId.Text = "ID";
+            resources.ApplyResources(this.contentId, "contentId");
             // 
             // active
             // 
-            this.active.Text = "Active?";
-            this.active.Width = 59;
+            resources.ApplyResources(this.active, "active");
             // 
             // activate
             // 
-            this.activate.Text = "Active From";
-            this.activate.Width = 130;
+            resources.ApplyResources(this.activate, "activate");
             // 
             // expire
             // 
-            this.expire.Text = "Expiry";
-            this.expire.Width = 130;
+            resources.ApplyResources(this.expire, "expire");
             // 
             // dayparts
             // 
-            this.dayparts.Text = "Shown";
-            this.dayparts.Width = 90;
+            resources.ApplyResources(this.dayparts, "dayparts");
             // 
             // imageSize
             // 
-            this.imageSize.Text = "Size";
+            resources.ApplyResources(this.imageSize, "imageSize");
             // 
             // isVideo
             // 
-            this.isVideo.Text = "Type";
-            this.isVideo.Width = 50;
+            resources.ApplyResources(this.isVideo, "isVideo");
             // 
             // viewCount
             // 
-            this.viewCount.Text = "Views";
+            resources.ApplyResources(this.viewCount, "viewCount");
             // 
             // menuStrip1
             // 
@@ -255,11 +215,8 @@ namespace au.id.micolous.apps.igaeditor
             this.databaseToolStripMenuItem,
             this.debugToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(655, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // databaseToolStripMenuItem
             // 
@@ -273,70 +230,52 @@ namespace au.id.micolous.apps.igaeditor
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.databaseToolStripMenuItem.Text = "Application";
+            resources.ApplyResources(this.databaseToolStripMenuItem, "databaseToolStripMenuItem");
             // 
             // importAdpackFilebfadsToolStripMenuItem
             // 
-            this.importAdpackFilebfadsToolStripMenuItem.Enabled = false;
+            resources.ApplyResources(this.importAdpackFilebfadsToolStripMenuItem, "importAdpackFilebfadsToolStripMenuItem");
             this.importAdpackFilebfadsToolStripMenuItem.Name = "importAdpackFilebfadsToolStripMenuItem";
-            this.importAdpackFilebfadsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.importAdpackFilebfadsToolStripMenuItem.Text = "Import Adpack File";
-            this.importAdpackFilebfadsToolStripMenuItem.ToolTipText = "Imports a group of ads from an adpack file.";
             this.importAdpackFilebfadsToolStripMenuItem.Click += new System.EventHandler(this.importAdpackFilebfadsToolStripMenuItem_Click);
             // 
             // exportAdpackFilebfadsToolStripMenuItem
             // 
-            this.exportAdpackFilebfadsToolStripMenuItem.Enabled = false;
+            resources.ApplyResources(this.exportAdpackFilebfadsToolStripMenuItem, "exportAdpackFilebfadsToolStripMenuItem");
             this.exportAdpackFilebfadsToolStripMenuItem.Name = "exportAdpackFilebfadsToolStripMenuItem";
-            this.exportAdpackFilebfadsToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.exportAdpackFilebfadsToolStripMenuItem.Text = "Export Adpack File";
-            this.exportAdpackFilebfadsToolStripMenuItem.ToolTipText = "Exports advertisements from your ad cache to an adpack file.";
             this.exportAdpackFilebfadsToolStripMenuItem.Click += new System.EventHandler(this.exportAdpackFilebfadsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // refreshToolStripMenuItem
             // 
-            this.refreshToolStripMenuItem.Enabled = false;
+            resources.ApplyResources(this.refreshToolStripMenuItem, "refreshToolStripMenuItem");
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.ToolTipText = "Reload all data from the database, updating the export cache.";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshDatabaseMenuItem_Click);
             // 
             // vacuumDatabaseToolStripMenuItem
             // 
-            this.vacuumDatabaseToolStripMenuItem.Enabled = false;
+            resources.ApplyResources(this.vacuumDatabaseToolStripMenuItem, "vacuumDatabaseToolStripMenuItem");
             this.vacuumDatabaseToolStripMenuItem.Name = "vacuumDatabaseToolStripMenuItem";
-            this.vacuumDatabaseToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.vacuumDatabaseToolStripMenuItem.Text = "Vacuum/Shrink Database";
-            this.vacuumDatabaseToolStripMenuItem.ToolTipText = "\"Vacuum\" the database so that it uses less room.";
             this.vacuumDatabaseToolStripMenuItem.Click += new System.EventHandler(this.vacuumDatabaseToolStripMenuItem_Click);
             // 
             // closeDatabaseToolStripMenuItem
             // 
-            this.closeDatabaseToolStripMenuItem.Enabled = false;
+            resources.ApplyResources(this.closeDatabaseToolStripMenuItem, "closeDatabaseToolStripMenuItem");
             this.closeDatabaseToolStripMenuItem.Name = "closeDatabaseToolStripMenuItem";
-            this.closeDatabaseToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.closeDatabaseToolStripMenuItem.Text = "Close Database";
-            this.closeDatabaseToolStripMenuItem.ToolTipText = "Close the database so that you can open another.";
             this.closeDatabaseToolStripMenuItem.Click += new System.EventHandler(this.closeDatabaseToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(190, 6);
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.ToolTipText = "Exits this program, closing the database.";
+            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // debugToolStripMenuItem
@@ -346,36 +285,29 @@ namespace au.id.micolous.apps.igaeditor
             this.toolStripSeparator3,
             this.changeAppIDOfCacheToolStripMenuItem,
             this.executeSQLToolStripMenuItem});
-            this.debugToolStripMenuItem.Enabled = false;
+            resources.ApplyResources(this.debugToolStripMenuItem, "debugToolStripMenuItem");
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.debugToolStripMenuItem.Text = "Debug";
             // 
             // wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem
             // 
-            this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Enabled = false;
-            this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            resources.ApplyResources(this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem, "wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem");
             this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Name = "wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem";
-            this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
-            this.wARNINGThisIsForAdvancedUsersAndDevelopersOnlyToolStripMenuItem.Text = "WARNING: This is for advanced users and developers only.";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(397, 6);
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // changeAppIDOfCacheToolStripMenuItem
             // 
             this.changeAppIDOfCacheToolStripMenuItem.Name = "changeAppIDOfCacheToolStripMenuItem";
-            this.changeAppIDOfCacheToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
-            this.changeAppIDOfCacheToolStripMenuItem.Text = "Change AppID of cache";
+            resources.ApplyResources(this.changeAppIDOfCacheToolStripMenuItem, "changeAppIDOfCacheToolStripMenuItem");
             this.changeAppIDOfCacheToolStripMenuItem.Click += new System.EventHandler(this.changeAppIDOfCacheToolStripMenuItem_Click);
             // 
             // executeSQLToolStripMenuItem
             // 
             this.executeSQLToolStripMenuItem.Name = "executeSQLToolStripMenuItem";
-            this.executeSQLToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
-            this.executeSQLToolStripMenuItem.Text = "Execute SQL";
+            resources.ApplyResources(this.executeSQLToolStripMenuItem, "executeSQLToolStripMenuItem");
             this.executeSQLToolStripMenuItem.Click += new System.EventHandler(this.executeSQLToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -388,107 +320,78 @@ namespace au.id.micolous.apps.igaeditor
             this.toolStripSeparator5,
             this.checkForUpdatesToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.helpToolStripMenuItem.Text = "Help";
+            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.aboutToolStripMenuItem.Text = "About";
+            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(186, 6);
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
             // websiteToolStripMenuItem
             // 
-            this.websiteToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            resources.ApplyResources(this.websiteToolStripMenuItem, "websiteToolStripMenuItem");
             this.websiteToolStripMenuItem.Name = "websiteToolStripMenuItem";
-            this.websiteToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.websiteToolStripMenuItem.Text = "Official Website";
             this.websiteToolStripMenuItem.Click += new System.EventHandler(this.websiteToolStripMenuItem_Click);
             // 
             // researchForumThreadToolStripMenuItem
             // 
-            this.researchForumThreadToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            resources.ApplyResources(this.researchForumThreadToolStripMenuItem, "researchForumThreadToolStripMenuItem");
             this.researchForumThreadToolStripMenuItem.Name = "researchForumThreadToolStripMenuItem";
-            this.researchForumThreadToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.researchForumThreadToolStripMenuItem.Text = "Research Forum Thread";
             this.researchForumThreadToolStripMenuItem.Click += new System.EventHandler(this.researchForumThreadToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(186, 6);
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
+            resources.ApplyResources(this.checkForUpdatesToolStripMenuItem, "checkForUpdatesToolStripMenuItem");
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // WelcomeGroup
             // 
-            this.WelcomeGroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.WelcomeGroup, "WelcomeGroup");
             this.WelcomeGroup.Controls.Add(this.BigOpenButton);
             this.WelcomeGroup.Controls.Add(this.label1);
-            this.WelcomeGroup.Location = new System.Drawing.Point(71, 44);
             this.WelcomeGroup.Name = "WelcomeGroup";
-            this.WelcomeGroup.Size = new System.Drawing.Size(512, 232);
-            this.WelcomeGroup.TabIndex = 2;
             this.WelcomeGroup.TabStop = false;
-            this.WelcomeGroup.Text = "Welcome";
             // 
             // BigOpenButton
             // 
-            this.BigOpenButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.BigOpenButton.Location = new System.Drawing.Point(184, 160);
+            resources.ApplyResources(this.BigOpenButton, "BigOpenButton");
             this.BigOpenButton.Name = "BigOpenButton";
-            this.BigOpenButton.Size = new System.Drawing.Size(144, 40);
-            this.BigOpenButton.TabIndex = 1;
-            this.BigOpenButton.Text = "Open Database";
             this.BigOpenButton.UseVisualStyleBackColor = true;
             this.BigOpenButton.Click += new System.EventHandler(this.BigOpenButton_Click);
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(52, 64);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(408, 65);
-            this.label1.TabIndex = 0;
-            this.label1.Text = resources.GetString("label1.Text");
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // SaveDDSDialogue
             // 
             this.SaveDDSDialogue.DefaultExt = "dds";
-            this.SaveDDSDialogue.Filter = "DDS Image|*.dds|BIK Video|*.bik";
-            this.SaveDDSDialogue.Title = "Where do you want to save the image to?";
+            resources.ApplyResources(this.SaveDDSDialogue, "SaveDDSDialogue");
             // 
             // LoadDDSDialogue
             // 
-            this.LoadDDSDialogue.Filter = "DDS Images|*.dds|BIK Video|*.bik";
-            this.LoadDDSDialogue.Title = "Select the DDS image to import.  It must be the same size.";
+            resources.ApplyResources(this.LoadDDSDialogue, "LoadDDSDialogue");
             // 
             // OpenAdpackDialogue
             // 
-            this.OpenAdpackDialogue.Filter = "Battlefield 2142 Adpack Files (*.adpack)|*.adpack";
-            this.OpenAdpackDialogue.Title = "Please select an adpack file to import.";
+            resources.ApplyResources(this.OpenAdpackDialogue, "OpenAdpackDialogue");
             // 
             // HintToolTip
             // 
-            this.HintToolTip.IsBalloon = true;
-            this.HintToolTip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.HintToolTip.ToolTipTitle = "Information";
+            resources.ApplyResources(this.HintToolTip, "HintToolTip");
             // 
             // AdContextMenu
             // 
@@ -503,88 +406,70 @@ namespace au.id.micolous.apps.igaeditor
             // editItemContext
             // 
             this.editItemContext.Index = 0;
-            this.editItemContext.Text = "Edit Item";
+            resources.ApplyResources(this.editItemContext, "editItemContext");
             this.editItemContext.Click += new System.EventHandler(this.EditRecordButton_Click);
             // 
             // deleteItemContext
             // 
             this.deleteItemContext.Index = 1;
-            this.deleteItemContext.Text = "Delete Item";
+            resources.ApplyResources(this.deleteItemContext, "deleteItemContext");
             this.deleteItemContext.Click += new System.EventHandler(this.DeleteRecordButton_Click);
             // 
             // menuItem3
             // 
             this.menuItem3.Index = 2;
-            this.menuItem3.Text = "-";
+            resources.ApplyResources(this.menuItem3, "menuItem3");
             // 
             // previewImageContext
             // 
             this.previewImageContext.Index = 3;
-            this.previewImageContext.Text = "Preview Image";
+            resources.ApplyResources(this.previewImageContext, "previewImageContext");
             this.previewImageContext.Click += new System.EventHandler(this.PreviewImageButton_Click);
             // 
             // importImageContext
             // 
             this.importImageContext.Index = 4;
-            this.importImageContext.Text = "Import Image";
+            resources.ApplyResources(this.importImageContext, "importImageContext");
             this.importImageContext.Click += new System.EventHandler(this.ImportImageButton_Click);
             // 
             // exportImageContext
             // 
             this.exportImageContext.Index = 5;
-            this.exportImageContext.Text = "Export Image";
+            resources.ApplyResources(this.exportImageContext, "exportImageContext");
             this.exportImageContext.Click += new System.EventHandler(this.SaveAdImageButton_Click);
             // 
             // ImagePreviewGroup
             // 
             this.ImagePreviewGroup.Controls.Add(this.PreviewCloseButton);
             this.ImagePreviewGroup.Controls.Add(this.PreviewBox);
-            this.ImagePreviewGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ImagePreviewGroup.Location = new System.Drawing.Point(0, 24);
+            resources.ApplyResources(this.ImagePreviewGroup, "ImagePreviewGroup");
             this.ImagePreviewGroup.Name = "ImagePreviewGroup";
-            this.ImagePreviewGroup.Size = new System.Drawing.Size(655, 299);
-            this.ImagePreviewGroup.TabIndex = 3;
             this.ImagePreviewGroup.TabStop = false;
-            this.ImagePreviewGroup.Text = "Image Preview (click image to close)";
-            this.ImagePreviewGroup.Visible = false;
             // 
             // PreviewCloseButton
             // 
-            this.PreviewCloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PreviewCloseButton.Location = new System.Drawing.Point(591, 0);
+            resources.ApplyResources(this.PreviewCloseButton, "PreviewCloseButton");
             this.PreviewCloseButton.Name = "PreviewCloseButton";
-            this.PreviewCloseButton.Size = new System.Drawing.Size(59, 24);
-            this.PreviewCloseButton.TabIndex = 9;
-            this.PreviewCloseButton.Text = "&Close";
             this.PreviewCloseButton.UseVisualStyleBackColor = true;
             this.PreviewCloseButton.Click += new System.EventHandler(this.PreviewBox_Click);
             // 
             // PreviewBox
             // 
-            this.PreviewBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PreviewBox.Location = new System.Drawing.Point(3, 16);
+            resources.ApplyResources(this.PreviewBox, "PreviewBox");
             this.PreviewBox.Name = "PreviewBox";
-            this.PreviewBox.Size = new System.Drawing.Size(649, 280);
-            this.PreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PreviewBox.TabIndex = 8;
             this.PreviewBox.TabStop = false;
             this.PreviewBox.Click += new System.EventHandler(this.PreviewBox_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(655, 323);
             this.Controls.Add(this.EditingGroup);
             this.Controls.Add(this.ImagePreviewGroup);
             this.Controls.Add(this.WelcomeGroup);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "IGA Ad Cache Editor by micolous";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.EditingGroup.ResumeLayout(false);

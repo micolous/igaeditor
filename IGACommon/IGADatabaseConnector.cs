@@ -201,13 +201,18 @@ namespace au.id.micolous.libs.igacommon
         /// Exports a single image from the database.
         /// </summary>
         /// <param name="contentId">The contentId to export.</param>
-        /// <returns>A byte[] containing the raw image or video data.</returns>
+        /// <returns>A byte[] containing the raw image or video data, or null if there was an error or there is no data.</returns>
         public byte[] ExportImage(uint contentId)
         {
             SQLiteCommand cmd = new SQLiteCommand(@"SELECT [data] FROM [content] WHERE [contentId] = @cid LIMIT 1", sqlite);
             cmd.Parameters.Add(new SQLiteParameter("cid", contentId));
             sqlite.Open();
-            byte[] idata = (byte[])cmd.ExecuteScalar();
+            byte[] idata = null;
+            try
+            {
+                idata = (byte[])cmd.ExecuteScalar();
+            }
+            catch (Exception) { } // pass
             sqlite.Close();
             return idata;
         }
