@@ -67,6 +67,18 @@
     <Compile Include="AdEditorForm.Designer.cs">
       <DependentUpon>AdEditorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdPackExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdPackExportForm.Designer.cs">
+      <DependentUpon>AdPackExportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdPackImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdPackImportForm.Designer.cs">
+      <DependentUpon>AdPackImportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +100,14 @@
     <EmbeddedResource Include="AdEditorForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AdEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdPackExportForm.resx">
+      <DependentUpon>AdPackExportForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdPackImportForm.resx">
+      <DependentUpon>AdPackImportForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
@@ -160,10 +180,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdPackSupport\Ad Pack Support.csproj">
-      <Project>{DFB922B4-E1D3-4977-96E1-CB1CCB52AE2E}</Project>
-      <Name>Ad Pack Support</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DDSReader\DDSReader.csproj">
       <Project>{E8E2E010-DA59-4A99-8331-B986B84C0FD2}</Project>
       <Name>DDSReader</Name>

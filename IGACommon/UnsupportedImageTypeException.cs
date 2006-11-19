@@ -4,7 +4,10 @@ using System.Text;
 
 namespace au.id.micolous.libs.igacommon
 {
-    class UnsupportedImageTypeException : Exception
+    /// <summary>
+    /// Thrown when a contentType has an unsupported image type inputted.
+    /// </summary>
+    public class UnsupportedImageTypeException : Exception
     {
     }
 }

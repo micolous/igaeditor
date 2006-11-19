@@ -13,7 +13,7 @@ namespace au.id.micolous.apps.igaeditor
     /// <summary>
     /// This class defines an Export form for AdPacks.
     /// </summary>
-    public partial class AdPackExportForm : Form
+    partial class AdPackExportForm : Form
     {
         private SortedList<uint, AdPackEntry> ads = new SortedList<uint, AdPackEntry>(100);
         private List<uint> adcontentids = new List<uint>(100);

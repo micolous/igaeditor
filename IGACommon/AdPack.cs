@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using ICSharpCode.SharpZipLib.Zip;
-using au.id.micolous.libs.igacommon;
+//using au.id.micolous.libs.igacommon;
 
-namespace au.id.micolous.apps.igaeditor
+namespace au.id.micolous.libs.igacommon
 {
     /// <summary>
     /// This class defines a complete adpack object.  It can be serialised or
@@ -90,7 +90,7 @@ namespace au.id.micolous.apps.igaeditor
             {
                 if (entry.IsCrypted)
                 {
-                    MessageBox.Show("This adpack is encrypted, so it cannot be displayed.  Please do not encrypt adpack files.");
+                    //MessageBox.Show("This adpack is encrypted, so it cannot be displayed.  Please do not encrypt adpack files.");
                     throw new Exception("Adpack is encrypted!");
                 }
                 switch (entry.Name.ToLowerInvariant())
@@ -143,7 +143,7 @@ namespace au.id.micolous.apps.igaeditor
                 // check each has data attached.
                 if (file.Value.DDSData == null)
                 {
-                    MessageBox.Show("Warning: Missing DDS image file '" + file.Key + "'.  The adpack file may be corrupt or encrypted.");
+                    //MessageBox.Show("Warning: Missing DDS image file '" + file.Key + "'.  The adpack file may be corrupt or encrypted.");
                     RemovalList.Add(file.Key);
                 }
             }

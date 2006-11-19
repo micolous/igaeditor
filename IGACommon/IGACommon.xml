@@ -4,6 +4,11 @@
         <name>IGACommon</name>
     </assembly>
     <members>
+        <member name="T:au.id.micolous.libs.igacommon.UnsupportedImageTypeException">
+            <summary>
+            Thrown when a contentType has an unsupported image type inputted.
+            </summary>
+        </member>
         <member name="T:au.id.micolous.libs.igacommon.Common">
             <summary>
             This class contains common static functions used throughout the program.
@@ -470,6 +475,42 @@
             <summary>
             The numeric representation of the contentType stored.
             </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.igacommon.AdPack">
+            <summary>
+            This class defines a complete adpack object.  It can be serialised or
+            deserialised directly to the native format, and has handlers for easily
+            adding new objects to the package.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.AdPack.Metadata">
+            <summary>
+            This defines the metadata of the package, stored in metainfo.dat.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.AdPack.Files">
+            <summary>
+            This defines the files to be stored in the package, as well as
+            fileinfo.dat.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPack.#ctor(System.Int32)">
+            <summary>
+            Creates a new, empty adpack file.
+            <param name="AppID">The appid for the cache file to be minipulated.</param>
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPack.Serialize(System.IO.Stream)">
+            <summary>
+            Serialises the adpack to a file (ZIP).
+            </summary>
+            <param name="s">A stream pointing to the file to write to.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPack.Deserialize(System.IO.Stream)">
+            <summary>
+            This deserializes an adpack from a file.
+            </summary>
+            <param name="s">The stream to read from.</param>
         </member>
     </members>
 </doc>

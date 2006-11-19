@@ -12,7 +12,7 @@ namespace au.id.micolous.apps.igaeditor
     /// <summary>
     /// This class implements a form allowing you to import ads from a file.
     /// </summary>
-    public partial class AdPackImportForm : Form
+    partial class AdPackImportForm : Form
     {
         private AdPack ads;
         private bool success = false;

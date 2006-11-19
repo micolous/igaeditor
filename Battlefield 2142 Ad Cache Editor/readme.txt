@@ -20,7 +20,7 @@ License
 
 Notice: This program references and bundles a number of libraries, which are licensed differently from this software.  See libraries.txt for a reference of their licenses.
 
-The "Ad Pack Support" and "IGA Common" libraries are part of the main program, and are licensed under the GNU General Public License.  The "DDSReader" library is released under a BSD license.
+The "IGA Common" library is part of the main program, and is licensed under the GNU General Public License.  The "DDSReader" library is released under a BSD license.
 
 See 'gpl.txt' for a full copy of the GNU General Public License.
 
@@ -38,21 +38,15 @@ See 'gpl.txt' for a full copy of the GNU General Public License.
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-What's new in 0.1.4:
+What's new in 0.1.5:
 ====================
 
- - The application is now called "IGA Ad Cache Editor".
- - The application has had a license change, and is now licensed under the terms of the GNU General Public License 2.0 as published by the Free Software Foundation.  This applies to everything not covered explicitly by another license (ie: the main program code, excluding 'DDSReader').
- - Some parts of the program have been seperated into "subproject libraries", so that you can pick and choose which components you wish to use.  This process is incomplete - a new database layer is coming!  This will eventually allow you to use another interface other than Windows Forms, meaning it'll work around Mono's incomplete SWF support.  Once the database layer is seperated, this opens up all sorts of development possibilities that use the file format.
- - A new "Debug" menu with debugging and testing functionality has been added.
- - A bug where a missing "appid" field would lock you out of the database has now been fixed.
- - You can now change the "appid" of the cache to pretend to be for another application.
- - There is a simple SQL "injector/executor" window, which means that debugging queries no longer need a stand-alone program to execute queries.
- - Date and Time formats now follow the system locale settings.  In Windows, this is set in the "Regional and Language Options" control panel.
- - There is an image preview function, that allows you to view DDS images without exporting them.
- - Some UI elements have been adjusted.
- - Licensing used in different parts of the program has been made clearer (libraries.txt).
- - There are the starts of some development hooks, allowing you to write applications that use parts of the cache editor as a library.  Bear in mind that the GPL License requires that code that links to this program or it's libraries is licensed under a GPL-compatible license as well (which means you need to provide source code, if you are releasing it).
+- New abstracted database connection system, "IGADatabaseConnector".  This is a part of the "IGA Common" module.  This allows you to write non-WinForms interfaces using the same engine.
+- The AdPackSupport libraries are now no longer used.  The AdPackImportForm and AdPackExportForm are now a part of the main module again, and the AdPack and AdPackEntry classes are now a part of IGACommon.  As a result, IGACommon.dll now depends on SharpZipLib.
+- Localisable stubs added.
+- The "vaccum/shrink database" menu item is now no longer disabled if an unsupported appId is found.
+
+
 
 What is this app?
 =================
