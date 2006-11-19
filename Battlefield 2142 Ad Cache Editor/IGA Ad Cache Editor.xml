@@ -60,6 +60,40 @@
             be updated to use this application ID.
             </summary>
         </member>
+        <member name="T:au.id.micolous.apps.igaeditor.AdPackImportForm">
+            <summary>
+            This class implements a form allowing you to import ads from a file.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.#ctor(au.id.micolous.libs.igacommon.IGADatabaseConnector,au.id.micolous.libs.igacommon.AdPack)">
+            <summary>
+            Creates a new AdParkImportForm
+            </summary>
+            <param name="conn">An IGADatabaseConnector object.</param>
+            <param name="ads">An AdPack instance to import</param>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AdPackImportForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:au.id.micolous.apps.igaeditor.AdPackImportForm.Success">
+            <summary>
+            This is set to true if the dialogue's operation was accepted.
+            </summary>
+        </member>
         <member name="F:au.id.micolous.apps.igaeditor.AdEditorForm.components">
             <summary>
             Required designer variable.
@@ -99,6 +133,34 @@
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
+        </member>
+        <member name="T:au.id.micolous.apps.igaeditor.AdPackExportForm">
+            <summary>
+            This class defines an Export form for AdPacks.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.apps.igaeditor.AdPackExportForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.#ctor(au.id.micolous.libs.igacommon.IGADatabaseConnector)">
+            <summary>
+            Creates a new AdPackExportForm.
+            </summary>
+            <param name="conn">The connection to get images from.</param>
         </member>
         <member name="T:au.id.micolous.apps.igaeditor.Properties.Resources">
             <summary>
@@ -142,12 +204,12 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:au.id.micolous.apps.igaeditor.SqlInjectorForm.#ctor(System.Data.SQLite.SQLiteConnection)">
+        <member name="M:au.id.micolous.apps.igaeditor.SqlInjectorForm.#ctor(Mono.Data.SqliteClient.SqliteConnection)">
             <summary>
             Creates a new instance of the form.  You must pass a closed
-            SQLiteConnection to the constructor to use it.
+            SqliteConnection to the constructor to use it.
             </summary>
-            <param name="sqlite">The SQLiteConnection to use.</param>
+            <param name="sqlite">The SqliteConnection to use.</param>
         </member>
         <member name="F:au.id.micolous.apps.igaeditor.MainForm.components">
             <summary>
@@ -169,68 +231,6 @@
         <member name="M:au.id.micolous.apps.igaeditor.Program.Main(System.String[])">
             <summary>
             The main entry point for the application.
-            </summary>
-        </member>
-        <member name="T:au.id.micolous.apps.igaeditor.AdPackExportForm">
-            <summary>
-            This class defines an Export form for AdPacks.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.#ctor(au.id.micolous.libs.igacommon.IGADatabaseConnector)">
-            <summary>
-            Creates a new AdPackExportForm.
-            </summary>
-            <param name="conn">The connection to get images from.</param>
-        </member>
-        <member name="F:au.id.micolous.apps.igaeditor.AdPackExportForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackExportForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:au.id.micolous.apps.igaeditor.AdPackImportForm">
-            <summary>
-            This class implements a form allowing you to import ads from a file.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.#ctor(au.id.micolous.libs.igacommon.IGADatabaseConnector,au.id.micolous.libs.igacommon.AdPack)">
-            <summary>
-            Creates a new AdParkImportForm
-            </summary>
-            <param name="conn">An IGADatabaseConnector object.</param>
-            <param name="ads">An AdPack instance to import</param>
-        </member>
-        <member name="F:au.id.micolous.apps.igaeditor.AdPackImportForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:au.id.micolous.apps.igaeditor.AdPackImportForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="P:au.id.micolous.apps.igaeditor.AdPackImportForm.Success">
-            <summary>
-            This is set to true if the dialogue's operation was accepted.
             </summary>
         </member>
     </members>

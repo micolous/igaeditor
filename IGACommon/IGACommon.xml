@@ -95,7 +95,7 @@
             
             This is only intended for use in debugging, NOT everyday operations.
             </summary>
-            <returns>A copy of the SQLiteConnection that this instance of the class is
+            <returns>A copy of the SqliteConnection that this instance of the class is
             presently using.</returns>
         </member>
         <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.ImportImage(System.UInt32,System.Byte[])">
@@ -148,14 +148,14 @@
             </summary>
             <param name="contentId">The contentId to fetch.</param>
             <param name="IncludeImageData">Should image data be included?</param>
-            <returns>A ContentEntry that is the row.</returns>
+            <returns>A ContentEntry that is the row, or null if it wasn't found.</returns>
         </member>
-        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.GetEntryFromReader(System.Data.SQLite.SQLiteDataReader,System.Boolean)">
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.GetEntryFromReader(Mono.Data.SqliteClient.SqliteDataReader,System.Boolean)">
             <summary>
-            Internal function to read a row from a SQLiteDataReader to convert
+            Internal function to read a row from a SqliteDataReader to convert
             it to a ContentEntry.
             </summary>
-            <param name="reader">The SQLiteDataReader to get the information from.</param>
+            <param name="reader">The SqliteDataReader to get the information from.</param>
             <param name="IncludeImageData">Should image data be included?</param>
             <returns>A ContentEntry describing the row returned.</returns>
         </member>
@@ -404,6 +404,42 @@
             <param name="AppNameShort">The application's short name.  This should be in all lower case.</param>
             <param name="AppID">The application's ID, as determined by the IGA library.</param>
         </member>
+        <member name="T:au.id.micolous.libs.igacommon.AdPack">
+            <summary>
+            This class defines a complete adpack object.  It can be serialised or
+            deserialised directly to the native format, and has handlers for easily
+            adding new objects to the package.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.AdPack.Metadata">
+            <summary>
+            This defines the metadata of the package, stored in metainfo.dat.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.AdPack.Files">
+            <summary>
+            This defines the files to be stored in the package, as well as
+            fileinfo.dat.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPack.#ctor(System.Int32)">
+            <summary>
+            Creates a new, empty adpack file.
+            <param name="AppID">The appid for the cache file to be minipulated.</param>
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPack.Serialize(System.IO.Stream)">
+            <summary>
+            Serialises the adpack to a file (ZIP).
+            </summary>
+            <param name="s">A stream pointing to the file to write to.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPack.Deserialize(System.IO.Stream)">
+            <summary>
+            This deserializes an adpack from a file.
+            </summary>
+            <param name="s">The stream to read from.</param>
+        </member>
         <member name="T:au.id.micolous.libs.igacommon.ContentType">
             <summary>
             Represents a contentType value.
@@ -475,42 +511,6 @@
             <summary>
             The numeric representation of the contentType stored.
             </summary>
-        </member>
-        <member name="T:au.id.micolous.libs.igacommon.AdPack">
-            <summary>
-            This class defines a complete adpack object.  It can be serialised or
-            deserialised directly to the native format, and has handlers for easily
-            adding new objects to the package.
-            </summary>
-        </member>
-        <member name="F:au.id.micolous.libs.igacommon.AdPack.Metadata">
-            <summary>
-            This defines the metadata of the package, stored in metainfo.dat.
-            </summary>
-        </member>
-        <member name="F:au.id.micolous.libs.igacommon.AdPack.Files">
-            <summary>
-            This defines the files to be stored in the package, as well as
-            fileinfo.dat.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.libs.igacommon.AdPack.#ctor(System.Int32)">
-            <summary>
-            Creates a new, empty adpack file.
-            <param name="AppID">The appid for the cache file to be minipulated.</param>
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.libs.igacommon.AdPack.Serialize(System.IO.Stream)">
-            <summary>
-            Serialises the adpack to a file (ZIP).
-            </summary>
-            <param name="s">A stream pointing to the file to write to.</param>
-        </member>
-        <member name="M:au.id.micolous.libs.igacommon.AdPack.Deserialize(System.IO.Stream)">
-            <summary>
-            This deserializes an adpack from a file.
-            </summary>
-            <param name="s">The stream to read from.</param>
         </member>
     </members>
 </doc>

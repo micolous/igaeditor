@@ -301,15 +301,15 @@ namespace au.id.micolous.apps.igaeditor
                         return;
                     }
 
-                    try
+                    //try
                     {
                         _igaconnector.ImportImage(contentId, ddsimage);
                     }
-                    catch (Exception ex)
+                    /*catch (Exception ex)
                     {
                         MessageBox.Show("Failure committing data to database.\r\n\r\nInternal buffers are now inconsistant.  It is recommended you restart this program.\r\n\r\nThe error was: " + ex.Message);
                         return;
-                    }
+                    }*/
 
                     MessageBox.Show("Imported file successfully!");
 
@@ -351,7 +351,13 @@ namespace au.id.micolous.apps.igaeditor
             else
             {
                 uint contentId = UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
-                AdEditorForm aef = new AdEditorForm(_igaconnector, _igaconnector.GetEntry(contentId, false));
+                ContentEntry entry = _igaconnector.GetEntry(contentId, false);
+                if (entry == null)
+                {
+                    MessageBox.Show("Oops, no data was returned from IGADatabaseConnector.GetEntry.  This probably means that there was a problem retriving the row from the database, or it doesn't exist.");
+                    return;
+                }
+                AdEditorForm aef = new AdEditorForm(_igaconnector, entry);
                 aef.ShowDialog();
                 if (aef.Success)
                 {

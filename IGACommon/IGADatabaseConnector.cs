@@ -1,6 +1,8 @@
 using System;
+using System.Data;
 using System.Collections.Generic;
-using System.Data.SQLite;
+//using System.Data.SQLite;
+using Mono.Data.SqliteClient;
 
 namespace au.id.micolous.libs.igacommon
 {
@@ -9,7 +11,7 @@ namespace au.id.micolous.libs.igacommon
 	/// </summary>
 	public class IGADatabaseConnector
 	{
-		private SQLiteConnection sqlite;
+		private SqliteConnection sqlite;
 		private int _appID;
 		private bool _appSupported;
         private AppInfo _appInfo;
@@ -71,11 +73,12 @@ namespace au.id.micolous.libs.igacommon
 		/// <param name="filename">The file to connect to.</param>
 		public IGADatabaseConnector(String filename)
 		{
-			
-			try {
-				sqlite = new SQLiteConnection("Data Source=\"" + filename + "\"");
+			//try {
+                sqlite = new SqliteConnection("URI=file:" + filename + ",version=3");
 				sqlite.Open();
-				SQLiteCommand query = new SQLiteCommand("SELECT [appId] FROM [contentlist] LIMIT 1", sqlite);
+                
+
+				SqliteCommand query = new SqliteCommand("SELECT [appId] FROM [contentlist] LIMIT 1", sqlite);
 				Object result = query.ExecuteScalar();
 				sqlite.Close();
 				if (result == null)
@@ -84,7 +87,7 @@ namespace au.id.micolous.libs.igacommon
 				}
 				else
 				{
-					this._appID = (int)(long)result;
+					this._appID = (int)result;
 				}
 				
 				if (this._appID > 0) {
@@ -98,9 +101,9 @@ namespace au.id.micolous.libs.igacommon
                     _appInfo = Common.AppInfos[this._appID];
                 }
 				
-			} catch (Exception) {
-				throw new DatabaseConnectionFailureException();
-			}
+            //} catch (Exception) {
+            //    throw new DatabaseConnectionFailureException();
+            //}
 		}
 		
 		/// <summary>
@@ -109,15 +112,16 @@ namespace au.id.micolous.libs.igacommon
 		/// <param name="AppID">The new AppID of the program.</param>
 		public void ChangeAppID(int AppID) {
 			// try to write back
-			SQLiteCommand query = new SQLiteCommand(@"UPDATE [contentlist] SET [appid]=@appid", sqlite);
-			query.Parameters.Add(new SQLiteParameter("appid", AppID));
+			SqliteCommand query = new SqliteCommand(@"UPDATE [contentlist] SET [appid]=@appid", sqlite);
+
+            query.Parameters.Add(new SqliteParameter("@appid", (int)AppID));
 			sqlite.Open();
 			if (query.ExecuteNonQuery() == 0)
 			{
 				// no data in contentlist... add new.
 				sqlite.Close();
-				query = new SQLiteCommand(@"INSERT INTO [contentlist] ([appid]) VALUES (@appid)", sqlite);
-				query.Parameters.Add(new SQLiteParameter("appid", AppID));
+				query = new SqliteCommand(@"INSERT INTO [contentlist] ([appid]) VALUES (@appid)", sqlite);
+                query.Parameters.Add(new SqliteParameter("@appid", (int)AppID));
 				sqlite.Open();
 				query.ExecuteNonQuery();
 			}
@@ -138,10 +142,10 @@ namespace au.id.micolous.libs.igacommon
         {
             SortedDictionary<uint, ContentEntry> items = new SortedDictionary<uint, ContentEntry>();
 
-            SQLiteCommand cmd = sqlite.CreateCommand();
+            SqliteCommand cmd = sqlite.CreateCommand();
             cmd.CommandText = @"SELECT * FROM [content] ORDER BY [contentId]";
             sqlite.Open();
-            SQLiteDataReader reader = cmd.ExecuteReader();
+            SqliteDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
@@ -160,7 +164,7 @@ namespace au.id.micolous.libs.igacommon
         public void VaccumDatabase()
         {
             sqlite.Open();
-            SQLiteCommand query = new SQLiteCommand("VACUUM", sqlite);
+            SqliteCommand query = new SqliteCommand("VACUUM", sqlite);
             query.ExecuteNonQuery();
             sqlite.Close();
         }
@@ -170,11 +174,11 @@ namespace au.id.micolous.libs.igacommon
         /// 
         /// This is only intended for use in debugging, NOT everyday operations.
         /// </summary>
-        /// <returns>A copy of the SQLiteConnection that this instance of the class is
+        /// <returns>A copy of the SqliteConnection that this instance of the class is
         /// presently using.</returns>
-        public SQLiteConnection GetConnection()
+        public SqliteConnection GetConnection()
         {
-            return (SQLiteConnection)sqlite.Clone();
+            return sqlite;
         }
 
 
@@ -186,13 +190,12 @@ namespace au.id.micolous.libs.igacommon
         public void ImportImage(uint contentId, byte[] ddsimage)
         {
             sqlite.Open();
-            SQLiteCommand query = new SQLiteCommand(@"UPDATE [content] SET [data] = @data, [size] = @size WHERE [contentId] = @cid", sqlite);
-            SQLiteParameter d = new SQLiteParameter("data", ddsimage);
-            SQLiteParameter s = new SQLiteParameter("size", ddsimage.Length);
-            SQLiteParameter c = new SQLiteParameter("cid", contentId);
-            query.Parameters.Add(c);
-            query.Parameters.Add(s);
-            query.Parameters.Add(d);
+            SqliteCommand query = new SqliteCommand(@"UPDATE [content] SET [data] = @data, [size] = @size WHERE [contentId] = @cid", sqlite);
+
+            query.Parameters.Add(new SqliteParameter("@data", ddsimage));
+            query.Parameters.Add(new SqliteParameter("@size", ddsimage.Length));
+            query.Parameters.Add(new SqliteParameter("@cid", (int)contentId));
+            
             query.ExecuteNonQuery();
             sqlite.Close();
         }
@@ -204,8 +207,8 @@ namespace au.id.micolous.libs.igacommon
         /// <returns>A byte[] containing the raw image or video data, or null if there was an error or there is no data.</returns>
         public byte[] ExportImage(uint contentId)
         {
-            SQLiteCommand cmd = new SQLiteCommand(@"SELECT [data] FROM [content] WHERE [contentId] = @cid LIMIT 1", sqlite);
-            cmd.Parameters.Add(new SQLiteParameter("cid", contentId));
+            SqliteCommand cmd = new SqliteCommand(@"SELECT [data] FROM [content] WHERE [contentId] = @cid LIMIT 1", sqlite);
+            cmd.Parameters.Add(new SqliteParameter("@cid", (int)contentId));
             sqlite.Open();
             byte[] idata = null;
             try
@@ -251,18 +254,18 @@ namespace au.id.micolous.libs.igacommon
 
             String p = entry.GetPropsAsString();
 
-            SQLiteCommand query = new SQLiteCommand(@"INSERT INTO [content] ([active], [activate], [expire], [dayparts], [contentType], [descriptor], [size], [viewcount], [viewlimit], [displayafter], [props]) VALUES (@active, @activate, @expire, @dayparts, @contentType, @descriptor, @size, @viewcount, @viewlimit, @displayafter, @props); SELECT last_insert_rowid() AS contentId;", sqlite);
-            query.Parameters.Add(new SQLiteParameter("active", active));
-            query.Parameters.Add(new SQLiteParameter("activate", activate));
-            query.Parameters.Add(new SQLiteParameter("expire", expiry));
-            query.Parameters.Add(new SQLiteParameter("dayparts", entry.DayParts));
-            query.Parameters.Add(new SQLiteParameter("contentType", entry.contentType.contentType));
-            query.Parameters.Add(new SQLiteParameter("descriptor", entry.Descriptor));
-            query.Parameters.Add(new SQLiteParameter("size", entry.Size));
-            query.Parameters.Add(new SQLiteParameter("viewcount", entry.ViewCount));
-            query.Parameters.Add(new SQLiteParameter("viewlimit", entry.ViewLimit));
-            query.Parameters.Add(new SQLiteParameter("displayafter", entry.DisplayAfter));
-            query.Parameters.Add(new SQLiteParameter("props", p));
+            SqliteCommand query = new SqliteCommand(@"INSERT INTO [content] ([active], [activate], [expire], [dayparts], [contentType], [descriptor], [size], [viewcount], [viewlimit], [displayafter], [props]) VALUES (@active, @activate, @expire, @dayparts, @contentType, @descriptor, @size, @viewcount, @viewlimit, @displayafter, @props); SELECT last_insert_rowid() AS contentId;", sqlite);
+            query.Parameters.Add(new SqliteParameter("@active", (int)active));
+            query.Parameters.Add(new SqliteParameter("@activate", (int)activate));
+            query.Parameters.Add(new SqliteParameter("@expire", (int)expiry));
+            query.Parameters.Add(new SqliteParameter("@dayparts", (int)entry.DayParts));
+            query.Parameters.Add(new SqliteParameter("@contentType", (int)entry.contentType.contentType));
+            query.Parameters.Add(new SqliteParameter("@descriptor", entry.Descriptor));
+            query.Parameters.Add(new SqliteParameter("@size", (int)entry.Size));
+            query.Parameters.Add(new SqliteParameter("@viewcount", (int)entry.ViewCount));
+            query.Parameters.Add(new SqliteParameter("@viewlimit", (int)entry.ViewLimit));
+            query.Parameters.Add(new SqliteParameter("@displayafter", (int)entry.DisplayAfter));
+            query.Parameters.Add(new SqliteParameter("@props", p));
             // get the contentId back
             sqlite.Open();
             Object cidR = query.ExecuteScalar();
@@ -275,9 +278,9 @@ namespace au.id.micolous.libs.igacommon
             sqlite.Close();
             sqlite.Open();
 
-            query = new SQLiteCommand(@"UPDATE [content] SET [props]=@props WHERE [contentId]=@cid", sqlite);
-            query.Parameters.Add(new SQLiteParameter("props", p));
-            query.Parameters.Add(new SQLiteParameter("cid", cid));
+            query = new SqliteCommand(@"UPDATE [content] SET [props]=@props WHERE [contentId]=@cid", sqlite);
+            query.Parameters.Add(new SqliteParameter("@props", p));
+            query.Parameters.Add(new SqliteParameter("@cid", (int)cid));
             query.ExecuteNonQuery();
 
             sqlite.Close();
@@ -321,20 +324,20 @@ namespace au.id.micolous.libs.igacommon
 
 
             sqlite.Open();
-            SQLiteCommand query = new SQLiteCommand(@"UPDATE [content] SET [active]=@active, [activate]=@activate, [expire]=@expire, [dayparts]=@dayparts, [contentType]=@contentType, [descriptor]=@descriptor, [size]=@size, [viewcount]=@viewcount, [viewlimit]=@viewlimit, [displayafter]=@displayafter, [props]=@props WHERE [contentId]=@cid", sqlite);
-            //query = new SQLiteCommand(@"UPDATE [content] SET [active]=@active, [activate]=@activate, [expire]=@expire, [props]=@props WHERE [contentId]=@cid", sqlite);
-            query.Parameters.Add(new SQLiteParameter("cid", contentID));
-            query.Parameters.Add(new SQLiteParameter("active", active));
-            query.Parameters.Add(new SQLiteParameter("activate", activate));
-            query.Parameters.Add(new SQLiteParameter("expire", expiry));
-            query.Parameters.Add(new SQLiteParameter("dayparts", entry.DayParts));
-            query.Parameters.Add(new SQLiteParameter("contentType", entry.contentType.contentType));
-            query.Parameters.Add(new SQLiteParameter("descriptor", entry.Descriptor));
-            query.Parameters.Add(new SQLiteParameter("size", entry.Size));
-            query.Parameters.Add(new SQLiteParameter("viewcount", entry.ViewCount));
-            query.Parameters.Add(new SQLiteParameter("viewlimit", entry.ViewLimit));
-            query.Parameters.Add(new SQLiteParameter("displayafter", entry.DisplayAfter));
-            query.Parameters.Add(new SQLiteParameter("props", propS));
+            SqliteCommand query = new SqliteCommand(@"UPDATE [content] SET [active]=@active, [activate]=@activate, [expire]=@expire, [dayparts]=@dayparts, [contentType]=@contentType, [descriptor]=@descriptor, [size]=@size, [viewcount]=@viewcount, [viewlimit]=@viewlimit, [displayafter]=@displayafter, [props]=@props WHERE [contentId]=@cid", sqlite);
+            //query = new SqliteCommand(@"UPDATE [content] SET [active]=@active, [activate]=@activate, [expire]=@expire, [props]=@props WHERE [contentId]=@cid", sqlite);
+            query.Parameters.Add(new SqliteParameter("@cid", (int)contentID));
+            query.Parameters.Add(new SqliteParameter("@active", (int)active));
+            query.Parameters.Add(new SqliteParameter("@activate", (int)activate));
+            query.Parameters.Add(new SqliteParameter("@expire", (int)expiry));
+            query.Parameters.Add(new SqliteParameter("@dayparts", (int)entry.DayParts));
+            query.Parameters.Add(new SqliteParameter("@contentType", (int)entry.contentType.contentType));
+            query.Parameters.Add(new SqliteParameter("@descriptor", entry.Descriptor));
+            query.Parameters.Add(new SqliteParameter("@size", (int)entry.Size));
+            query.Parameters.Add(new SqliteParameter("@viewcount", (int)entry.ViewCount));
+            query.Parameters.Add(new SqliteParameter("@viewlimit", (int)entry.ViewLimit));
+            query.Parameters.Add(new SqliteParameter("@displayafter", (int)entry.DisplayAfter));
+            query.Parameters.Add(new SqliteParameter("@props", propS));
 
             if (query.ExecuteNonQuery() != 1)
             {
@@ -355,14 +358,14 @@ namespace au.id.micolous.libs.igacommon
         /// </summary>
         /// <param name="contentId">The contentId to fetch.</param>
         /// <param name="IncludeImageData">Should image data be included?</param>
-        /// <returns>A ContentEntry that is the row.</returns>
+        /// <returns>A ContentEntry that is the row, or null if it wasn't found.</returns>
         public ContentEntry GetEntry(uint contentId, bool IncludeImageData)
         {
-            SQLiteCommand cmd = new SQLiteCommand(@"SELECT * FROM [content] WHERE [contentId] = @cid LIMIT 1", sqlite);
-            cmd.Parameters.Add(new SQLiteParameter("cid", contentId));
+            SqliteCommand cmd = new SqliteCommand("SELECT * FROM [content] WHERE [contentId] = @cid LIMIT 1", sqlite);
+            cmd.Parameters.Add(new SqliteParameter("@cid", (int)contentId));
             sqlite.Open();
             ContentEntry entry;
-            SQLiteDataReader reader = cmd.ExecuteReader();
+            SqliteDataReader reader = cmd.ExecuteReader();
             reader.Read();
             entry = this.GetEntryFromReader(reader, IncludeImageData);
             sqlite.Close();
@@ -370,28 +373,36 @@ namespace au.id.micolous.libs.igacommon
         }
 
         /// <summary>
-        /// Internal function to read a row from a SQLiteDataReader to convert
+        /// Internal function to read a row from a SqliteDataReader to convert
         /// it to a ContentEntry.
         /// </summary>
-        /// <param name="reader">The SQLiteDataReader to get the information from.</param>
+        /// <param name="reader">The SqliteDataReader to get the information from.</param>
         /// <param name="IncludeImageData">Should image data be included?</param>
         /// <returns>A ContentEntry describing the row returned.</returns>
-        private ContentEntry GetEntryFromReader(SQLiteDataReader reader, bool IncludeImageData)
+        private ContentEntry GetEntryFromReader(SqliteDataReader reader, bool IncludeImageData)
         {
             ContentEntry entry = new ContentEntry();
 
             // read in rows
-            entry.ContentID = (uint)reader.GetInt32(0);
+            try
+            {
+                entry.ContentID = (uint)(int)reader["contentId"];
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                // no rows, fail out.
+                return null;
+            }
 
             DateTime activate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            entry.Activate = activate.AddSeconds(reader.GetInt32(2));
+            entry.Activate = activate.AddSeconds((int)reader["activate"]);
 
-            entry.Active = (reader.GetInt32(1) >= 1);
+            entry.Active = ((int)reader["active"] >= 1);
 
             if (reader.GetInt32(3) > 0)
             {
                 DateTime expires = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                entry.Expiry = expires.AddSeconds(reader.GetInt32(3));
+                entry.Expiry = expires.AddSeconds((int)reader["expiry"]);
                 entry.Expires = true;
             }
             else
@@ -399,17 +410,17 @@ namespace au.id.micolous.libs.igacommon
                 entry.Expires = false;
             }
 
-            entry.DayParts = (uint)reader.GetInt32(4);
+            entry.DayParts = (uint)(int)reader["dayparts"];
 
-            entry.contentType = new ContentType((uint)reader.GetInt32(5));
+            entry.contentType = new ContentType((uint)(int)reader["contentType"]);
 
-            entry.Size = (uint)reader.GetInt32(7);
-            entry.ViewCount = (uint)reader.GetInt32(8);
-            entry.ViewLimit = (uint)reader.GetInt32(9);
-            entry.DisplayAfter = (uint)reader.GetInt32(10);
+            entry.Size = (uint)(int)reader["size"];
+            entry.ViewCount = (uint)(int)reader["viewcount"];
+            entry.ViewLimit = (uint)(int)reader["viewlimit"];
+            entry.DisplayAfter = (uint)(int)reader["displayafter"];
 
             // parse properties.
-            String props = reader.GetString(11);
+            String props = (String)reader["props"];
             entry.Properties = new SortedDictionary<string, string>();
 
             foreach (String prop in props.Split('&'))
@@ -426,7 +437,7 @@ namespace au.id.micolous.libs.igacommon
                 long fileLength;
                 try
                 {
-                    fileLength = reader.GetBytes(12, 0, null, 0, 0);
+                    fileLength = ((byte[])reader["data"]).Length;
                 }
                 catch (Exception ex)
                 {
@@ -437,7 +448,7 @@ namespace au.id.micolous.libs.igacommon
                 byte[] ddsimage = new byte[fileLength];
                 if (fileLength > 0)
                 {
-                    reader.GetBytes(12, 0, ddsimage, 0, ddsimage.Length);
+                    ddsimage = ((byte[])reader["data"]);
                 }
 
                 entry.Data = ddsimage;
@@ -453,8 +464,8 @@ namespace au.id.micolous.libs.igacommon
         public void DeleteEntry(uint contentId)
         {
             sqlite.Open();
-            SQLiteCommand query = new SQLiteCommand(@"DELETE FROM [content] WHERE [contentId]=@cid", sqlite);
-            query.Parameters.Add(new SQLiteParameter("cid", contentId));
+            SqliteCommand query = new SqliteCommand(@"DELETE FROM [content] WHERE [contentId]=@cid", sqlite);
+            query.Parameters.Add(new SqliteParameter("@cid", (int)contentId));
             if (query.ExecuteNonQuery() != 1)
             {
                 sqlite.Close();

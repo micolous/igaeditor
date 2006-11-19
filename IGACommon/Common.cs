@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
-using System.Data.SQLite;
+//using System.Data.SQLite;
 using System.Globalization;
 
 namespace au.id.micolous.libs.igacommon
