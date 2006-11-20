@@ -1,0 +1,25 @@
+<Combine name="igaeditor" fileversion="2.0">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="True" name="igaeditor-gtk" configuration="Debug" />
+      <Entry build="True" name="IGACommon" configuration="Debug" />
+      <Entry build="True" name="DDSReader" configuration="Debug" />
+    </Configuration>
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="True" name="igaeditor-gtk" configuration="Release" />
+      <Entry build="True" name="IGACommon" configuration="Release" />
+      <Entry build="True" name="DDSReader" configuration="Release" />
+    </Configuration>
+  </Configurations>
+  <DeployTargets />
+  <StartMode startupentry="igaeditor-gtk" single="True">
+    <Execute type="None" entry="igaeditor-gtk" />
+    <Execute type="None" entry="IGACommon" />
+    <Execute type="None" entry="DDSReader" />
+  </StartMode>
+  <Entries>
+    <Entry filename="./igaeditor-gtk/igaeditor-gtk.mdp" />
+    <Entry filename="./IGACommon/IGACommon.mdp" />
+    <Entry filename="./DDSReader/DDSReader.mdp" />
+  </Entries>
+</Combine>

@@ -73,7 +73,7 @@ namespace au.id.micolous.libs.igacommon
 		/// <param name="filename">The file to connect to.</param>
 		public IGADatabaseConnector(String filename)
 		{
-			//try {
+			try {
                 sqlite = new SqliteConnection("URI=file:" + filename + ",version=3");
 				sqlite.Open();
                 
@@ -101,9 +101,9 @@ namespace au.id.micolous.libs.igacommon
                     _appInfo = Common.AppInfos[this._appID];
                 }
 				
-            //} catch (Exception) {
-            //    throw new DatabaseConnectionFailureException();
-            //}
+            } catch (Exception) {
+                throw new DatabaseConnectionFailureException();
+            }
 		}
 		
 		/// <summary>

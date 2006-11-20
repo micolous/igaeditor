@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using DevIL;
+//using DevIL;
 using System.Drawing;
 using System.IO;
 
@@ -20,8 +18,10 @@ namespace au.id.micolous.libs.DDSReader
         /// <returns>The Bitmap representation of the image.</returns>
         public static Bitmap LoadImage(byte[] data)
         {
+        	DDSImage im = new DDSImage(data);
+        	return im.GetBitmap();
             // write the data to a temporary file.
-            String tempFile = Path.GetTempFileName();
+            /*String tempFile = Path.GetTempFileName();
             FileStream fs = new FileStream(tempFile, FileMode.Create, FileAccess.Write);
 
             fs.Write(data, 0, data.Length);
@@ -33,8 +33,10 @@ namespace au.id.micolous.libs.DDSReader
 
             File.Delete(tempFile);
 
-            return b;
+            return b;*/
         }
+        
+        
 
         /// <summary>
         /// "Pings" the library.

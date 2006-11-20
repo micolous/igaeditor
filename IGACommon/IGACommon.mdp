@@ -1,0 +1,41 @@
+<Project name="IGACommon" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="DotNetProjectConfiguration">
+      <Output directory="./bin/Debug" assembly="IGACommon" />
+      <Build debugmode="True" target="Library" />
+      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="True" ctype="CSharpCompilerParameters" />
+    </Configuration>
+    <Configuration name="Release" ctype="DotNetProjectConfiguration">
+      <Output directory="./bin/Release" assembly="IGACommon" />
+      <Build debugmode="False" target="Library" />
+      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="True" ctype="CSharpCompilerParameters" />
+    </Configuration>
+  </Configurations>
+  <DeployTargets />
+  <Contents>
+    <File name="./AdPack.cs" subtype="Code" buildaction="Compile" />
+    <File name="./AdPackEntry.cs" subtype="Code" buildaction="Compile" />
+    <File name="./AppInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Common.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ContentEntry.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ContentType.cs" subtype="Code" buildaction="Compile" />
+    <File name="./DatabaseConnectionFailureException.cs" subtype="Code" buildaction="Compile" />
+    <File name="./DatabaseUpdateFailureException.cs" subtype="Code" buildaction="Compile" />
+    <File name="./gpl.txt" subtype="Code" buildaction="FileCopy" />
+    <File name="./IGADatabaseConnector.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ItemType.cs" subtype="Code" buildaction="Compile" />
+    <File name="./sqlite3.dll" subtype="Code" buildaction="Nothing" />
+    <File name="./UnsupportedImageSizeException.cs" subtype="Code" buildaction="Compile" />
+    <File name="./UnsupportedImageTypeException.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Properties/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+  </Contents>
+  <References>
+    <ProjectReference type="Assembly" localcopy="True" refto="../../../../../win-c/Documents and Settings/michael/My Documents/Visual Studio 2005/Projects/IGA Ad Cache Editor/IGACommon/bin/Release/ICSharpCode.SharpZipLib.dll" />
+    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <ProjectReference type="Gac" localcopy="True" refto="Mono.Data.SqliteClient, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+  </References>
+</Project>
