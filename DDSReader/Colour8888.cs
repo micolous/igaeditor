@@ -1,6 +1,3 @@
-
-using System;
-
 namespace au.id.micolous.libs.DDSReader
 {
 	struct Colour8888

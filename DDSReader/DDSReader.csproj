@@ -30,10 +30,6 @@
     <DocumentationFile>DDSReader.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevIL.NET, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\installers\DevILDotNet_1.2\DevIL.NET.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
   </ItemGroup>

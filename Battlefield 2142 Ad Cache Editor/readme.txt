@@ -45,6 +45,17 @@ What's new in 0.1.5:
 - The AdPackSupport libraries are now no longer used.  The AdPackImportForm and AdPackExportForm are now a part of the main module again, and the AdPack and AdPackEntry classes are now a part of IGACommon.  As a result, IGACommon.dll now depends on SharpZipLib.
 - Localisable stubs added.
 - The "vaccum/shrink database" menu item is now no longer disabled if an unsupported appId is found.
+- Mono.Data.SqliteClient is used in favour of System.Data.SQLite, so to allow for cross-platform support.
+- DDSReader has undergone a major overhaul, with native .NET DDS reading.  As a result, DDSReader no longer depends on DevIL or DevIL.NET.  This means that the program, uncompressed, is about 1MB smaller.
+- IGACommon and DDSReader now build under Mono without issues.
+
+Todo before 0.1.5 is released:
+==============================
+
+- Fix importing of images
+- Complete DDSImage class implementation to support all major compressors.
+- Improve speed of DDSImage loading into a Bitmap
+
 
 
 
@@ -146,8 +157,6 @@ This program is very big... I don't need all these features!
 
 The program is slightly modular, you can chop out bits that you don't need.  You shouldn't redistribute versions that are cut down, but the only legal requirement is that you keep the applicable licensing information intact.
 
-I plan to make the program more modular in the future.  IGACommon may in the future also start containing the database code, which will allow you to write your own frontends (eg: GTK#) without needing to decipher the file format.
-
 I would also recommend that you do not delete the documentation, it is often useful!
 
 If you try to run a component that has been removed or otherwise disabled, the program will throw an exception.  It might give you the option to continue, or it may just crash outright.  You have been warned!
@@ -156,6 +165,9 @@ Required Files (you shouldn't delete these):
  - IGA Ad Cache Editor.exe (this is the main program)
  - IGACommon.dll (contains shared functions used throughout the program)
  - System.Data.SQLite.dll (contains the SQLite implementation, which is needed to open the cache files)
+ 
+ Adpack support: (you will not be able to import/export adpacks if you remove these)
+ - ICSharpCode.SharpZipLib.dll (ZIP compression library)
 
 Development Documentation Files (these are only needed if you are writing a program based on or that references this program):
  - All XML files. (*.xml)
@@ -163,19 +175,10 @@ Development Documentation Files (these are only needed if you are writing a prog
 Debugging Symbols (if the program crashes, you should restore these before fileing a bug report):
  - All PDB files. (*.pdb)
  
-Adpack Support:
- - AdPackSupport.dll (This is referenced to import and export adpack files)
- - AdPackSupport.pdb (These are the debugging symbols for the library)
- - AdPackSupport.xml (This is the development documentation for the library)
- - ICSharpCode.SharpZipLib.dll (This is the ZIP library used to compress and decompress adpack files)
-
-Thumbnail Support:
+Thumbnail Support: (if you remove these, you will not be able to view thumbnails)
  - DDSReader.dll (This is referenced to open DDS images)
  - DDSReader.pdb (These are the debugging symbols for the library)
  - DDSReader.xml (This is the development documentation for the library)
- - DevIL.NET.dll (This is the .NET wrapper for DevIL)
- - DevIL.dll (This is the DevIL itself. (teehee))
- - ILU.dll (This is a support library used by DevIL)
 
 I found a bug, how do I report it?
 ==================================

@@ -3,6 +3,8 @@ using System;
 using System.IO;
 using System.Drawing;
 using System.Text;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace au.id.micolous.libs.DDSReader
 {
@@ -96,8 +98,16 @@ namespace au.id.micolous.libs.DDSReader
 		private BinaryReader br;
 		private Bitmap img;
 
+        /// <summary>
+        /// Returns a System.Imaging.Bitmap containing the DDS image.
+        /// </summary>
         public Bitmap BitmapImage { get { return this.img; } }
 		
+        /// <summary>
+        /// Constructs a new DDSImage object using the given byte array, which
+        /// contains the raw DDS file.
+        /// </summary>
+        /// <param name="ddsimage">A byte[] containing the DDS file.</param>
 		public DDSImage(byte[] ddsimage)
 		{
 			// creates a new DDSImage from a byte[] containing a DDS Image.
@@ -137,13 +147,14 @@ namespace au.id.micolous.libs.DDSReader
 			this.rgbbitcount = br.ReadUInt32();
 			this.rbitmask = br.ReadUInt32();
 			this.gbitmask = br.ReadUInt32();
+            this.bbitmask = br.ReadUInt32();
 			this.alphabitmask = br.ReadUInt32();
 			this.ddscaps1 = br.ReadUInt32();
 			this.ddscaps2 = br.ReadUInt32();
 			this.ddscaps3 = br.ReadUInt32();
 			this.ddscaps4 = br.ReadUInt32();
 			this.texturestage = br.ReadUInt32();
-            br.ReadUInt32();
+            
 			
 			// patches for stuff
 			if (this.depth == 0) {
@@ -295,7 +306,8 @@ namespace au.id.micolous.libs.DDSReader
 			}
 			
 			this.img = new Bitmap((int)this.width, (int)this.height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-			// now fill bitmap with raw image datas.
+			// now fill bitmap with raw image datas.  this is really slow.
+            // should find a better way to do this.
 			for (int y=0; y<this.height; y++) {
 				for (int x=0; x<this.width; x++) {
 					// draw
@@ -303,6 +315,7 @@ namespace au.id.micolous.libs.DDSReader
 					this.img.SetPixel(x, y, Color.FromArgb(this.rawidata[pos+3], this.rawidata[pos], this.rawidata[pos+1], this.rawidata[pos+2]));
 				}
 			}
+
 
 			// cleanup
 			this.rawidata = null;

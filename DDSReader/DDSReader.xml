@@ -11,7 +11,7 @@
         </member>
         <member name="M:au.id.micolous.libs.DDSReader.DDSReader.LoadImage(System.Byte[])">
             <summary>
-            Loads an image file with DevIL.NET, and returns a Bitmap object of the image.
+            Loads a DDS image file, and returns a Bitmap object of the image.
             </summary>
             <param name="data">The image data.</param>
             <returns>The Bitmap representation of the image.</returns>
@@ -22,6 +22,11 @@
             </summary>
             <returns>Always returns true.</returns>
         </member>
+        <member name="T:au.id.micolous.libs.DDSReader.UnknownFileFormatException">
+            <summary>
+            Thrown when there is an unknown compressor used in the DDS file.
+            </summary>
+        </member>
         <member name="T:au.id.micolous.libs.DDSReader.DDSImage">
             <summary>
             The brand-spankingly new and revamped DDSReader library.
@@ -31,6 +36,83 @@
             This loads a DDS image into an object.  Not much more than that.  At the moment,
             it only supports DXT1 compressed images.  It doesn't support uncompressed
             images yet.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.DDSReader.DDSImage.#ctor(System.Byte[])">
+            <summary>
+            Constructs a new DDSImage object using the given byte array, which
+            contains the raw DDS file.
+            </summary>
+            <param name="ddsimage">A byte[] containing the DDS file.</param>
+        </member>
+        <member name="P:au.id.micolous.libs.DDSReader.DDSImage.BitmapImage">
+            <summary>
+            Returns a System.Imaging.Bitmap containing the DDS image.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.DDSReader.InvalidFileHeaderException">
+            <summary>
+            Thrown when an invalid file header has been encountered.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.DDSReader.NotADDSImageException">
+            <summary>
+            Thrown when the data does not contain a DDS image.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.DDSReader.PixelFormat">
+            <summary>
+            Various pixel formats/compressors used by the DDS image.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.ARGB">
+            <summary>
+            32-bit image, with 8-bit red, green, blue and alpha.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.RGB">
+            <summary>
+            24-bit image with 8-bit red, green, blue.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.DXT1">
+            <summary>
+            16-bit DXT-1 compression, 1-bit alpha.
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.DXT2">
+            <summary>
+            DXT-2 Compression
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.DXT3">
+            <summary>
+            DXT-3 Compression
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.DXT4">
+            <summary>
+            DXT-4 Compression
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.DTX5">
+            <summary>
+            DXT-5 Compression
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.THREEDC">
+            <summary>
+            3DC Compression
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.ATI1N">
+            <summary>
+            ATI1n Compression
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.UNKNOWN">
+            <summary>
+            Unknown pixel format.
             </summary>
         </member>
     </members>

@@ -1,7 +1,4 @@
-using System;
-//using DevIL;
 using System.Drawing;
-using System.IO;
 
 namespace au.id.micolous.libs.DDSReader
 {
@@ -12,32 +9,16 @@ namespace au.id.micolous.libs.DDSReader
     {
 
         /// <summary>
-        /// Loads an image file with DevIL.NET, and returns a Bitmap object of the image.
+        /// Loads a DDS image file, and returns a Bitmap object of the image.
         /// </summary>
         /// <param name="data">The image data.</param>
         /// <returns>The Bitmap representation of the image.</returns>
         public static Bitmap LoadImage(byte[] data)
         {
         	DDSImage im = new DDSImage(data);
-        	return im.GetBitmap();
-            // write the data to a temporary file.
-            /*String tempFile = Path.GetTempFileName();
-            FileStream fs = new FileStream(tempFile, FileMode.Create, FileAccess.Write);
-
-            fs.Write(data, 0, data.Length);
-            fs.Flush();
-            fs.Close();
-
-            // now load the image.
-            Bitmap b = DevIL.DevIL.LoadBitmap(tempFile);
-
-            File.Delete(tempFile);
-
-            return b;*/
+        	return im.BitmapImage;
         }
         
-        
-
         /// <summary>
         /// "Pings" the library.
         /// </summary>

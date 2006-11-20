@@ -593,18 +593,22 @@ namespace au.id.micolous.apps.igaeditor
             }
             else
             {
+                String oldwintitle = this.Text;
+                this.Text = "Loading, please wait...";
                 uint contentId = UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
                 //MessageBox.Show("Selected item ID #" + contentId.ToString() + ".");
                 //int adIndex = Common.cids.IndexOf(contentId);
                 byte[] idata = _igaconnector.ExportImage(contentId);
-                if (idata.Length == 0)
+                if (idata == null || idata.Length == 0)
                 {
                     MessageBox.Show("There is no image in the data block, so there is nothing to see.");
+                    this.Text = oldwintitle;
                     return;
                 }
                 if (Common.IsBIK(idata))
                 {
-                    MessageBox.Show("Sorry, cannot preview BI(N)K video ads.");
+                    MessageBox.Show("Sorry, cannot preview BINK video files.");
+                    this.Text = oldwintitle;
                     return;
                 }
 
@@ -614,10 +618,12 @@ namespace au.id.micolous.apps.igaeditor
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("There was a problem trying to load the preview.  The message was: " + ex.Message, "Ad Cache Editor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("There was a problem trying to load the preview.  The message was: " + ex.GetType().Name + "-> " + ex.Message, "Ad Cache Editor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Text = oldwintitle;
                     return;
                 }
 
+                this.Text = oldwintitle;
                 EditingGroup.Hide();
                 menuStrip1.Hide();
                 ImagePreviewGroup.Show();
