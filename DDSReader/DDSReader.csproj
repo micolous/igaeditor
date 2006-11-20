@@ -38,16 +38,16 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Colour8888.cs" />
+    <Compile Include="DDSImage.cs" />
     <Compile Include="DDSReader.cs" />
+    <Compile Include="InvalidFileHeaderException.cs" />
+    <Compile Include="NotADDSImageException.cs" />
+    <Compile Include="PixelFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnknownFileFormatException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DevIL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ILU.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="DDSReader-readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

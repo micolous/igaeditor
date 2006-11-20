@@ -7,17 +7,27 @@ using System.Text;
 namespace au.id.micolous.libs.DDSReader
 {
 	
-	
+	/// <summary>
+	/// The brand-spankingly new and revamped DDSReader library.
+    /// 
+    /// Now with 100% native .NET goodness.
+    /// 
+    /// This loads a DDS image into an object.  Not much more than that.  At the moment,
+    /// it only supports DXT1 compressed images.  It doesn't support uncompressed
+    /// images yet.
+	/// </summary>
 	public class DDSImage
 	{
-		/*
-		 * This class is based on parts of DevIL.net, specifically;
-		 * /DevIL-1.6.8/src-IL/src/il_dds.c
-		 *
-		 * All ported to c#/.net.
-		 */
-	
-		private static byte[] DDS_HEADER = Convert.FromBase64String("RERTIA=="); // "DDS "
+        /*
+         * This class is based on parts of DevIL.net, specifically;
+         * /DevIL-1.6.8/src-IL/src/il_dds.c
+         *
+         * All ported to c#/.net.
+         * 
+         * http://msdn.microsoft.com/library/default.asp?url=/library/en-us/directx9_c/Opaque_and_1_Bit_Alpha_Textures.asp
+         */
+
+        private static byte[] DDS_HEADER = Convert.FromBase64String("RERTIA=="); // "DDS "
 		
 		// fourccs
 		private const uint FOURCC_DXT1 = 827611204;
@@ -85,7 +95,8 @@ namespace au.id.micolous.libs.DDSReader
 		private byte[] rawidata;
 		private BinaryReader br;
 		private Bitmap img;
-		
+
+        public Bitmap BitmapImage { get { return this.img; } }
 		
 		public DDSImage(byte[] ddsimage)
 		{
@@ -132,6 +143,7 @@ namespace au.id.micolous.libs.DDSReader
 			this.ddscaps3 = br.ReadUInt32();
 			this.ddscaps4 = br.ReadUInt32();
 			this.texturestage = br.ReadUInt32();
+            br.ReadUInt32();
 			
 			// patches for stuff
 			if (this.depth == 0) {
@@ -252,12 +264,12 @@ namespace au.id.micolous.libs.DDSReader
 			}
 			
 			
-			System.Console.WriteLine(String.Format("Image Size: {0}x{1}, Pixel Format: {2}, Blocksize: {3}", this.width, this.height, this.CompFormat, this.blocksize));
+			//System.Console.WriteLine(String.Format("Image Size: {0}x{1}, Pixel Format: {2}, Blocksize: {3}", this.width, this.height, this.CompFormat, this.blocksize));
 			
 			// get image data
 			this.ReadData();
 			
-			System.Console.WriteLine(String.Format("Compressed data size: {0}/{1} bytes", this.compsize, this.compdata.Length));
+			//System.Console.WriteLine(String.Format("Compressed data size: {0}/{1} bytes", this.compsize, this.compdata.Length));
 			
 			// allocate bitmap
 			this.bpp = this.PixelFormatToBpp(this.CompFormat);
@@ -282,26 +294,16 @@ namespace au.id.micolous.libs.DDSReader
 					throw new UnknownFileFormatException();
 			}
 			
-			this.img = new Bitmap((int)this.width, (int)this.height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+			this.img = new Bitmap((int)this.width, (int)this.height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 			// now fill bitmap with raw image datas.
 			for (int y=0; y<this.height; y++) {
 				for (int x=0; x<this.width; x++) {
 					// draw
 					ulong pos = (ulong)(((y*this.width)+x)*4);
-					this.img.SetPixel(x, y, Color.FromArgb(this.rawidata[pos], this.rawidata[pos+1], this.rawidata[pos+2]));
+					this.img.SetPixel(x, y, Color.FromArgb(this.rawidata[pos+3], this.rawidata[pos], this.rawidata[pos+1], this.rawidata[pos+2]));
 				}
 			}
-			
-			
-			
-			
-			// dump to tempfile
-			FileStream fs = new FileStream("/home/michael/idata.raw", FileMode.Create, FileAccess.Write);
-			fs.Write(this.rawidata, 0, this.rawidata.Length);
-			fs.Flush();
-			fs.Close();
-			
-			
+
 			// cleanup
 			this.rawidata = null;
 			this.compdata = null;
@@ -436,11 +438,11 @@ namespace au.id.micolous.libs.DDSReader
 		private void DecompressDXT1() {
 			// DXT1 decompressor
 			Colour8888[] colours = new Colour8888[4];
-			Colour8888 col = new Colour8888();
+			
 			
 			ushort colour0, colour1;
 			uint bitmask, offset;
-			int i, j, k, l, x, y, z, Select;
+			int i, j, k, x, y, z, Select;
 			
 			MemoryStream mem = new MemoryStream(this.compdata.Length);
 			mem.Write(this.compdata, 0, this.compdata.Length);
@@ -484,25 +486,28 @@ namespace au.id.micolous.libs.DDSReader
 							colours[2].b = (byte)((colours[0].b + colours[1].b) / 2);
 							colours[2].g = (byte)((colours[0].g + colours[1].g) / 2);
 							colours[2].r = (byte)((colours[0].r + colours[1].r) / 2);
-							
-							colours[3].b = (byte)((colours[0].b + 2 * colours[1].b + 1) / 3);
-							colours[3].g = (byte)((colours[0].g + 2 * colours[1].g + 1) / 3);
-							colours[3].r = (byte)((colours[0].r + 2 * colours[1].r + 1) / 3);
-							colours[3].a = 0x00;
+
+                            colours[3].b = 0;
+                            colours[3].g = 0;
+                            colours[3].r = 0;
+							colours[3].a = 0;
 						}
 						
+                        
 						for (j = 0, k = 0; j < 4; j++) {
 							for (i = 0; i < 4; i++, k++) {
 								Select = (int)((bitmask & (0x03 << k*2)) >> k*2);
 								if (((x + i) < this.width) && ((y + j) < this.height)) {
 									offset = (uint)(z * this.sizeofplane + (y + j) * this.bps + (x + i) * this.bpp);
-									this.rawidata[offset + 0] = colours[Select].r;
-									this.rawidata[offset + 1] = colours[Select].g;
-									this.rawidata[offset + 2] = colours[Select].b;
-									this.rawidata[offset + 3] = colours[Select].a;
+									this.rawidata[offset + 0] = (byte)colours[Select].r;
+									this.rawidata[offset + 1] = (byte)colours[Select].g;
+									this.rawidata[offset + 2] = (byte)colours[Select].b;
+									this.rawidata[offset + 3] = (byte)colours[Select].a;
 								}
 							}
 						}
+
+                      
 						
 					}
 				}
@@ -517,19 +522,10 @@ namespace au.id.micolous.libs.DDSReader
 			b = (byte)(Data & 0x1f);
 			g = (byte)((Data & 0x7E0) >> 5);
 			r = (byte)((Data & 0xF800) >> 11);
-			
-			//Colour8888 op = new Colour8888(); 
-			op.r = (byte)(r << 3);
-			op.g = (byte)(g << 2);
-			op.b = (byte)(b << 3);
-			
-			//return op;
-		}
-		
-		public Bitmap GetBitmap() {
-			// nothing.
-			//return new Bitmap(System.Drawing.Image.FromFile("/home/michael/test.bmp"));
-			return this.img;
+
+            op.r = (byte)(r * 255 / 31);
+            op.g = (byte)(g * 255 / 63);
+            op.b = (byte)(b * 255 / 31);
 		}
 	}
 }

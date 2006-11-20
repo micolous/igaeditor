@@ -4,5 +4,34 @@
         <name>DDSReader</name>
     </assembly>
     <members>
+        <member name="T:au.id.micolous.libs.DDSReader.DDSReader">
+            <summary>
+            This is the main class of the library.  All static methods are contained within.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.DDSReader.DDSReader.LoadImage(System.Byte[])">
+            <summary>
+            Loads an image file with DevIL.NET, and returns a Bitmap object of the image.
+            </summary>
+            <param name="data">The image data.</param>
+            <returns>The Bitmap representation of the image.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.DDSReader.DDSReader.Ping">
+            <summary>
+            "Pings" the library.
+            </summary>
+            <returns>Always returns true.</returns>
+        </member>
+        <member name="T:au.id.micolous.libs.DDSReader.DDSImage">
+            <summary>
+            The brand-spankingly new and revamped DDSReader library.
+            
+            Now with 100% native .NET goodness.
+            
+            This loads a DDS image into an object.  Not much more than that.  At the moment,
+            it only supports DXT1 compressed images.  It doesn't support uncompressed
+            images yet.
+            </summary>
+        </member>
     </members>
 </doc>
