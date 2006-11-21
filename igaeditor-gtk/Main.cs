@@ -21,7 +21,7 @@ namespace igaeditorgtk
 		
 		public static Gdk.Pixbuf CreatePixbufFromResource( Bitmap bitmap ) {
 			// creates a Gdk.Pixbuf from a Bitmap object
-			// thanks to bratshche (Cody Russell) on #mono for the help!
+			// thanks to bratsche (Cody Russell) on #mono for the help!
 			BitmapData data = bitmap.LockBits( new Rectangle( 0, 0,
 				bitmap.Width,
 				bitmap.Height),
