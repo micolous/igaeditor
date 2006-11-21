@@ -307,6 +307,7 @@ namespace au.id.micolous.libs.DDSReader
 			
 			this.img = new Bitmap((int)this.width, (int)this.height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 			// now fill bitmap with raw image datas.  this is really slow.
+			// but only on windows/microsoft's .net clr.  it's fast in mono.
             // should find a better way to do this.
 			for (int y=0; y<this.height; y++) {
 				for (int x=0; x<this.width; x++) {
