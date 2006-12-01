@@ -4,29 +4,6 @@
         <name>DDSReader</name>
     </assembly>
     <members>
-        <member name="T:au.id.micolous.libs.DDSReader.DDSReader">
-            <summary>
-            This is the main class of the library.  All static methods are contained within.
-            </summary>
-        </member>
-        <member name="M:au.id.micolous.libs.DDSReader.DDSReader.LoadImage(System.Byte[])">
-            <summary>
-            Loads a DDS image file, and returns a Bitmap object of the image.
-            </summary>
-            <param name="data">The image data.</param>
-            <returns>The Bitmap representation of the image.</returns>
-        </member>
-        <member name="M:au.id.micolous.libs.DDSReader.DDSReader.Ping">
-            <summary>
-            "Pings" the library.
-            </summary>
-            <returns>Always returns true.</returns>
-        </member>
-        <member name="T:au.id.micolous.libs.DDSReader.UnknownFileFormatException">
-            <summary>
-            Thrown when there is an unknown compressor used in the DDS file.
-            </summary>
-        </member>
         <member name="T:au.id.micolous.libs.DDSReader.DDSImage">
             <summary>
             The brand-spankingly new and revamped DDSReader library.
@@ -50,10 +27,28 @@
             Returns a System.Imaging.Bitmap containing the DDS image.
             </summary>
         </member>
-        <member name="T:au.id.micolous.libs.DDSReader.InvalidFileHeaderException">
+        <member name="T:au.id.micolous.libs.DDSReader.UnknownFileFormatException">
             <summary>
-            Thrown when an invalid file header has been encountered.
+            Thrown when there is an unknown compressor used in the DDS file.
             </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.DDSReader.DDSReader">
+            <summary>
+            This is the main class of the library.  All static methods are contained within.
+            </summary>
+        </member>
+        <member name="M:au.id.micolous.libs.DDSReader.DDSReader.LoadImage(System.Byte[])">
+            <summary>
+            Loads a DDS image file, and returns a Bitmap object of the image.
+            </summary>
+            <param name="data">The image data.</param>
+            <returns>The Bitmap representation of the image.</returns>
+        </member>
+        <member name="M:au.id.micolous.libs.DDSReader.DDSReader.Ping">
+            <summary>
+            "Pings" the library.
+            </summary>
+            <returns>Always returns true.</returns>
         </member>
         <member name="T:au.id.micolous.libs.DDSReader.NotADDSImageException">
             <summary>
@@ -113,6 +108,11 @@
         <member name="F:au.id.micolous.libs.DDSReader.PixelFormat.UNKNOWN">
             <summary>
             Unknown pixel format.
+            </summary>
+        </member>
+        <member name="T:au.id.micolous.libs.DDSReader.InvalidFileHeaderException">
+            <summary>
+            Thrown when an invalid file header has been encountered.
             </summary>
         </member>
     </members>

@@ -1,8 +1,10 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
+using System.IO;
 //using System.Data.SQLite;
 using Mono.Data.SqliteClient;
+using System.Runtime.InteropServices;
 
 namespace au.id.micolous.libs.igacommon
 {
@@ -176,7 +178,7 @@ namespace au.id.micolous.libs.igacommon
         /// </summary>
         /// <returns>A copy of the SqliteConnection that this instance of the class is
         /// presently using.</returns>
-        public SqliteConnection GetConnection()
+        public IDbConnection GetConnection()
         {
             return sqlite;
         }
@@ -195,8 +197,9 @@ namespace au.id.micolous.libs.igacommon
             query.Parameters.Add(new SqliteParameter("@data", ddsimage));
             query.Parameters.Add(new SqliteParameter("@size", ddsimage.Length));
             query.Parameters.Add(new SqliteParameter("@cid", (int)contentId));
-            
+
             query.ExecuteNonQuery();
+
             sqlite.Close();
         }
 

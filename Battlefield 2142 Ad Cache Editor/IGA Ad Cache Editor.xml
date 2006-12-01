@@ -204,7 +204,7 @@
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:au.id.micolous.apps.igaeditor.SqlInjectorForm.#ctor(Mono.Data.SqliteClient.SqliteConnection)">
+        <member name="M:au.id.micolous.apps.igaeditor.SqlInjectorForm.#ctor(System.Data.IDbConnection)">
             <summary>
             Creates a new instance of the form.  You must pass a closed
             SqliteConnection to the constructor to use it.

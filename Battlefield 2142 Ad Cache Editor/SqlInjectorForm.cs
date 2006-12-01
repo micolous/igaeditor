@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-//using System.Data.SQLite;
-using Mono.Data.SqliteClient;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -20,15 +18,15 @@ namespace au.id.micolous.apps.igaeditor
     partial class SqlInjectorForm : Form
     {
 
-        private SqliteConnection sqlite;
-        private SqliteDataReader result;
+        private IDbConnection sqlite;
+        private IDataReader result;
 
         /// <summary>
         /// Creates a new instance of the form.  You must pass a closed
         /// SqliteConnection to the constructor to use it.
         /// </summary>
         /// <param name="sqlite">The SqliteConnection to use.</param>
-        public SqlInjectorForm(SqliteConnection sqlite)
+        public SqlInjectorForm(IDbConnection sqlite)
         {
             InitializeComponent();
             this.sqlite = sqlite;
@@ -43,7 +41,8 @@ namespace au.id.micolous.apps.igaeditor
                 return;
             }
 
-            SqliteCommand query = new SqliteCommand(QueryTextBox.Text, sqlite);
+            IDbCommand query = sqlite.CreateCommand();
+            query.CommandText = QueryTextBox.Text;
             sqlite.Open();
             ResultTextbox.Clear();
             try
@@ -57,8 +56,6 @@ namespace au.id.micolous.apps.igaeditor
                 return;
             }
 
-            //if (result.HasRows)
-            //{
             int rowCount = 0;
             while (result.Read())
             {
@@ -73,11 +70,9 @@ namespace au.id.micolous.apps.igaeditor
                 rowCount++;
             }
             result.Close();
-            //}
-            //else
+
             if (rowCount == 0)
             {
-                //result.Close();
                 ResultTextbox.AppendText("The query you entered was performed successfully, but no rows were returned.\r\n\r\n");
                 ResultTextbox.AppendText(String.Format("{0} row(s) were effected by the query.", result.RecordsAffected));
             }
