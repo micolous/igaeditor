@@ -1,9 +1,26 @@
+/*
+ * DDSReader
+ * Copyright 2006 Michael Farrell
+ 
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2 of the License, or (at your option) any later version.
 
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
 using System;
 using System.IO;
 using System.Drawing;
 using System.Text;
-using System.Drawing.Imaging;
+//using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
 namespace au.id.micolous.libs.DDSReader
@@ -28,6 +45,11 @@ namespace au.id.micolous.libs.DDSReader
          * 
          * http://msdn.microsoft.com/library/default.asp?url=/library/en-us/directx9_c/Opaque_and_1_Bit_Alpha_Textures.asp
          */
+         
+        /// <summary>
+        /// A space-seperated list of supported image encoders.
+        /// </summary>
+        public const String SUPPORTED_ENCODERS = "DXT1 DXT3";
 
         private static byte[] DDS_HEADER = Convert.FromBase64String("RERTIA=="); // "DDS "
 		
@@ -124,7 +146,7 @@ namespace au.id.micolous.libs.DDSReader
 				throw new NotADDSImageException();
 			}
 			
-			System.Console.WriteLine("Got dds header okay");
+			//System.Console.WriteLine("Got dds header okay");
 			
 			// now read in the rest
 			this.size1 = br.ReadUInt32();
@@ -300,6 +322,10 @@ namespace au.id.micolous.libs.DDSReader
 				case PixelFormat.DXT1:
 					this.DecompressDXT1();
 					break;
+					
+				case PixelFormat.DXT3:
+					this.DecompressDXT3();
+					break;
 				
 				default:
 					throw new UnknownFileFormatException();
@@ -447,6 +473,7 @@ namespace au.id.micolous.libs.DDSReader
 		
 		private void DecompressARGB() {
 			// not done
+            throw new UnknownFileFormatException();
 		}
 		
 		private void DecompressDXT1() {
@@ -513,7 +540,7 @@ namespace au.id.micolous.libs.DDSReader
 								Select = (int)((bitmask & (0x03 << k*2)) >> k*2);
 								if (((x + i) < this.width) && ((y + j) < this.height)) {
 									offset = (uint)(z * this.sizeofplane + (y + j) * this.bps + (x + i) * this.bpp);
-									this.rawidata[offset + 0] = (byte)colours[Select].r;
+									this.rawidata[offset] = (byte)colours[Select].r;
 									this.rawidata[offset + 1] = (byte)colours[Select].g;
 									this.rawidata[offset + 2] = (byte)colours[Select].b;
 									this.rawidata[offset + 3] = (byte)colours[Select].a;
@@ -529,6 +556,67 @@ namespace au.id.micolous.libs.DDSReader
 			
 		}
 		
+		private void DecompressDXT3() {
+			Colour8888[] colours = new Colour8888[4];
+			uint bitmask, offset;
+			int i, j, k, x, y, z, Select;
+			ushort word, colour0, colour1;
+			byte[] alpha; //temp;
+			
+			MemoryStream mem = new MemoryStream(this.compdata.Length);
+			mem.Write(this.compdata, 0, this.compdata.Length);
+			mem.Seek(0, SeekOrigin.Begin);
+			BinaryReader r = new BinaryReader(mem);
+			
+			for (z=0; z<this.depth; z++) {
+				for (y=0; y<this.height; y+=4) {
+					for (x=0; x<this.width; x+=4) {
+						alpha = r.ReadBytes(8);
+						
+						colour0 = r.ReadUInt16();
+						colour1 = r.ReadUInt16();
+						this.ReadColour(colour0, ref colours[0]);
+						this.ReadColour(colour1, ref colours[1]);
+						
+						bitmask = r.ReadUInt32();
+						
+						colours[2].b = (byte)((2 * colours[0].b + colours[1].b + 1) / 3);
+						colours[2].g = (byte)((2 * colours[0].g + colours[1].g + 1) / 3);
+						colours[2].r = (byte)((2 * colours[0].r + colours[1].r + 1) / 3);
+							
+						colours[3].b = (byte)((colours[0].b + 2 * colours[1].b + 1) / 3);
+						colours[3].g = (byte)((colours[0].g + 2 * colours[1].g + 1) / 3);
+						colours[3].r = (byte)((colours[0].r + 2 * colours[1].r + 1) / 3);
+						
+						for (j = 0, k = 0; j < 4; j++) {
+							for (i = 0; i < 4; k++, i++) {
+								Select = (int)((bitmask & (0x03 << k*2)) >> k*2);
+								
+								if (((x + i) < this.width) && ((y + j) < this.height)) {
+									offset = (uint)(z * this.sizeofplane + (y + j) * this.bps + (x + i) * this.bpp);
+									this.rawidata[offset] = (byte)colours[Select].r;
+									this.rawidata[offset + 1] = (byte)colours[Select].g;
+									this.rawidata[offset + 2] = (byte)colours[Select].b;
+								}
+							}
+						}
+						
+						for (j = 0; j < 4; j++) {
+							word = (ushort)(alpha[2*j] + 256*alpha[2*j+1]);
+							for (i = 0; i < 4; i++) {
+								if (((x + i) < this.width) && ((y + j) < this.height)) {
+									offset = (uint)(z * this.sizeofplane + (y + j) * this.bps + (x + i) * this.bpp + 3);
+									this.rawidata[offset] = (byte)(word & 0x0F);
+									this.rawidata[offset] = (byte)(this.rawidata[offset] | (this.rawidata[offset] << 4));
+								}
+								word >>= 4;
+							}
+						}		
+					}
+				}
+			}					
+		}
+		
 		private void ReadColour(ushort Data, ref Colour8888 op)
 		{
 			byte r, g, b;
@@ -541,5 +629,17 @@ namespace au.id.micolous.libs.DDSReader
             op.g = (byte)(g * 255 / 63);
             op.b = (byte)(b * 255 / 31);
 		}
+		
+		// uncomment this to make debugging easier
+		/*
+		private static String ConvertToHex(byte[] input) {
+            String output = "";
+            foreach (byte b in input) {
+                output = output + String.Format("{0:x2} ", (int)b);
+
+            }
+            return output;
+        }*/
+		
 	}
 }

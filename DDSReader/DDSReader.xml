@@ -15,6 +15,11 @@
             images yet.
             </summary>
         </member>
+        <member name="F:au.id.micolous.libs.DDSReader.DDSImage.SUPPORTED_ENCODERS">
+            <summary>
+            A space-seperated list of supported image encoders.
+            </summary>
+        </member>
         <member name="M:au.id.micolous.libs.DDSReader.DDSImage.#ctor(System.Byte[])">
             <summary>
             Constructs a new DDSImage object using the given byte array, which

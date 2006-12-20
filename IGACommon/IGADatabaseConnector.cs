@@ -232,6 +232,7 @@ namespace au.id.micolous.libs.igacommon
             ContentEntry entry = new ContentEntry();
             entry.Size = (uint)ad.DDSData.Length;
             entry.Data = ad.DDSData;
+            entry.contentType = ad.ContentType;
             return this.NewEntry(entry);
 
         }
@@ -257,7 +258,7 @@ namespace au.id.micolous.libs.igacommon
 
             String p = entry.GetPropsAsString();
 
-            SqliteCommand query = new SqliteCommand(@"INSERT INTO [content] ([active], [activate], [expire], [dayparts], [contentType], [descriptor], [size], [viewcount], [viewlimit], [displayafter], [props]) VALUES (@active, @activate, @expire, @dayparts, @contentType, @descriptor, @size, @viewcount, @viewlimit, @displayafter, @props); SELECT last_insert_rowid() AS contentId;", sqlite);
+            SqliteCommand query = new SqliteCommand(@"INSERT INTO [content] ([active], [activate], [expire], [dayparts], [contentType], [descriptor], [size], [viewcount], [viewlimit], [displayafter], [props], [data]) VALUES (@active, @activate, @expire, @dayparts, @contentType, @descriptor, @size, @viewcount, @viewlimit, @displayafter, @props, @data); SELECT last_insert_rowid() AS contentId;", sqlite);
             query.Parameters.Add(new SqliteParameter("@active", (int)active));
             query.Parameters.Add(new SqliteParameter("@activate", (int)activate));
             query.Parameters.Add(new SqliteParameter("@expire", (int)expiry));
@@ -269,6 +270,7 @@ namespace au.id.micolous.libs.igacommon
             query.Parameters.Add(new SqliteParameter("@viewlimit", (int)entry.ViewLimit));
             query.Parameters.Add(new SqliteParameter("@displayafter", (int)entry.DisplayAfter));
             query.Parameters.Add(new SqliteParameter("@props", p));
+            query.Parameters.Add(new SqliteParameter("@data", entry.Data));
             // get the contentId back
             sqlite.Open();
             Object cidR = query.ExecuteScalar();

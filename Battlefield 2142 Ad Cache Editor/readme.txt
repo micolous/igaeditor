@@ -1,8 +1,10 @@
 IGA Ad Cache Editor
 ===================
 
+Version 0.1.5 (2006-12-21): The "I gotta stop playing Warcraft if I expect to get any development work done" edition.
+
 Copyright 2006 Michael Farrell (micolous) <http://micolous.id.au/>
-Website: http://micolous.id.au/projects/bf2142/
+Website: http://igaeditor.sourceforge.net/
 
 A big thanks to the folks at totalbf2142.com for their assistance with research and testing!
 
@@ -20,7 +22,7 @@ License
 
 Notice: This program references and bundles a number of libraries, which are licensed differently from this software.  See libraries.txt for a reference of their licenses.
 
-The "IGA Common" library is part of the main program, and is licensed under the GNU General Public License.  The "DDSReader" library is released under a BSD license.
+The "IGA Common" library is part of the main program, and is licensed under the GNU General Public License.  The "DDSReader" library is released under the LGPL.
 
 See 'gpl.txt' for a full copy of the GNU General Public License.
 
@@ -41,23 +43,21 @@ See 'gpl.txt' for a full copy of the GNU General Public License.
 What's new in 0.1.5:
 ====================
 
-- New abstracted database connection system, "IGADatabaseConnector".  This is a part of the "IGA Common" module.  This allows you to write non-WinForms interfaces using the same engine.
+- New abstracted database connection system, "IGADatabaseConnector".  This is a part of the "IGA Common" module.  This allows you to write non-WinForms interfaces using the same engine.  At the moment there is a GTK# version in some development available from the igaeditor SVN repository.
 - The AdPackSupport libraries are now no longer used.  The AdPackImportForm and AdPackExportForm are now a part of the main module again, and the AdPack and AdPackEntry classes are now a part of IGACommon.  As a result, IGACommon.dll now depends on SharpZipLib.
 - Localisable stubs added.
 - The "vaccum/shrink database" menu item is now no longer disabled if an unsupported appId is found.
 - Mono.Data.SqliteClient is used in favour of System.Data.SQLite, so to allow for cross-platform support.
-- DDSReader has undergone a major overhaul, with native .NET DDS reading.  As a result, DDSReader no longer depends on DevIL or DevIL.NET.  This means that the program, uncompressed, is about 1MB smaller.
+- DDSReader has undergone a major overhaul, with native .NET DDS reading.  As a result, DDSReader no longer depends on DevIL or DevIL.NET.  This means that the program, uncompressed, is about 1MB smaller.  At the moment, the library only supports DXT1 and DXT3 compression modes.  Other decompressors are to be added in future versions.  Think of it as a test of "will my image work in the game"... the game doesn't support the uncompressed images. :)
 - IGACommon and DDSReader now build under Mono without issues.
+- DDSReader is now licensed under the LGPL (it was previously licensed under a BSD license).  This is due to the code ported to C# from DevIL.
 
-Todo before 0.1.5 is released:
-==============================
+What I'd like to have in version 0.1.6
+======================================
 
-- Fix importing of images
-- Complete DDSImage class implementation to support all major compressors.
-- Improve speed of DDSImage loading into a Bitmap
-
-
-
+- DXT2, DXT4, and DXT5 decompressors in DDSReader.
+- A working Linux/GTK# port, that also can run in Windows.
+- More application support, if other applications can be found that use IGA's software.
 
 What is this app?
 =================
@@ -71,7 +71,7 @@ What do I need?
 
 - Microsoft .NET Runtime 2.0 (or compatible version of Mono).
 
-System.Data.SQLite and SharpZipLib have been bundled with this software.
+SQLite (for Windows) and SharpZipLib have been bundled with this software.  Future versions of Mono may be able to run this, once they have a more complete System.Windows.Forms implementation.  On non-Windows systems, you will need the native SQLite libraries for your OS installed.
 
 How do I view/edit DDS images?  Why can't you use a standard format?
 ====================================================================
@@ -88,7 +88,7 @@ In The GIMP, to output in the correct format:
 
 - Ensure you're using 24-bit colour (RGB) mode.
 - The image is flattened (no layers)
-- In the Save DDS options dialogue, select "DXT1" compression and "Generate Mipmaps".
+- In the Save DDS options dialogue, select "DXT1" (or "DXT3") compression and "Generate Mipmaps".
 
 Why doesn't this app automatically convert for you?
 ===================================================
@@ -114,7 +114,13 @@ If you do not block the ad servers, or otherwise attempt to protect your cache f
 Where is icontent.cache?
 ========================
 
-In your "My Documents" folder, under "Battlefield 2142" or "Battlefield 2142 Demo".  Remember to back it up before changing it.
+In your "My Documents" folder, under "Battlefield 2142" or "Battlefield 2142 Demo".  Remember to back it up before changing it.  Some other games put it elsewhere, try looking in:
+
+- The game's program directory
+- The game's Application Data directory (in your profile)
+- The game's Local Settings directory (in your profile)
+
+Otherwise use the Windows search function to find it, or some other app that searches your hard disk, for the 'icontent.cache' file.
 
 What is the format of the icontent.cache file?
 ==============================================
@@ -152,6 +158,11 @@ My cache file is still big, even though I've deleted old images from it.
 
 Select "Vaccum/Shrink Database" from the "Application" menu.
 
+Why does it take so long to preview images on Windows?
+======================================================
+
+There's probably a performance issue with Microsoft's version of the .NET environment.  It runs at normal speeds in Mono on Linux.  Trying to work around it will be "interesting", to say the least.  It is to do with the way I extract raw image data and convert it to a Bitmap object internally.
+
 This program is very big... I don't need all these features!
 ============================================================
 
@@ -165,8 +176,11 @@ Required Files (you shouldn't delete these):
  - IGA Ad Cache Editor.exe (this is the main program)
  - IGACommon.dll (contains shared functions used throughout the program)
  - System.Data.SQLite.dll (contains the SQLite implementation, which is needed to open the cache files)
+
+Windows SQLite Library:
+ - sqlite3.dll (You only need this if you are running the software in Windows).
  
- Adpack support: (you will not be able to import/export adpacks if you remove these)
+Adpack support: (you will not be able to import/export adpacks if you remove these)
  - ICSharpCode.SharpZipLib.dll (ZIP compression library)
 
 Development Documentation Files (these are only needed if you are writing a program based on or that references this program):

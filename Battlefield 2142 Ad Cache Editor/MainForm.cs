@@ -510,8 +510,8 @@ namespace au.id.micolous.apps.igaeditor
 
         private void exportAdpackFilebfadsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*AdPackExportForm apef = new AdPackExportForm(AppID, ContentTypes);
-            apef.ShowDialog();*/
+            AdPackExportForm apef = new AdPackExportForm(_igaconnector);
+            apef.ShowDialog();
         }
 
         private void closeDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -685,6 +685,41 @@ namespace au.id.micolous.apps.igaeditor
             menuStrip1.Show();
             EditingGroup.Show();
             
+        }
+
+        private void theGIMPopenSourceImageEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://www.gimp.org/windows/");
+        }
+
+        private void nVidiaDDSPhotoshopPluginToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://developer.nvidia.com/object/photoshop_dds_plugins.html");
+        }
+
+        private void nVidiaDDSWindowsExplorerThumbnailerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://developer.nvidia.com/object/dds_thumbnail_viewer.html");
+        }
+
+        private void theGIMPDDSPluginToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://registry.gimp.org/plugin?id=4816");
+        }
+
+        private void aTIsCompressonatorDDSConverteradvancedUsersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://ati.amd.com/developer/compressonator.html");
+        }
+
+        private void rADVideoToolsforCreatingBINKVideoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://www.radgametools.com/bnkdown.htm");
+        }
+
+        private void subversionSourceCodeRepositoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://sourceforge.net/svn/?group_id=181663");
         }
     }
 }
