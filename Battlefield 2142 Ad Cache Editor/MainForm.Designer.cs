@@ -66,16 +66,23 @@ namespace au.id.micolous.apps.igaeditor
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.websiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.homePageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.downloadPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.researchForumThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.subversionSourceCodeRepositoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wikiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.webResourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aTIsCompressonatorDDSConverteradvancedUsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nVidiaDDSPhotoshopPluginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nVidiaDDSWindowsExplorerThumbnailerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rADVideoToolsforCreatingBINKVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.researchForumThreadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.theGIMPopenSourceImageEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.theGIMPDDSPluginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tutorialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.theGodfathersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.WelcomeGroup = new System.Windows.Forms.GroupBox();
             this.BigOpenButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -93,7 +100,6 @@ namespace au.id.micolous.apps.igaeditor
             this.ImagePreviewGroup = new System.Windows.Forms.GroupBox();
             this.PreviewCloseButton = new System.Windows.Forms.Button();
             this.PreviewBox = new System.Windows.Forms.PictureBox();
-            this.subversionSourceCodeRepositoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EditingGroup.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.WelcomeGroup.SuspendLayout();
@@ -325,6 +331,7 @@ namespace au.id.micolous.apps.igaeditor
             this.toolStripSeparator4,
             this.websiteToolStripMenuItem,
             this.webResourcesToolStripMenuItem,
+            this.tutorialsToolStripMenuItem,
             this.toolStripSeparator5,
             this.checkForUpdatesToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
@@ -343,20 +350,50 @@ namespace au.id.micolous.apps.igaeditor
             // 
             // websiteToolStripMenuItem
             // 
+            this.websiteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.homePageToolStripMenuItem,
+            this.toolStripSeparator6,
+            this.downloadPageToolStripMenuItem,
+            this.researchForumThreadToolStripMenuItem,
+            this.subversionSourceCodeRepositoryToolStripMenuItem,
+            this.wikiToolStripMenuItem});
             resources.ApplyResources(this.websiteToolStripMenuItem, "websiteToolStripMenuItem");
             this.websiteToolStripMenuItem.Name = "websiteToolStripMenuItem";
-            this.websiteToolStripMenuItem.Click += new System.EventHandler(this.websiteToolStripMenuItem_Click);
             // 
-            // toolStripSeparator5
+            // homePageToolStripMenuItem
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
+            resources.ApplyResources(this.homePageToolStripMenuItem, "homePageToolStripMenuItem");
+            this.homePageToolStripMenuItem.Name = "homePageToolStripMenuItem";
+            this.homePageToolStripMenuItem.Click += new System.EventHandler(this.websiteToolStripMenuItem_Click);
             // 
-            // checkForUpdatesToolStripMenuItem
+            // toolStripSeparator6
             // 
-            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            resources.ApplyResources(this.checkForUpdatesToolStripMenuItem, "checkForUpdatesToolStripMenuItem");
-            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
+            // 
+            // downloadPageToolStripMenuItem
+            // 
+            this.downloadPageToolStripMenuItem.Name = "downloadPageToolStripMenuItem";
+            resources.ApplyResources(this.downloadPageToolStripMenuItem, "downloadPageToolStripMenuItem");
+            this.downloadPageToolStripMenuItem.Click += new System.EventHandler(this.downloadPageToolStripMenuItem_Click);
+            // 
+            // researchForumThreadToolStripMenuItem
+            // 
+            resources.ApplyResources(this.researchForumThreadToolStripMenuItem, "researchForumThreadToolStripMenuItem");
+            this.researchForumThreadToolStripMenuItem.Name = "researchForumThreadToolStripMenuItem";
+            this.researchForumThreadToolStripMenuItem.Click += new System.EventHandler(this.researchForumThreadToolStripMenuItem_Click);
+            // 
+            // subversionSourceCodeRepositoryToolStripMenuItem
+            // 
+            this.subversionSourceCodeRepositoryToolStripMenuItem.Name = "subversionSourceCodeRepositoryToolStripMenuItem";
+            resources.ApplyResources(this.subversionSourceCodeRepositoryToolStripMenuItem, "subversionSourceCodeRepositoryToolStripMenuItem");
+            this.subversionSourceCodeRepositoryToolStripMenuItem.Click += new System.EventHandler(this.subversionSourceCodeRepositoryToolStripMenuItem_Click);
+            // 
+            // wikiToolStripMenuItem
+            // 
+            this.wikiToolStripMenuItem.Name = "wikiToolStripMenuItem";
+            resources.ApplyResources(this.wikiToolStripMenuItem, "wikiToolStripMenuItem");
+            this.wikiToolStripMenuItem.Click += new System.EventHandler(this.wikiToolStripMenuItem_Click);
             // 
             // webResourcesToolStripMenuItem
             // 
@@ -365,8 +402,6 @@ namespace au.id.micolous.apps.igaeditor
             this.nVidiaDDSPhotoshopPluginToolStripMenuItem,
             this.nVidiaDDSWindowsExplorerThumbnailerToolStripMenuItem,
             this.rADVideoToolsforCreatingBINKVideoToolStripMenuItem,
-            this.researchForumThreadToolStripMenuItem,
-            this.subversionSourceCodeRepositoryToolStripMenuItem,
             this.theGIMPopenSourceImageEditorToolStripMenuItem,
             this.theGIMPDDSPluginToolStripMenuItem});
             this.webResourcesToolStripMenuItem.Name = "webResourcesToolStripMenuItem";
@@ -396,12 +431,6 @@ namespace au.id.micolous.apps.igaeditor
             resources.ApplyResources(this.rADVideoToolsforCreatingBINKVideoToolStripMenuItem, "rADVideoToolsforCreatingBINKVideoToolStripMenuItem");
             this.rADVideoToolsforCreatingBINKVideoToolStripMenuItem.Click += new System.EventHandler(this.rADVideoToolsforCreatingBINKVideoToolStripMenuItem_Click);
             // 
-            // researchForumThreadToolStripMenuItem
-            // 
-            resources.ApplyResources(this.researchForumThreadToolStripMenuItem, "researchForumThreadToolStripMenuItem");
-            this.researchForumThreadToolStripMenuItem.Name = "researchForumThreadToolStripMenuItem";
-            this.researchForumThreadToolStripMenuItem.Click += new System.EventHandler(this.researchForumThreadToolStripMenuItem_Click);
-            // 
             // theGIMPopenSourceImageEditorToolStripMenuItem
             // 
             this.theGIMPopenSourceImageEditorToolStripMenuItem.Name = "theGIMPopenSourceImageEditorToolStripMenuItem";
@@ -413,6 +442,30 @@ namespace au.id.micolous.apps.igaeditor
             this.theGIMPDDSPluginToolStripMenuItem.Name = "theGIMPDDSPluginToolStripMenuItem";
             resources.ApplyResources(this.theGIMPDDSPluginToolStripMenuItem, "theGIMPDDSPluginToolStripMenuItem");
             this.theGIMPDDSPluginToolStripMenuItem.Click += new System.EventHandler(this.theGIMPDDSPluginToolStripMenuItem_Click);
+            // 
+            // tutorialsToolStripMenuItem
+            // 
+            this.tutorialsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.theGodfathersToolStripMenuItem});
+            this.tutorialsToolStripMenuItem.Name = "tutorialsToolStripMenuItem";
+            resources.ApplyResources(this.tutorialsToolStripMenuItem, "tutorialsToolStripMenuItem");
+            // 
+            // theGodfathersToolStripMenuItem
+            // 
+            this.theGodfathersToolStripMenuItem.Name = "theGodfathersToolStripMenuItem";
+            resources.ApplyResources(this.theGodfathersToolStripMenuItem, "theGodfathersToolStripMenuItem");
+            this.theGodfathersToolStripMenuItem.Click += new System.EventHandler(this.theGodfathersToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
+            // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            resources.ApplyResources(this.checkForUpdatesToolStripMenuItem, "checkForUpdatesToolStripMenuItem");
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // WelcomeGroup
             // 
@@ -518,12 +571,6 @@ namespace au.id.micolous.apps.igaeditor
             this.PreviewBox.TabStop = false;
             this.PreviewBox.Click += new System.EventHandler(this.PreviewBox_Click);
             // 
-            // subversionSourceCodeRepositoryToolStripMenuItem
-            // 
-            this.subversionSourceCodeRepositoryToolStripMenuItem.Name = "subversionSourceCodeRepositoryToolStripMenuItem";
-            resources.ApplyResources(this.subversionSourceCodeRepositoryToolStripMenuItem, "subversionSourceCodeRepositoryToolStripMenuItem");
-            this.subversionSourceCodeRepositoryToolStripMenuItem.Click += new System.EventHandler(this.subversionSourceCodeRepositoryToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -606,14 +653,20 @@ namespace au.id.micolous.apps.igaeditor
         private System.Windows.Forms.PictureBox PreviewBox;
         private System.Windows.Forms.Button PreviewCloseButton;
         private System.Windows.Forms.ToolStripMenuItem webResourcesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem researchForumThreadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem theGIMPopenSourceImageEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nVidiaDDSPhotoshopPluginToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nVidiaDDSWindowsExplorerThumbnailerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem theGIMPDDSPluginToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aTIsCompressonatorDDSConverteradvancedUsersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rADVideoToolsforCreatingBINKVideoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tutorialsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem theGodfathersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem homePageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem researchForumThreadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subversionSourceCodeRepositoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem downloadPageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wikiToolStripMenuItem;
     }
 }
 

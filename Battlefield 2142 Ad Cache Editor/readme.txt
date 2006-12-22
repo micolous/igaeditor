@@ -1,8 +1,6 @@
 IGA Ad Cache Editor
 ===================
 
-Version 0.1.5 (2006-12-21): The "I gotta stop playing Warcraft if I expect to get any development work done" edition.
-
 Copyright 2006 Michael Farrell (micolous) <http://micolous.id.au/>
 Website: http://igaeditor.sourceforge.net/
 
@@ -40,17 +38,10 @@ See 'gpl.txt' for a full copy of the GNU General Public License.
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-What's new in 0.1.5:
+What's new in 0.1.6:
 ====================
 
-- New abstracted database connection system, "IGADatabaseConnector".  This is a part of the "IGA Common" module.  This allows you to write non-WinForms interfaces using the same engine.  At the moment there is a GTK# version in some development available from the igaeditor SVN repository.
-- The AdPackSupport libraries are now no longer used.  The AdPackImportForm and AdPackExportForm are now a part of the main module again, and the AdPack and AdPackEntry classes are now a part of IGACommon.  As a result, IGACommon.dll now depends on SharpZipLib.
-- Localisable stubs added.
-- The "vaccum/shrink database" menu item is now no longer disabled if an unsupported appId is found.
-- Mono.Data.SqliteClient is used in favour of System.Data.SQLite, so to allow for cross-platform support.
-- DDSReader has undergone a major overhaul, with native .NET DDS reading.  As a result, DDSReader no longer depends on DevIL or DevIL.NET.  This means that the program, uncompressed, is about 1MB smaller.  At the moment, the library only supports DXT1 and DXT3 compression modes.  Other decompressors are to be added in future versions.  Think of it as a test of "will my image work in the game"... the game doesn't support the uncompressed images. :)
-- IGACommon and DDSReader now build under Mono without issues.
-- DDSReader is now licensed under the LGPL (it was previously licensed under a BSD license).  This is due to the code ported to C# from DevIL.
+
 
 What I'd like to have in version 0.1.6
 ======================================

@@ -82,21 +82,42 @@ namespace au.id.micolous.apps.igaeditor
 
         private void FinishUp()
         {
+            int errorCount = 0;
             for (int x = 1; x < EntryTable.Controls.Count / 3; x++)
             {
                 // iterate through row table
                 ComboBox scbo = (ComboBox)EntryTable.GetControlFromPosition(2, x);
                 AdPackEntry ad = ads.Files[((Label)EntryTable.GetControlFromPosition(0, x)).Text];
+
                 switch (scbo.SelectedIndex) {
                     case 0: // new entry
-                        conn.NewEntry(ad);
+                        try
+                        {
+                            conn.NewEntry(ad);
+                        }
+                        catch (DatabaseUpdateFailureException)
+                        {
+                            errorCount++;
+                        }
                         break;
                     case 1: // ignore
                         break;
                     default: // ressign at
-                        conn.ImportImage(UInt32.Parse(scbo.Text), ad);
+                        try
+                        {
+                            conn.ImportImage(UInt32.Parse(scbo.Text), ad);
+                        }
+                        catch (DatabaseUpdateFailureException)
+                        {
+                            errorCount++;
+                        }
                         break;
                 }
+            }
+
+            if (errorCount > 0)
+            {
+                MessageBox.Show(String.Format("There were some problems trying to update the cache file.  {0} entries may not be inserted as a result.", errorCount));
             }
             success = true;
             this.Close();

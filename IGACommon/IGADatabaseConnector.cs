@@ -9,7 +9,12 @@ using System.Runtime.InteropServices;
 namespace au.id.micolous.libs.igacommon
 {
 	/// <summary>
-	/// Description of IGADatabaseConnector.
+	/// IGADatabaseConnector is our cool database backend "connector" class.  It
+    /// allows a fairly abstract connection to the icontent.cache file, so you
+    /// can easily implement interface changes.
+    /// 
+    /// This is replaces a lot of the old code that used to sit in the MainForm
+    /// class, as well as some stuff in the Common class.
 	/// </summary>
 	public class IGADatabaseConnector
 	{
@@ -198,7 +203,11 @@ namespace au.id.micolous.libs.igacommon
             query.Parameters.Add(new SqliteParameter("@size", ddsimage.Length));
             query.Parameters.Add(new SqliteParameter("@cid", (int)contentId));
 
-            query.ExecuteNonQuery();
+            if (query.ExecuteNonQuery() == 0)
+            {
+                sqlite.Close();
+                throw new DatabaseUpdateFailureException();
+            }
 
             sqlite.Close();
         }
@@ -229,12 +238,7 @@ namespace au.id.micolous.libs.igacommon
         /// <param name="ad">The AdPackEntry to import.</param>
         public uint NewEntry(AdPackEntry ad)
         {
-            ContentEntry entry = new ContentEntry();
-            entry.Size = (uint)ad.DDSData.Length;
-            entry.Data = ad.DDSData;
-            entry.contentType = ad.ContentType;
-            return this.NewEntry(entry);
-
+            return this.NewEntry(ad.ToContentEntry());
         }
 
         /// <summary>
@@ -283,11 +287,33 @@ namespace au.id.micolous.libs.igacommon
             sqlite.Close();
             sqlite.Open();
 
+            // shove in updated props
             query = new SqliteCommand(@"UPDATE [content] SET [props]=@props WHERE [contentId]=@cid", sqlite);
             query.Parameters.Add(new SqliteParameter("@props", p));
             query.Parameters.Add(new SqliteParameter("@cid", (int)cid));
-            query.ExecuteNonQuery();
+            if (query.ExecuteNonQuery() == 0)
+            {
+                sqlite.Close();
+                throw new DatabaseUpdateFailureException();
+            }
 
+            // reset connection
+            sqlite.Close();
+            sqlite.Open();
+
+            // shove in corresponding contentlist entry for record
+            query = new SqliteCommand(@"INSERT INTO [contentlist] ([appId], [contentType], [contentId], [userInfo], [zoneId]) VALUES (@appid, @contentType, @cid, @userinfo, @zoneid)", sqlite);
+            query.Parameters.Add(new SqliteParameter("@appid", this._appID));
+            query.Parameters.Add(new SqliteParameter("@contentType", (int)entry.contentType.contentType));
+            query.Parameters.Add(new SqliteParameter("@cid", (int)cid));
+            query.Parameters.Add(new SqliteParameter("@zoneid", entry.Properties["zoneid"]));
+            query.Parameters.Add(new SqliteParameter("@userinfo", entry.Properties["userInfo"]));
+
+            if (query.ExecuteNonQuery() == 0)
+            {
+                sqlite.Close();
+                throw new DatabaseUpdateFailureException();
+            }
             sqlite.Close();
 
             return cid;
@@ -346,8 +372,25 @@ namespace au.id.micolous.libs.igacommon
 
             if (query.ExecuteNonQuery() != 1)
             {
+                sqlite.Close();
                 throw new DatabaseUpdateFailureException();
             }
+            sqlite.Close();
+            sqlite.Open();
+
+            // update contentlist
+            query = new SqliteCommand(@"UPDATE [contentlist] SET [zoneId]=@zoneid, [contentType]=@contentType, [userInfo]=@userinfo WHERE [contentId]=@cid", sqlite);
+            query.Parameters.Add(new SqliteParameter("@cid", (int)contentID));
+            query.Parameters.Add(new SqliteParameter("@contentType", (int)entry.contentType.contentType));
+            query.Parameters.Add(new SqliteParameter("@zoneid", entry.Properties["zoneid"]));
+            query.Parameters.Add(new SqliteParameter("@userinfo", entry.Properties["userInfo"]));
+            if (query.ExecuteNonQuery() == 0)
+            {
+                sqlite.Close();
+                throw new DatabaseUpdateFailureException();
+            }
+
+
             sqlite.Close();
 
             if (UpdateData)
@@ -476,6 +519,14 @@ namespace au.id.micolous.libs.igacommon
                 sqlite.Close();
                 throw new DatabaseUpdateFailureException();
             }
+            sqlite.Close();
+            sqlite.Open();
+
+            query = new SqliteCommand(@"DELETE FROM [contentlist] WHERE [contentId]=@cid", sqlite);
+            query.Parameters.Add(new SqliteParameter("@cid", (int)contentId));
+            // don't error check here as old versions of the software never touched
+            // this table, so it may be inconsistant.
+            query.ExecuteNonQuery();
             sqlite.Close();
         }
 	}

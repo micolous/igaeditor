@@ -72,6 +72,9 @@ namespace au.id.micolous.libs.igacommon
                 case 512:
                     switch (dimensions.Height)
                     {
+                        case 64:
+                            this._contentType = 4111000;
+                            break;
                         case 128:
                             this._contentType = 2101000;
                             break;

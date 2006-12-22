@@ -188,7 +188,18 @@ namespace au.id.micolous.apps.igaeditor
                 if (item.Value.ViewLimit > 0) {
                     ViewsS += " of " + item.Value.ViewLimit.ToString();
                 }
-                Size isize = item.Value.contentType.GetSize();
+
+                Size isize = new Size(0,0);
+                String sizeS = "Unknown";
+                try
+                {
+                    isize = item.Value.contentType.GetSize();
+                    sizeS = isize.Width + "x" + isize.Height;
+                }
+                catch (UnsupportedImageSizeException)
+                {
+                    // pass, we'll just skip right over that.
+                }
 
                 String typeS = "Unknown";
                 switch (item.Value.contentType.GetItemType())
@@ -200,7 +211,7 @@ namespace au.id.micolous.apps.igaeditor
                         typeS = "DDS Image";
                         break;
                 }
-                String[] i = { item.Value.ContentID.ToString(), ActiveS, ActivateS, ExpiryS, DayPartsS, isize.Width + "x" + isize.Height, typeS, ViewsS };
+                String[] i = { item.Value.ContentID.ToString(), ActiveS, ActivateS, ExpiryS, DayPartsS, sizeS, typeS, ViewsS };
                 CacheEntryList.Items.Add(new ListViewItem(i));
 
             }
@@ -301,15 +312,15 @@ namespace au.id.micolous.apps.igaeditor
                         return;
                     }
 
-                    //try
+                    try
                     {
                         _igaconnector.ImportImage(contentId, ddsimage);
                     }
-                    /*catch (Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show("Failure committing data to database.\r\n\r\nInternal buffers are now inconsistant.  It is recommended you restart this program.\r\n\r\nThe error was: " + ex.Message);
                         return;
-                    }*/
+                    }
 
                     MessageBox.Show("Imported file successfully!");
 
@@ -390,9 +401,16 @@ namespace au.id.micolous.apps.igaeditor
             if (aef.Success)
             {
                 // success!
-                uint newcid = _igaconnector.NewEntry(aef.Entry);
+                try
+                {
+                    uint newcid = _igaconnector.NewEntry(aef.Entry);
 
-                MessageBox.Show("Record added successfully.  You should now import a DDS image for the ad.\r\n\r\nThe new record's contentId is " + newcid.ToString() + ".", "Ad Cache Editor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Record added successfully.  You should now import a DDS image for the ad.\r\n\r\nThe new record's contentId is " + newcid.ToString() + ".", "Ad Cache Editor", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (DatabaseUpdateFailureException)
+                {
+                    MessageBox.Show("There was a problem trying to updating the cache file!");
+                }
 
                 RefreshList();
             }
@@ -719,7 +737,22 @@ namespace au.id.micolous.apps.igaeditor
 
         private void subversionSourceCodeRepositoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("http://sourceforge.net/svn/?group_id=181663");
+            Process.Start("https://sourceforge.net/svn/?group_id=181663");
+        }
+
+        private void theGodfathersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://www.pcgamingboards.com/smf/index.php?topic=129.msg279#msg279");
+        }
+
+        private void downloadPageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://sourceforge.net/project/showfiles.php?group_id=181663");
+        }
+
+        private void wikiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://igaeditor.sourceforge.net/wiki/");
         }
     }
 }

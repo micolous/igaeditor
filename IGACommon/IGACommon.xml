@@ -59,7 +59,12 @@
         </member>
         <member name="T:au.id.micolous.libs.igacommon.IGADatabaseConnector">
             <summary>
-            Description of IGADatabaseConnector.
+            IGADatabaseConnector is our cool database backend "connector" class.  It
+            allows a fairly abstract connection to the icontent.cache file, so you
+            can easily implement interface changes.
+            
+            This is replaces a lot of the old code that used to sit in the MainForm
+            class, as well as some stuff in the Common class.
             </summary>
         </member>
         <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.#ctor(System.String)">
@@ -234,6 +239,12 @@
             Sets the DDS data block to be 'data'.
             </summary>
             <param name="data">The new contents of the data block to be inserted.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.AdPackEntry.ToContentEntry">
+            <summary>
+            Converts an AdPackEntry to a ContentEntry object.
+            </summary>
+            <returns>The new, converted ContentEntry object.</returns>
         </member>
         <member name="P:au.id.micolous.libs.igacommon.AdPackEntry.DDSData">
             <summary>

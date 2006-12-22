@@ -83,6 +83,19 @@ namespace au.id.micolous.libs.igacommon
 
             this._ddsdata = data;
         }
-                
+
+
+        /// <summary>
+        /// Converts an AdPackEntry to a ContentEntry object.
+        /// </summary>
+        /// <returns>The new, converted ContentEntry object.</returns>
+        public ContentEntry ToContentEntry()
+        {
+            ContentEntry entry = new ContentEntry();
+            entry.Size = (uint)this._ddsdata.Length;
+            entry.Data = this._ddsdata;
+            entry.contentType = this._contentType;
+            return entry;
+        }      
     }
 }

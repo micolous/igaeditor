@@ -22,6 +22,7 @@ namespace au.id.micolous.apps.igaeditor
 
         private IGADatabaseConnector _conn;
         public ContentEntry Entry { get { return _entry; } }
+        private bool unsupportedImageSize = false;
         
 
         public AdEditorForm(IGADatabaseConnector conn) : this(conn, new ContentEntry()) {
@@ -73,13 +74,16 @@ namespace au.id.micolous.apps.igaeditor
                 _entry.Expiry = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             }
 
-            String[] imagesizearr = ((String)ImageSizeCombo.SelectedItem).Split('x');
-            ItemType it = ItemType.DDSImage;
-            if (VideoAdCheckbox.Checked) {
-                it = ItemType.BinkVideo;
+            if (!this.unsupportedImageSize)
+            {
+                String[] imagesizearr = ((String)ImageSizeCombo.SelectedItem).Split('x');
+                ItemType it = ItemType.DDSImage;
+                if (VideoAdCheckbox.Checked)
+                {
+                    it = ItemType.BinkVideo;
+                }
+                _entry.contentType = new ContentType(new Size(Int32.Parse(imagesizearr[0]), Int32.Parse(imagesizearr[1])), it);
             }
-
-            _entry.contentType = new ContentType(new Size(Int32.Parse(imagesizearr[0]), Int32.Parse(imagesizearr[1])), it);
 
             _entry.ViewCount = (uint)ViewTimesSpinner.Value;
 
@@ -140,6 +144,10 @@ namespace au.id.micolous.apps.igaeditor
             catch (UnsupportedImageSizeException)
             {
                 MessageBox.Show(String.Format("Got an unknown contentType, {0}. You probably shouldn't edit this.", _entry.contentType.contentType));
+                ImageSizeCombo.Enabled = false;
+                VideoAdCheckbox.Enabled = false;
+                this.unsupportedImageSize = true;
+
             }
 
             if (_entry.DayParts != 0 && _entry.DayParts != 16777215)
