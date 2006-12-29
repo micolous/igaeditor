@@ -1,6 +1,8 @@
 IGA Ad Cache Editor
 ===================
 
+Version 0.1.5.1
+
 Copyright 2006 Michael Farrell (micolous) <http://micolous.id.au/>
 Website: http://igaeditor.sourceforge.net/
 
@@ -38,10 +40,11 @@ See 'gpl.txt' for a full copy of the GNU General Public License.
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-What's new in 0.1.6:
-====================
+What's new in 0.1.5.1:
+======================
 
-
+- Due to a small typo on my part, ads with an expiry date set would cause the program to crash.  This has been fixed.
+- Added some more weblinks to various resources.  Please email me if you have any more!
 
 What I'd like to have in version 0.1.6
 ======================================

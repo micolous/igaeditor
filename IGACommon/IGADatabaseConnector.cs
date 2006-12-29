@@ -447,10 +447,10 @@ namespace au.id.micolous.libs.igacommon
 
             entry.Active = ((int)reader["active"] >= 1);
 
-            if (reader.GetInt32(3) > 0)
+            if ((int)reader["expire"] > 0)
             {
                 DateTime expires = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                entry.Expiry = expires.AddSeconds((int)reader["expiry"]);
+                entry.Expiry = expires.AddSeconds((int)reader["expire"]);
                 entry.Expires = true;
             }
             else
