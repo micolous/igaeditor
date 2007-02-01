@@ -105,6 +105,7 @@ namespace au.id.micolous.apps.igaeditor
                 exportAdpackFilebfadsToolStripMenuItem.Enabled = true;
                 closeDatabaseToolStripMenuItem.Enabled = true;
                 debugToolStripMenuItem.Enabled = true;
+                ViewSwitchButton.Visible = true;
                 SetReadonlyRestrictions(_igaconnector.AppSupported);
                 RefreshList();
             }
@@ -153,9 +154,11 @@ namespace au.id.micolous.apps.igaeditor
         private void RefreshList()
         {
             CacheEntryList.Items.Clear();
+            AdPreviews.Images.Clear();
+            int ii = 0;
 
             // populate list
-            itemCache = _igaconnector.GetAllEntries(false);
+            itemCache = _igaconnector.GetAllEntries(true);
 
             foreach (KeyValuePair<uint, ContentEntry> item in itemCache)
             {
@@ -212,8 +215,24 @@ namespace au.id.micolous.apps.igaeditor
                         break;
                 }
                 String[] i = { item.Value.ContentID.ToString(), ActiveS, ActivateS, ExpiryS, DayPartsS, sizeS, typeS, ViewsS };
-                CacheEntryList.Items.Add(new ListViewItem(i));
+                try
+                {
+                    if (isize.Width == 0 || isize.Height == 0)
+                    {
+                        // break out
+                        throw new Exception("No image is there...");
+                    }
+                    AdPreviews.Images.Add(DDSReader.LoadImage(item.Value.Data));
 
+                    // image addition/decoding okay, use as thumbnail.
+                    CacheEntryList.Items.Add(new ListViewItem(i, ii));
+                    ii++;
+                }
+                catch (Exception)
+                {
+                    // error loading image...
+                    CacheEntryList.Items.Add(new ListViewItem(i));
+                }
             }
 
         }
@@ -548,6 +567,7 @@ namespace au.id.micolous.apps.igaeditor
             closeDatabaseToolStripMenuItem.Enabled = false;
             vacuumDatabaseToolStripMenuItem.Enabled = false;
             debugToolStripMenuItem.Enabled = false;
+            ViewSwitchButton.Visible = false;
         }
 
         private void vacuumDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -753,6 +773,44 @@ namespace au.id.micolous.apps.igaeditor
         private void wikiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("http://igaeditor.sourceforge.net/wiki/");
+        }
+
+        private void ViewSwitchButton_Click(object sender, EventArgs e)
+        {
+            if (CacheEntryList.View == View.Details)
+            {
+                CacheEntryList.BeginUpdate();
+                CacheEntryList.Visible = false;
+                CacheEntryList.View = View.Tile;
+                CacheEntryList.Columns.RemoveAt(1);
+                CacheEntryList.Columns.RemoveAt(1);
+                CacheEntryList.Columns.RemoveAt(1);
+                CacheEntryList.Columns.RemoveAt(1);
+                CacheEntryList.Columns.RemoveAt(1);
+                CacheEntryList.Columns.RemoveAt(1);
+                CacheEntryList.Columns.RemoveAt(1);
+                CacheEntryList.Visible = true;
+                CacheEntryList.EndUpdate();
+            }
+            else
+            {
+                CacheEntryList.BeginUpdate();
+                CacheEntryList.Visible = false;
+                CacheEntryList.View = View.Details;
+                this.CacheEntryList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            //this.contentId,
+            this.active,
+            this.activate,
+            this.expire,
+            this.dayparts,
+            this.imageSize,
+            this.isVideo,
+            this.viewCount});
+                //RefreshList();
+                CacheEntryList.Visible = true;
+                CacheEntryList.EndUpdate();
+
+            }
         }
     }
 }

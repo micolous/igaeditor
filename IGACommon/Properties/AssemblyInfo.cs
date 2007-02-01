@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("micolous")]
 [assembly: AssemblyProduct("IGA Ad Cache Editor")]
-[assembly: AssemblyCopyright("Copyright © micolous 2006")]
+[assembly: AssemblyCopyright("Copyright © micolous 2006-2007")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,6 +32,6 @@ using System.Resources;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.1.5.1")]
-[assembly: AssemblyFileVersion("0.1.5.1")]
+[assembly: AssemblyVersion("0.1.6.0")]
+[assembly: AssemblyFileVersion("0.1.6.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-AU")]

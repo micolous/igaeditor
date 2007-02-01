@@ -16,11 +16,14 @@
     License along with this library; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
 using System;
 using System.IO;
 using System.Drawing;
 using System.Text;
-//using System.Drawing.Imaging;
+#if !SAFE_MODE
+    using System.Drawing.Imaging;
+#endif
 using System.Runtime.InteropServices;
 
 namespace au.id.micolous.libs.DDSReader
@@ -332,19 +335,52 @@ namespace au.id.micolous.libs.DDSReader
 			}
 			
 			this.img = new Bitmap((int)this.width, (int)this.height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-			// now fill bitmap with raw image datas.  this is really slow.
+
+#if SAFE_MODE
+            // now fill bitmap with raw image datas.  this is really slow.
 			// but only on windows/microsoft's .net clr.  it's fast in mono.
             // should find a better way to do this.
-			for (int y=0; y<this.height; y++) {
-				for (int x=0; x<this.width; x++) {
-					// draw
-					ulong pos = (ulong)(((y*this.width)+x)*4);
-					this.img.SetPixel(x, y, Color.FromArgb(this.rawidata[pos+3], this.rawidata[pos], this.rawidata[pos+1], this.rawidata[pos+2]));
-				}
-			}
+
+            for (int y=0; y<this.height; y++) {
+                for (int x=0; x<this.width; x++) {
+                    // draw
+                    ulong pos = (ulong)(((y*this.width)+x)*4);
+                    this.img.SetPixel(x, y, Color.FromArgb(this.rawidata[pos+3], this.rawidata[pos], this.rawidata[pos+1], this.rawidata[pos+2]));
+                }
+            }
+#else
+            // new optimised Bitmap creation routine.  Based on Bitmap->Gdk.Pixbuf conversion code
+            // thanks to bratsche (Cody Russell) on #mono for the help!
+
+            BitmapData data = this.img.LockBits(new Rectangle(0, 0,
+                this.img.Width,
+                this.img.Height),
+                ImageLockMode.WriteOnly,
+                System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            IntPtr scan = data.Scan0;
+            int size = this.img.Width * this.img.Height * 4;
+            //byte[] bdata = new byte[size];
+            
+            unsafe
+            {
+                byte* p = (byte*)scan;
+                for (int i = 0; i < size; i += 4)
+                {
+                    // iterate through bytes.
+                    // Bitmap stores it's data in RGBA order.
+                    // DDS stores it's data in BGRA order.
+                    p[i] = this.rawidata[i + 2]; // blue
+                    p[i + 1] = this.rawidata[i + 1]; // green
+                    p[i + 2] = this.rawidata[i];   // red
+                    p[i + 3] = this.rawidata[i + 3]; // alpha
+                }
+            }
+
+            this.img.UnlockBits(data);
+#endif
 
 
-			// cleanup
+            // cleanup
 			this.rawidata = null;
 			this.compdata = null;
 			//this.img.Save("/home/michael/idata.bmp");

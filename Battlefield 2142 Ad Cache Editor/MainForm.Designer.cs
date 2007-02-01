@@ -47,6 +47,7 @@ namespace au.id.micolous.apps.igaeditor
             this.imageSize = new System.Windows.Forms.ColumnHeader();
             this.isVideo = new System.Windows.Forms.ColumnHeader();
             this.viewCount = new System.Windows.Forms.ColumnHeader();
+            this.AdPreviews = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importAdpackFilebfadsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,6 +84,7 @@ namespace au.id.micolous.apps.igaeditor
             this.theGodfathersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ViewSwitchButton = new System.Windows.Forms.ToolStripMenuItem();
             this.WelcomeGroup = new System.Windows.Forms.GroupBox();
             this.BigOpenButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -184,8 +186,10 @@ namespace au.id.micolous.apps.igaeditor
             this.isVideo,
             this.viewCount});
             this.CacheEntryList.HideSelection = false;
+            this.CacheEntryList.LargeImageList = this.AdPreviews;
             this.CacheEntryList.MultiSelect = false;
             this.CacheEntryList.Name = "CacheEntryList";
+            this.CacheEntryList.TileSize = new System.Drawing.Size(200, 100);
             this.CacheEntryList.UseCompatibleStateImageBehavior = false;
             this.CacheEntryList.View = System.Windows.Forms.View.Details;
             this.CacheEntryList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CacheEntryList_MouseClick);
@@ -223,12 +227,19 @@ namespace au.id.micolous.apps.igaeditor
             // 
             resources.ApplyResources(this.viewCount, "viewCount");
             // 
+            // AdPreviews
+            // 
+            this.AdPreviews.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
+            resources.ApplyResources(this.AdPreviews, "AdPreviews");
+            this.AdPreviews.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.databaseToolStripMenuItem,
             this.debugToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.ViewSwitchButton});
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
@@ -467,6 +478,13 @@ namespace au.id.micolous.apps.igaeditor
             resources.ApplyResources(this.checkForUpdatesToolStripMenuItem, "checkForUpdatesToolStripMenuItem");
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
+            // ViewSwitchButton
+            // 
+            this.ViewSwitchButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.ViewSwitchButton.Name = "ViewSwitchButton";
+            resources.ApplyResources(this.ViewSwitchButton, "ViewSwitchButton");
+            this.ViewSwitchButton.Click += new System.EventHandler(this.ViewSwitchButton_Click);
+            // 
             // WelcomeGroup
             // 
             resources.ApplyResources(this.WelcomeGroup, "WelcomeGroup");
@@ -576,9 +594,9 @@ namespace au.id.micolous.apps.igaeditor
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.EditingGroup);
-            this.Controls.Add(this.ImagePreviewGroup);
             this.Controls.Add(this.WelcomeGroup);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.ImagePreviewGroup);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -667,6 +685,8 @@ namespace au.id.micolous.apps.igaeditor
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem downloadPageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wikiToolStripMenuItem;
+        private System.Windows.Forms.ImageList AdPreviews;
+        private System.Windows.Forms.ToolStripMenuItem ViewSwitchButton;
     }
 }
 

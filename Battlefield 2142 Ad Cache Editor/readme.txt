@@ -1,14 +1,14 @@
 IGA Ad Cache Editor
 ===================
 
-Version 0.1.5.1
+Version 0.1.6
 
-Copyright 2006 Michael Farrell (micolous) <http://micolous.id.au/>
+Copyright 2006 - 2007 Michael Farrell (micolous) <http://micolous.id.au/>
 Website: http://igaeditor.sourceforge.net/
 
 A big thanks to the folks at totalbf2142.com for their assistance with research and testing!
 
-This is an ALPHA version of the software.  It may contain bugs.  Please backup your icontent.cache file before using this software.  USE THIS SOFTWARE AT YOUR OWN RISK!
+This is an BETA version of the software.  It may contain bugs.  Please backup your icontent.cache file before using this software.  USE THIS SOFTWARE AT YOUR OWN RISK!
 
 This program may be a violation of the game's EULA.  Please consult the license agreement, and possibly a legal professional before using this software, if you are in doubt.
 
@@ -40,11 +40,11 @@ See 'gpl.txt' for a full copy of the GNU General Public License.
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-What's new in 0.1.5.1:
-======================
+What's new in 0.1.6:
+====================
 
-- Due to a small typo on my part, ads with an expiry date set would cause the program to crash.  This has been fixed.
-- Added some more weblinks to various resources.  Please email me if you have any more!
+- Modified DDSReader so that it would use "unsafe" code to do it's work much faster on Windows (and Microsoft's .NET CLR), due to some severe performance issues with Microsoft's version of .NET.
+- New "thumbnails" view, so you can see all the ads at once.  Press the "Switch View" button on the menu bar to switch between thumbnails view and details view.  If there is demand, this may become the default view in future.
 
 What I'd like to have in version 0.1.6
 ======================================

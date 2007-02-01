@@ -9,7 +9,7 @@ il_dds.c is Copyright 2000-2002 Denton Woods, and licensed under the same terms 
 This library (DDSReader) is licensed under these terms:
 
 DDSReader
-Copyright (c) 2006 Michael Farrell (micolous)
+Copyright (c) 2006 - 2007 Michael Farrell (micolous)
 All rights reserved.
 
     This library is free software; you can redistribute it and/or
@@ -27,4 +27,14 @@ All rights reserved.
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
 A full copy of license is included in the file 'lgpl.txt'.
+
+
+Compilation Notes
+=================
+
+To speed things up, there is some unsafe code in this program.  If you don't want the
+"unsafe" routines, compile with the '/define:SAFE_MODE' option, and "safe" routines will
+be used instead.  The "safe" routines are very very slow on Microsoft's .NET CLR on Win32,
+but are still pretty fast on Mono.  You have been warned.
+
 
