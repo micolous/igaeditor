@@ -471,12 +471,24 @@ namespace au.id.micolous.libs.igacommon
             String props = (String)reader["props"];
             entry.Properties = new SortedDictionary<string, string>();
 
+
+            // Provide "sensible default" for mintime, incase the file has errors and it
+            // is omitted.
+            if (this.MinTimeStoredInSeconds)
+            {
+                entry.Properties["MinTime"] = "2";
+            }
+            else
+            {
+                entry.Properties["MinTime"] = "2000";
+            }
+
             foreach (String prop in props.Split('&'))
             {
                 if (prop.Length > 0)
                 {
                     String[] pk = prop.Split('=');
-                    entry.Properties.Add(pk[0], pk[1]);
+                    entry.Properties[pk[0]] = pk[1];
                 }
             }
 

@@ -132,7 +132,7 @@
     <value>0</value>
   </data>
   <data name="ActiveCheckBox.Text" xml:space="preserve">
-    <value>Activate Ad?</value>
+    <value>&amp;Activate Ad?</value>
   </data>
   <metadata name="HintTooltip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -205,7 +205,7 @@
     <value>2</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>Ad Activation Date</value>
+    <value>Ad Activation &amp;Date</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>
@@ -264,7 +264,7 @@ The time stated is in Coordinated Universal Time.</value>
     <value>3</value>
   </data>
   <data name="groupBox2.Text" xml:space="preserve">
-    <value>Ad Expiry Date</value>
+    <value>Ad &amp;Expiry Date</value>
   </data>
   <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
     <value>groupBox2</value>
@@ -280,6 +280,420 @@ The time stated is in Coordinated Universal Time.</value>
   </data>
   <data name="AdTimeTable.ColumnCount" type="System.Int32, mscorlib">
     <value>8</value>
+  </data>
+  <data name="&gt;&gt;SuNCheckBox.Name" xml:space="preserve">
+    <value>SuNCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SuNCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SuNCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;SuNCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;SaNCheckBox.Name" xml:space="preserve">
+    <value>SaNCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SaNCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SaNCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;SaNCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;FrNCheckBox.Name" xml:space="preserve">
+    <value>FrNCheckBox</value>
+  </data>
+  <data name="&gt;&gt;FrNCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FrNCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;FrNCheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ThNCheckBox.Name" xml:space="preserve">
+    <value>ThNCheckBox</value>
+  </data>
+  <data name="&gt;&gt;ThNCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ThNCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;ThNCheckBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;WeNCheckBox.Name" xml:space="preserve">
+    <value>WeNCheckBox</value>
+  </data>
+  <data name="&gt;&gt;WeNCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WeNCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;WeNCheckBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;TuNCheckBox.Name" xml:space="preserve">
+    <value>TuNCheckBox</value>
+  </data>
+  <data name="&gt;&gt;TuNCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TuNCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;TuNCheckBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;MoNCheckBox.Name" xml:space="preserve">
+    <value>MoNCheckBox</value>
+  </data>
+  <data name="&gt;&gt;MoNCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MoNCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;MoNCheckBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;SuACheckBox.Name" xml:space="preserve">
+    <value>SuACheckBox</value>
+  </data>
+  <data name="&gt;&gt;SuACheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SuACheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;SuACheckBox.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;SaACheckBox.Name" xml:space="preserve">
+    <value>SaACheckBox</value>
+  </data>
+  <data name="&gt;&gt;SaACheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SaACheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;SaACheckBox.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;FrACheckBox.Name" xml:space="preserve">
+    <value>FrACheckBox</value>
+  </data>
+  <data name="&gt;&gt;FrACheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FrACheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;FrACheckBox.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;ThACheckBox.Name" xml:space="preserve">
+    <value>ThACheckBox</value>
+  </data>
+  <data name="&gt;&gt;ThACheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ThACheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;ThACheckBox.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;WeACheckBox.Name" xml:space="preserve">
+    <value>WeACheckBox</value>
+  </data>
+  <data name="&gt;&gt;WeACheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WeACheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;WeACheckBox.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;TuACheckBox.Name" xml:space="preserve">
+    <value>TuACheckBox</value>
+  </data>
+  <data name="&gt;&gt;TuACheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TuACheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;TuACheckBox.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;MoACheckBox.Name" xml:space="preserve">
+    <value>MoACheckBox</value>
+  </data>
+  <data name="&gt;&gt;MoACheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MoACheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;MoACheckBox.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;SuMCheckBox.Name" xml:space="preserve">
+    <value>SuMCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SuMCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SuMCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;SuMCheckBox.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;SaMCheckBox.Name" xml:space="preserve">
+    <value>SaMCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SaMCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SaMCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;SaMCheckBox.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;FrMCheckBox.Name" xml:space="preserve">
+    <value>FrMCheckBox</value>
+  </data>
+  <data name="&gt;&gt;FrMCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FrMCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;FrMCheckBox.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;ThMCheckBox.Name" xml:space="preserve">
+    <value>ThMCheckBox</value>
+  </data>
+  <data name="&gt;&gt;ThMCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ThMCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;ThMCheckBox.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;WeMCheckBox.Name" xml:space="preserve">
+    <value>WeMCheckBox</value>
+  </data>
+  <data name="&gt;&gt;WeMCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WeMCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;WeMCheckBox.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;TuMCheckBox.Name" xml:space="preserve">
+    <value>TuMCheckBox</value>
+  </data>
+  <data name="&gt;&gt;TuMCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TuMCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;TuMCheckBox.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;MoMCheckBox.Name" xml:space="preserve">
+    <value>MoMCheckBox</value>
+  </data>
+  <data name="&gt;&gt;MoMCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MoMCheckBox.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;MoMCheckBox.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;MondaySelectButton.Name" xml:space="preserve">
+    <value>MondaySelectButton</value>
+  </data>
+  <data name="&gt;&gt;MondaySelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MondaySelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;MondaySelectButton.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;TuesdaySelectButton.Name" xml:space="preserve">
+    <value>TuesdaySelectButton</value>
+  </data>
+  <data name="&gt;&gt;TuesdaySelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TuesdaySelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;TuesdaySelectButton.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;WednesdaySelectButton.Name" xml:space="preserve">
+    <value>WednesdaySelectButton</value>
+  </data>
+  <data name="&gt;&gt;WednesdaySelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WednesdaySelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;WednesdaySelectButton.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="&gt;&gt;ThursdaySelectButton.Name" xml:space="preserve">
+    <value>ThursdaySelectButton</value>
+  </data>
+  <data name="&gt;&gt;ThursdaySelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ThursdaySelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;ThursdaySelectButton.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="&gt;&gt;FridaySelectButton.Name" xml:space="preserve">
+    <value>FridaySelectButton</value>
+  </data>
+  <data name="&gt;&gt;FridaySelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FridaySelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;FridaySelectButton.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;SaturdaySelectButton.Name" xml:space="preserve">
+    <value>SaturdaySelectButton</value>
+  </data>
+  <data name="&gt;&gt;SaturdaySelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SaturdaySelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;SaturdaySelectButton.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;SundaySelectButton.Name" xml:space="preserve">
+    <value>SundaySelectButton</value>
+  </data>
+  <data name="&gt;&gt;SundaySelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SundaySelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;SundaySelectButton.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="&gt;&gt;MorningSelectButton.Name" xml:space="preserve">
+    <value>MorningSelectButton</value>
+  </data>
+  <data name="&gt;&gt;MorningSelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MorningSelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;MorningSelectButton.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="&gt;&gt;AfternoonSelectButton.Name" xml:space="preserve">
+    <value>AfternoonSelectButton</value>
+  </data>
+  <data name="&gt;&gt;AfternoonSelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AfternoonSelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;AfternoonSelectButton.ZOrder" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="&gt;&gt;NightSelectButton.Name" xml:space="preserve">
+    <value>NightSelectButton</value>
+  </data>
+  <data name="&gt;&gt;NightSelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NightSelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;NightSelectButton.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;AllTimesSelectButton.Name" xml:space="preserve">
+    <value>AllTimesSelectButton</value>
+  </data>
+  <data name="&gt;&gt;AllTimesSelectButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AllTimesSelectButton.Parent" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;AllTimesSelectButton.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="AdTimeTable.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="AdTimeTable.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="AdTimeTable.RowCount" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="AdTimeTable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>362, 117</value>
+  </data>
+  <data name="AdTimeTable.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;AdTimeTable.Name" xml:space="preserve">
+    <value>AdTimeTable</value>
+  </data>
+  <data name="&gt;&gt;AdTimeTable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;AdTimeTable.Parent" xml:space="preserve">
+    <value>groupBox3</value>
+  </data>
+  <data name="&gt;&gt;AdTimeTable.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="AdTimeTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="SuNCheckBox" Row="3" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="SaNCheckBox" Row="3" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="FrNCheckBox" Row="3" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="ThNCheckBox" Row="3" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="WeNCheckBox" Row="3" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="TuNCheckBox" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="MoNCheckBox" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="SuACheckBox" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="SaACheckBox" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="FrACheckBox" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="ThACheckBox" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="WeACheckBox" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="TuACheckBox" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="MoACheckBox" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="SuMCheckBox" Row="1" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="SaMCheckBox" Row="1" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="FrMCheckBox" Row="1" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="ThMCheckBox" Row="1" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="WeMCheckBox" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="TuMCheckBox" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="MoMCheckBox" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="MondaySelectButton" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="TuesdaySelectButton" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="WednesdaySelectButton" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="ThursdaySelectButton" Row="0" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="FridaySelectButton" Row="0" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="SaturdaySelectButton" Row="0" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="SundaySelectButton" Row="0" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="MorningSelectButton" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="AfternoonSelectButton" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="NightSelectButton" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="AllTimesSelectButton" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="SuNCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1145,36 +1559,6 @@ The time stated is in Coordinated Universal Time.</value>
   <data name="&gt;&gt;AllTimesSelectButton.ZOrder" xml:space="preserve">
     <value>31</value>
   </data>
-  <data name="AdTimeTable.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="AdTimeTable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="AdTimeTable.RowCount" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="AdTimeTable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>362, 117</value>
-  </data>
-  <data name="AdTimeTable.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;AdTimeTable.Name" xml:space="preserve">
-    <value>AdTimeTable</value>
-  </data>
-  <data name="&gt;&gt;AdTimeTable.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AdTimeTable.Parent" xml:space="preserve">
-    <value>groupBox3</value>
-  </data>
-  <data name="&gt;&gt;AdTimeTable.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="AdTimeTable.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="SuNCheckBox" Row="3" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="SaNCheckBox" Row="3" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="FrNCheckBox" Row="3" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="ThNCheckBox" Row="3" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="WeNCheckBox" Row="3" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="TuNCheckBox" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="MoNCheckBox" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="SuACheckBox" Row="2" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="SaACheckBox" Row="2" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="FrACheckBox" Row="2" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="ThACheckBox" Row="2" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="WeACheckBox" Row="2" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="TuACheckBox" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="MoACheckBox" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="SuMCheckBox" Row="1" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="SaMCheckBox" Row="1" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="FrMCheckBox" Row="1" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="ThMCheckBox" Row="1" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="WeMCheckBox" Row="1" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="TuMCheckBox" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="MoMCheckBox" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="MondaySelectButton" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="TuesdaySelectButton" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="WednesdaySelectButton" Row="0" RowSpan="1" Column="3" ColumnSpan="1" /&gt;&lt;Control Name="ThursdaySelectButton" Row="0" RowSpan="1" Column="4" ColumnSpan="1" /&gt;&lt;Control Name="FridaySelectButton" Row="0" RowSpan="1" Column="5" ColumnSpan="1" /&gt;&lt;Control Name="SaturdaySelectButton" Row="0" RowSpan="1" Column="6" ColumnSpan="1" /&gt;&lt;Control Name="SundaySelectButton" Row="0" RowSpan="1" Column="7" ColumnSpan="1" /&gt;&lt;Control Name="MorningSelectButton" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="AfternoonSelectButton" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="NightSelectButton" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="AllTimesSelectButton" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
   <data name="groupBox3.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -1188,7 +1572,7 @@ The time stated is in Coordinated Universal Time.</value>
     <value>5</value>
   </data>
   <data name="groupBox3.Text" xml:space="preserve">
-    <value>Times to show ad (not done yet)</value>
+    <value>&amp;Times to show ad (not done yet)</value>
   </data>
   <data name="&gt;&gt;groupBox3.Name" xml:space="preserve">
     <value>groupBox3</value>
@@ -1266,7 +1650,7 @@ may only be 256x128 or even 128x64!</value>
     <value>6</value>
   </data>
   <data name="groupBox4.Text" xml:space="preserve">
-    <value>Image Size</value>
+    <value>Image &amp;Size</value>
   </data>
   <data name="&gt;&gt;groupBox4.Name" xml:space="preserve">
     <value>groupBox4</value>
@@ -1356,7 +1740,7 @@ may only be 256x128 or even 128x64!</value>
     <value>of</value>
   </data>
   <data name="MaxViewsCheckBox.ToolTip" xml:space="preserve">
-    <value>Enable this checkbox to set an upper limit to the number of times this ad may be viewed.</value>
+    <value>Enable this checkbox to set an upper limit to the number of times this ad may be viewed before it expires.</value>
   </data>
   <data name="&gt;&gt;MaxViewsCheckBox.Name" xml:space="preserve">
     <value>MaxViewsCheckBox</value>
@@ -1404,7 +1788,7 @@ may only be 256x128 or even 128x64!</value>
     <value>7</value>
   </data>
   <data name="groupBox5.Text" xml:space="preserve">
-    <value>Views</value>
+    <value>&amp;Views</value>
   </data>
   <data name="&gt;&gt;groupBox5.Name" xml:space="preserve">
     <value>groupBox5</value>
@@ -1518,7 +1902,7 @@ may only be 256x128 or even 128x64!</value>
     <value>8</value>
   </data>
   <data name="groupBox6.Text" xml:space="preserve">
-    <value>Impression Settings</value>
+    <value>&amp;Impression Settings</value>
   </data>
   <data name="&gt;&gt;groupBox6.Name" xml:space="preserve">
     <value>groupBox6</value>
@@ -1539,13 +1923,13 @@ may only be 256x128 or even 128x64!</value>
     <value>120, 0</value>
   </data>
   <data name="VideoAdCheckbox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 17</value>
+    <value>103, 17</value>
   </data>
   <data name="VideoAdCheckbox.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
   <data name="VideoAdCheckbox.Text" xml:space="preserve">
-    <value>Video Ad (BIK)</value>
+    <value>&amp;Video Ad (BINK)</value>
   </data>
   <data name="VideoAdCheckbox.ToolTip" xml:space="preserve">
     <value>Check this box if you intend to insert a BIK video ad.  This only works on some games, like Trackmania Nations.
@@ -1685,7 +2069,7 @@ If this box is unchecked, then it will be assumed that you want a standard image
     <value>9</value>
   </data>
   <data name="groupBox7.Text" xml:space="preserve">
-    <value>Target Audience</value>
+    <value>&amp;Target Audience</value>
   </data>
   <data name="&gt;&gt;groupBox7.Name" xml:space="preserve">
     <value>groupBox7</value>
@@ -1712,7 +2096,7 @@ If this box is unchecked, then it will be assumed that you want a standard image
     <value>10</value>
   </data>
   <data name="SaveButton.Text" xml:space="preserve">
-    <value>Save</value>
+    <value>&amp;Save</value>
   </data>
   <data name="&gt;&gt;SaveButton.Name" xml:space="preserve">
     <value>SaveButton</value>
@@ -1739,7 +2123,7 @@ If this box is unchecked, then it will be assumed that you want a standard image
     <value>11</value>
   </data>
   <data name="CancelActionButton.Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>&amp;Cancel</value>
   </data>
   <data name="&gt;&gt;CancelActionButton.Name" xml:space="preserve">
     <value>CancelActionButton</value>

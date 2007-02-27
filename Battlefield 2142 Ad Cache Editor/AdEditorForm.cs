@@ -304,5 +304,6 @@ namespace au.id.micolous.apps.igaeditor
             FinishUpForSaving();
             this.Close();
         }
+
     }
 }
