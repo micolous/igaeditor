@@ -164,6 +164,21 @@
             <param name="IncludeImageData">Should image data be included?</param>
             <returns>A ContentEntry describing the row returned.</returns>
         </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.RepairOrphan(System.UInt32)">
+            <summary>
+            Repairs an orphaned node by creating an entry in "contentlist" for the item that
+            is only listed in "content" table.  Use the ContentEntry.Orphan property to
+            determine if a record is an orphan.
+            </summary>
+            <param name="contentId">The ContentID to repair.</param>
+        </member>
+        <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.CheckIfRecordIsOrphaned(System.UInt32)">
+            <summary>
+            Checks if a record doesn't appear in the contentList table.
+            </summary>
+            <param name="contentId">The ContentID to check.</param>
+            <returns>true if the record is orphaned.</returns>
+        </member>
         <member name="M:au.id.micolous.libs.igacommon.IGADatabaseConnector.DeleteEntry(System.UInt32)">
             <summary>
             Deletes a record from the database.
@@ -294,6 +309,14 @@
         <member name="T:au.id.micolous.libs.igacommon.ContentEntry">
             <summary>
             This is a single row of "content".
+            </summary>
+        </member>
+        <member name="F:au.id.micolous.libs.igacommon.ContentEntry.Orphan">
+            <summary>
+            If this is set to true, then the entry does not appear in the contentlist table,
+            and so is orphaned.  It will never appear in the game if this is the case.
+            
+            You can repair an orphan by using IGADatabaseConnector.RepairOrphan.
             </summary>
         </member>
         <member name="F:au.id.micolous.libs.igacommon.ContentEntry.ContentID">

@@ -306,7 +306,7 @@ namespace au.id.micolous.libs.igacommon
             query.Parameters.Add(new SqliteParameter("@appid", this._appID));
             query.Parameters.Add(new SqliteParameter("@contentType", (int)entry.contentType.contentType));
             query.Parameters.Add(new SqliteParameter("@cid", (int)cid));
-            query.Parameters.Add(new SqliteParameter("@zoneid", entry.Properties["zoneid"]));
+            query.Parameters.Add(new SqliteParameter("@zoneid", entry.Properties["zoneId"]));
             query.Parameters.Add(new SqliteParameter("@userinfo", entry.Properties["userInfo"]));
 
             if (query.ExecuteNonQuery() == 0)
@@ -382,7 +382,7 @@ namespace au.id.micolous.libs.igacommon
             query = new SqliteCommand(@"UPDATE [contentlist] SET [zoneId]=@zoneid, [contentType]=@contentType, [userInfo]=@userinfo WHERE [contentId]=@cid", sqlite);
             query.Parameters.Add(new SqliteParameter("@cid", (int)contentID));
             query.Parameters.Add(new SqliteParameter("@contentType", (int)entry.contentType.contentType));
-            query.Parameters.Add(new SqliteParameter("@zoneid", entry.Properties["zoneid"]));
+            query.Parameters.Add(new SqliteParameter("@zoneid", entry.Properties["zoneId"]));
             query.Parameters.Add(new SqliteParameter("@userinfo", entry.Properties["userInfo"]));
             if (query.ExecuteNonQuery() == 0)
             {
@@ -441,6 +441,8 @@ namespace au.id.micolous.libs.igacommon
                 // no rows, fail out.
                 return null;
             }
+
+            entry.Orphan = this.CheckIfRecordIsOrphaned(entry.ContentID);
 
             DateTime activate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             entry.Activate = activate.AddSeconds((int)reader["activate"]);
@@ -515,6 +517,60 @@ namespace au.id.micolous.libs.igacommon
             }
 
             return entry;
+        }
+
+        /// <summary>
+        /// Repairs an orphaned node by creating an entry in "contentlist" for the item that
+        /// is only listed in "content" table.  Use the ContentEntry.Orphan property to
+        /// determine if a record is an orphan.
+        /// </summary>
+        /// <param name="contentId">The ContentID to repair.</param>
+        public void RepairOrphan(uint contentId)
+        {
+            sqlite.Open();
+            if (this.CheckIfRecordIsOrphaned(contentId))
+            {
+                // recreate contentlist entry
+                ContentEntry record = this.GetEntry(contentId, false);
+
+                sqlite.Close();
+                sqlite.Open();
+
+                // shove in corresponding contentlist entry for record
+                SqliteCommand query = new SqliteCommand(@"INSERT INTO [contentlist] ([appId], [contentType], [contentId], [userInfo], [zoneId]) VALUES (@appid, @contentType, @cid, @userinfo, @zoneid)", sqlite);
+                query.Parameters.Add(new SqliteParameter("@appid", this._appID));
+                query.Parameters.Add(new SqliteParameter("@contentType", (int)record.contentType.contentType));
+                query.Parameters.Add(new SqliteParameter("@cid", (int)contentId));
+                query.Parameters.Add(new SqliteParameter("@zoneid", record.Properties["zoneId"]));
+                query.Parameters.Add(new SqliteParameter("@userinfo", record.Properties["userInfo"]));
+
+                if (query.ExecuteNonQuery() == 0)
+                {
+                    sqlite.Close();
+                    throw new DatabaseUpdateFailureException();
+                }
+            }
+            sqlite.Close();
+        }
+
+        /// <summary>
+        /// Checks if a record doesn't appear in the contentList table.
+        /// </summary>
+        /// <param name="contentId">The ContentID to check.</param>
+        /// <returns>true if the record is orphaned.</returns>
+        private bool CheckIfRecordIsOrphaned(uint contentId)
+        {
+            SqliteCommand query = new SqliteCommand(@"SELECT [contentId] FROM [contentlist] WHERE [contentId]=@cid", sqlite);
+            query.Parameters.Add(new SqliteParameter("@cid", (int)contentId));
+            SqliteDataReader r = query.ExecuteReader();
+
+            uint count = 0;
+            while (r.Read())
+            {
+                count++;
+            }
+
+            return count == 0;
         }
 
         /// <summary>

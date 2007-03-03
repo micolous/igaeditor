@@ -45,12 +45,13 @@ What's new in 0.1.6:
 
 - Modified DDSReader so that it would use "unsafe" code to do it's work much faster on Windows (and Microsoft's .NET CLR), due to some severe performance issues with Microsoft's version of .NET.
 - New "thumbnails" view, so you can see all the ads at once.  Press the "Switch View" button on the menu bar to switch between thumbnails view and details view.  If there is demand, this may become the default view in future.
+- Fixed some problems with case sensitivity errors with the property 'zoneId'.  It has been accientally used as 'zoneid' in many areas in the past.  They have all been corrected.  If records made by old versions of the software are causing the program to crash after editing a record, you will need to delete the record and recreate it.
+- Records that are orphans (that is, they have no entry in the 'contentlist' table), are now marked and repairable.  This will fix issues that you may have had where orphaned records (either orphaned by IGA's software or by a bug in earlier versions of the software where new records wouldn't show up).  There's also a new "Orphan" property in ContentEntry so that they can be detected.  There's also a new function in IGADatabaseConnector to allow you to repair them.
+- The main view's context menu can be triggered by pressing either Enter while an entry is selected.
 
-What I'd like to have in version 0.1.6
-======================================
+What I'd like to have in later versions
+=======================================
 
-- DXT2, DXT4, and DXT5 decompressors in DDSReader.
-- A working Linux/GTK# port, that also can run in Windows.
 - More application support, if other applications can be found that use IGA's software.
 
 What is this app?

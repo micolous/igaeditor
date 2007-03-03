@@ -324,11 +324,20 @@
   <data name="contentId.Text" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="contentId.Width" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="orphan.Text" xml:space="preserve">
+    <value>Orphan?</value>
+  </data>
+  <data name="orphan.Width" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
   <data name="active.Text" xml:space="preserve">
     <value>Active?</value>
   </data>
   <data name="active.Width" type="System.Int32, mscorlib">
-    <value>59</value>
+    <value>50</value>
   </data>
   <data name="activate.Text" xml:space="preserve">
     <value>Active From</value>
@@ -718,7 +727,7 @@
     <value>1</value>
   </data>
   <data name="BigOpenButton.Text" xml:space="preserve">
-    <value>Open Database</value>
+    <value>&amp;Open Database</value>
   </data>
   <data name="&gt;&gt;BigOpenButton.Name" xml:space="preserve">
     <value>BigOpenButton</value>
@@ -841,6 +850,9 @@ Make sure you backup your icontent.cache file before opening it with this softwa
   <data name="exportImageContext.Text" xml:space="preserve">
     <value>Export Image</value>
   </data>
+  <data name="repairOrphanMenuItem.Text" xml:space="preserve">
+    <value>Repair Orphaned Entry</value>
+  </data>
   <data name="PreviewCloseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -961,6 +973,12 @@ Make sure you backup your icontent.cache file before opening it with this softwa
     <value>contentId</value>
   </data>
   <data name="&gt;&gt;contentId.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;orphan.Name" xml:space="preserve">
+    <value>orphan</value>
+  </data>
+  <data name="&gt;&gt;orphan.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;active.Name" xml:space="preserve">
@@ -1291,6 +1309,12 @@ Make sure you backup your icontent.cache file before opening it with this softwa
     <value>exportImageContext</value>
   </data>
   <data name="&gt;&gt;exportImageContext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;repairOrphanMenuItem.Name" xml:space="preserve">
+    <value>repairOrphanMenuItem</value>
+  </data>
+  <data name="&gt;&gt;repairOrphanMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.MenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

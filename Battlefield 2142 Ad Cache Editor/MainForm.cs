@@ -45,7 +45,7 @@ namespace au.id.micolous.apps.igaeditor
                 res = OpenDatabaseDialogue.ShowDialog();
                 if (res == DialogResult.Cancel)
                 {
-                    res = MessageBox.Show("You canceled opening the icontent.cache file.  You need to locate it to use this program.\r\n\r\nWould you like to try again?", "Battlefield 2142 Ad Cache Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    res = MessageBox.Show("You canceled opening the icontent.cache file.  You need to locate it to use this program.\r\n\r\nWould you like to try again?", "IGA Ad Cache Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.No)
                     {
                         cont = false;
@@ -72,7 +72,8 @@ namespace au.id.micolous.apps.igaeditor
                             }
                             else
                             {
-                                throw new Exception("The operation to select an appid was cancelled.");
+                                //throw new Exception("The operation to select an appid was cancelled.");
+                                return false; // be less drastic.
                             }
                         }
 
@@ -83,7 +84,7 @@ namespace au.id.micolous.apps.igaeditor
                             uaf.ShowDialog();
                         }
                     } catch (DatabaseConnectionFailureException) {
-                        res = MessageBox.Show("There was a problem loading the cache file.\r\n\r\nWould you like to try again?", "Battlefield 2142 Ad Cache Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
+                        res = MessageBox.Show("There was a problem loading the cache file.  The error code was: DatabaseConnectionFailureException.\r\n\r\nWould you like to try again?", "IGA Ad Cache Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Stop);
                         if (res == DialogResult.No)
                         {
                             cont = false;
@@ -162,6 +163,11 @@ namespace au.id.micolous.apps.igaeditor
 
             foreach (KeyValuePair<uint, ContentEntry> item in itemCache)
             {
+                String OrphanS = "Yes";
+                if (!item.Value.Orphan)
+                {
+                    OrphanS = "No";
+                }
                 String ActiveS = "Yes";
                 if (!item.Value.Active) {
                     ActiveS = "No";
@@ -214,7 +220,7 @@ namespace au.id.micolous.apps.igaeditor
                         typeS = "DDS Image";
                         break;
                 }
-                String[] i = { item.Value.ContentID.ToString(), ActiveS, ActivateS, ExpiryS, DayPartsS, sizeS, typeS, ViewsS };
+                String[] i = { item.Value.ContentID.ToString(), OrphanS, ActiveS, ActivateS, ExpiryS, DayPartsS, sizeS, typeS, ViewsS };
                 try
                 {
                     if (isize.Width == 0 || isize.Height == 0)
@@ -235,6 +241,7 @@ namespace au.id.micolous.apps.igaeditor
                 }
             }
 
+            CacheEntryList.Select();
         }
 
         private void SaveAdImageButton_Click(object sender, EventArgs e)
@@ -391,15 +398,15 @@ namespace au.id.micolous.apps.igaeditor
                 aef.ShowDialog();
                 if (aef.Success)
                 {
+
                     try
                     {
                         _igaconnector.EditEntry(contentId, aef.Entry, false);
                     }
                     catch (DatabaseUpdateFailureException)
                     {
-                        MessageBox.Show("There was an error updating the database!");
+                        MessageBox.Show("There was a problem updating the database.  The record you tried to update may have been deleted by another program, or the record could have been orphaned by the ad software (in which case it will NEVER show in the game until you make a new copy of this ad).");
                     }
-
                     RefreshList();
                 }
             }
@@ -685,6 +692,8 @@ namespace au.id.micolous.apps.igaeditor
                 // simulate context menu?
                 if (CacheEntryList.SelectedItems.Count == 1)
                 {
+                    uint contentId = UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
+                    repairOrphanMenuItem.Enabled = itemCache[contentId].Orphan;
                     AdContextMenu.Show((Control)sender, new Point(e.X, e.Y));
                 }
             }
@@ -789,6 +798,7 @@ namespace au.id.micolous.apps.igaeditor
                 CacheEntryList.Columns.RemoveAt(1);
                 CacheEntryList.Columns.RemoveAt(1);
                 CacheEntryList.Columns.RemoveAt(1);
+                CacheEntryList.Columns.RemoveAt(1);
                 CacheEntryList.Visible = true;
                 CacheEntryList.EndUpdate();
             }
@@ -799,17 +809,52 @@ namespace au.id.micolous.apps.igaeditor
                 CacheEntryList.View = View.Details;
                 this.CacheEntryList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             //this.contentId,
-            this.active,
-            this.activate,
-            this.expire,
-            this.dayparts,
-            this.imageSize,
-            this.isVideo,
-            this.viewCount});
+                    this.orphan,
+                    this.active,
+                    this.activate,
+                    this.expire,
+                    this.dayparts,
+                    this.imageSize,
+                    this.isVideo,
+                    this.viewCount});
                 //RefreshList();
                 CacheEntryList.Visible = true;
                 CacheEntryList.EndUpdate();
 
+            }
+        }
+
+        private void repairOrphanMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CacheEntryList.SelectedItems.Count == 1)
+                {
+                    uint contentId = UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
+                    this._igaconnector.RepairOrphan(contentId);
+                    MessageBox.Show("The orphaned record was repaired.  It will now show up in the game again.");
+                    RefreshList();
+                }
+            }
+            catch (DatabaseUpdateFailureException)
+            {
+                MessageBox.Show("There was a problem updating the database!");
+                RefreshList();
+            }
+        }
+
+        private void CacheEntryList_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13) // enter
+            {
+                // show context menu
+                if (CacheEntryList.SelectedItems.Count == 1)
+                {
+                    uint contentId = UInt32.Parse(CacheEntryList.SelectedItems[0].SubItems[0].Text);
+                    repairOrphanMenuItem.Enabled = itemCache[contentId].Orphan;
+                    AdContextMenu.Show((Control)sender, new Point());
+
+                }
             }
         }
     }

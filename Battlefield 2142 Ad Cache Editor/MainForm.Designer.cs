@@ -40,6 +40,7 @@ namespace au.id.micolous.apps.igaeditor
             this.SaveAdImageButton = new System.Windows.Forms.Button();
             this.CacheEntryList = new System.Windows.Forms.ListView();
             this.contentId = new System.Windows.Forms.ColumnHeader();
+            this.orphan = new System.Windows.Forms.ColumnHeader();
             this.active = new System.Windows.Forms.ColumnHeader();
             this.activate = new System.Windows.Forms.ColumnHeader();
             this.expire = new System.Windows.Forms.ColumnHeader();
@@ -99,6 +100,7 @@ namespace au.id.micolous.apps.igaeditor
             this.previewImageContext = new System.Windows.Forms.MenuItem();
             this.importImageContext = new System.Windows.Forms.MenuItem();
             this.exportImageContext = new System.Windows.Forms.MenuItem();
+            this.repairOrphanMenuItem = new System.Windows.Forms.MenuItem();
             this.ImagePreviewGroup = new System.Windows.Forms.GroupBox();
             this.PreviewCloseButton = new System.Windows.Forms.Button();
             this.PreviewBox = new System.Windows.Forms.PictureBox();
@@ -178,6 +180,7 @@ namespace au.id.micolous.apps.igaeditor
             resources.ApplyResources(this.CacheEntryList, "CacheEntryList");
             this.CacheEntryList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.contentId,
+            this.orphan,
             this.active,
             this.activate,
             this.expire,
@@ -194,10 +197,15 @@ namespace au.id.micolous.apps.igaeditor
             this.CacheEntryList.View = System.Windows.Forms.View.Details;
             this.CacheEntryList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CacheEntryList_MouseClick);
             this.CacheEntryList.DoubleClick += new System.EventHandler(this.EditRecordButton_Click);
+            this.CacheEntryList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CacheEntryList_KeyPress);
             // 
             // contentId
             // 
             resources.ApplyResources(this.contentId, "contentId");
+            // 
+            // orphan
+            // 
+            resources.ApplyResources(this.orphan, "orphan");
             // 
             // active
             // 
@@ -530,7 +538,8 @@ namespace au.id.micolous.apps.igaeditor
             this.menuItem3,
             this.previewImageContext,
             this.importImageContext,
-            this.exportImageContext});
+            this.exportImageContext,
+            this.repairOrphanMenuItem});
             // 
             // editItemContext
             // 
@@ -566,6 +575,12 @@ namespace au.id.micolous.apps.igaeditor
             this.exportImageContext.Index = 5;
             resources.ApplyResources(this.exportImageContext, "exportImageContext");
             this.exportImageContext.Click += new System.EventHandler(this.SaveAdImageButton_Click);
+            // 
+            // repairOrphanMenuItem
+            // 
+            this.repairOrphanMenuItem.Index = 6;
+            resources.ApplyResources(this.repairOrphanMenuItem, "repairOrphanMenuItem");
+            this.repairOrphanMenuItem.Click += new System.EventHandler(this.repairOrphanMenuItem_Click);
             // 
             // ImagePreviewGroup
             // 
@@ -687,6 +702,8 @@ namespace au.id.micolous.apps.igaeditor
         private System.Windows.Forms.ToolStripMenuItem wikiToolStripMenuItem;
         private System.Windows.Forms.ImageList AdPreviews;
         private System.Windows.Forms.ToolStripMenuItem ViewSwitchButton;
+        private System.Windows.Forms.ColumnHeader orphan;
+        private System.Windows.Forms.MenuItem repairOrphanMenuItem;
     }
 }
 

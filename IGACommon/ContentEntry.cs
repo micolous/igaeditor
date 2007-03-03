@@ -10,6 +10,14 @@ namespace au.id.micolous.libs.igacommon
     public class ContentEntry
     {
         /// <summary>
+        /// If this is set to true, then the entry does not appear in the contentlist table,
+        /// and so is orphaned.  It will never appear in the game if this is the case.
+        /// 
+        /// You can repair an orphan by using IGADatabaseConnector.RepairOrphan.
+        /// </summary>
+        public bool Orphan = false;
+
+        /// <summary>
         /// The ad's contentId.
         /// </summary>
         public uint ContentID = 0;
@@ -71,7 +79,7 @@ namespace au.id.micolous.libs.igacommon
         /// </summary>
         public ContentEntry()
         {
-            Properties.Add("zoneid", "16");
+            Properties.Add("zoneId", "16");
             Properties.Add("userInfo", "m18");
             Properties.Add("MinSize", "4");
             Properties.Add("MaxSize", "100");
